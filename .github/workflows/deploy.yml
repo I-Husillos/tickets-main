@@ -25,25 +25,19 @@ jobs:
             cd ${{ secrets.VPS_DIR }}
             git pull origin main
             
-            # Construir y levantar
-            docker compose up -d --build --remove-orphans
-            
             # Dependencias de PHP
-            docker compose exec -T php-service composer install --no-dev --optimize-autoloader --no-interaction
+            composer install --no-dev --optimize-autoloader --no-interaction
             
             # Instalar dependencias de JS y compilar (Vite)
-            docker compose exec -T php-service npm install
-            docker compose exec -T php-service npm run build
+            /opt/plesk/php/8.4/npm install
+            /opt/plesk/php/8.4/npm run build
             
             # Migraciones y caché de laravel para rendimiento
-            docker compose exec -T php-service php artisan migrate --force
-            docker compose exec -T php-service php artisan optimize
-            docker compose exec -T php-service php artisan view:cache
-            docker compose exec -T php-service php artisan event:cache
+            /opt/plesk/php/8.4/php artisan migrate --force
+            /opt/plesk/php/8.4/php artisan optimize
+            /opt/plesk/php/8.4/php artisan view:cache
+            /opt/plesk/php/8.4/php artisan event:cache
             
             # Permisos de directorios
-            docker compose exec -T php-service chown -R www-data:www-data storage bootstrap/cache
-            docker compose exec -T php-service chmod -R 775 storage bootstrap/cache
-            
-            # Limpieza de imágenes antiguas para no llenar el disco del VPS
-            docker system prune -f
+            /opt/plesk/php/8.4/chown -R www-data:www-data storage bootstrap/cache
+            /opt/plesk/php/8.4/chmod -R 775 storage bootstrap/cache
