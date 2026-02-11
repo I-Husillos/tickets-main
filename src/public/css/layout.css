@@ -1,0 +1,57 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Flex container to push footer to the bottom */
+.wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 100vh !important;
+}
+
+/* Content wrapper should flex and expand to fill available space */
+.content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0 !important; /* Force override of AdminLTE JS styles */
+}
+
+/* Main content takes the remaining space */
+main, .content {
+    flex: 1;
+}
+
+/* Footer styling */
+.main-footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 15px 0;
+    border-top: 1px solid #e0e0e0;
+    margin-top: auto;
+    position: relative !important;
+}
+
+.main-footer2 {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 15px 0;
+    position: absolute;
+    width: 100%;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    header {
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .main-footer {
+        font-size: 0.9rem;
+    }
+}

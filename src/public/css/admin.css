@@ -1,0 +1,155 @@
+/* Sidebar y estilos del dashboard de administrador */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    margin: 0;
+}
+
+.sidebar {
+    position: fixed;
+    width: 250px;
+    background-color: #001f83;
+    color: white;
+    padding-top: 2rem;
+    min-height: 100vh;
+}
+
+.sidebar h4 {
+    text-align: center;
+}
+
+.sidebar a {
+    color: #fff;
+    display: block;
+    padding: 12px 20px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.sidebar a:hover {
+    background-color: #004f83;
+}
+
+.main-content {
+    margin-left: 270px;
+    padding: 2rem 2rem;
+    flex: 1;
+    background-color: #f8f9fa;
+}
+
+
+.custom-container {
+    margin: 2rem auto;
+    max-width: 800px;
+    padding: 1rem;
+}
+
+.custom-box {
+    background-color: #f4f4f4;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.custom-buttons {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.custom-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.custom-btn:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+.admin-panel-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.dashboard-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.dashboard-card {
+    background-color: #f8f9fa;
+    border-left: 6px solid #007bff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-card h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
+}
+
+.dashboard-button {
+    display: inline-block;
+    margin-top: 1rem;
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.dashboard-button:hover {
+    background-color: #0056b3;
+}
+
+/* Variaciones de colores */
+.info { border-left-color: #17a2b8; }
+.success { border-left-color: #28a745; }
+.warning { border-left-color: #ffc107; }
+.primary { border-left-color: #007bff; }
+.custom { border-left-color: #6f42c1; }
+
+/* Alerta */
+.alert.success {
+    background-color: #d4edda;
+    border-left: 5px solid #28a745;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    color: #155724;
+}
+
+
+.card {
+    border-radius: 20px;
+    /* transition: transform 0.2s ease; */
+}
+/* .card:hover {
+    transform: scale(1.03);
+} */
+.btn-outline-dark {
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px;
+}
