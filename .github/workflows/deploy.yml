@@ -1,0 +1,49 @@
+name: Deploy Tickets-project to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+          script_location: false
+          script: |
+            cd ${{ secrets.VPS_DIR }}
+            git pull origin main
+            
+            # Construir y levantar
+            docker compose up -d --build --remove-orphans
+            
+            # Dependencias de PHP
+            docker compose exec -T php-service composer install --no-dev --optimize-autoloader --no-interaction
+            
+            # Instalar dependencias de JS y compilar (Vite)
+            docker compose exec -T php-service npm install
+            docker compose exec -T php-service npm run build
+            
+            # Migraciones y caché de laravel para rendimiento
+            docker compose exec -T php-service php artisan migrate --force
+            docker compose exec -T php-service php artisan optimize
+            docker compose exec -T php-service php artisan view:cache
+            docker compose exec -T php-service php artisan event:cache
+            
+            # Permisos de directorios
+            docker compose exec -T php-service chown -R www-data:www-data storage bootstrap/cache
+            docker compose exec -T php-service chmod -R 775 storage bootstrap/cache
+            
+            # Limpieza de imágenes antiguas para no llenar el disco del VPS
+            docker system prune -f
