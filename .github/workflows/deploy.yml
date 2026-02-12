@@ -16,7 +16,7 @@ jobs:
       - name: Deploy using Rsync
         uses: Burnett01/rsync-deployments@7.0.1
         with:
-          switches: -av --delete
+          switches: -avz --delete --exclude='.env'
           path: ./src/
           remote_path: ${{ secrets.VPS_DIR }}
           remote_host: ${{ secrets.VPS_HOST }}
