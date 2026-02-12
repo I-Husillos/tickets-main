@@ -17,7 +17,7 @@ jobs:
         uses: Burnett01/rsync-deployments@7.0.1
         with:
           switches: -av --delete
-          path: ./src
+          path: ./src/
           remote_path: ${{ secrets.VPS_DIR }}
           remote_host: ${{ secrets.VPS_HOST }}
           remote_user: ${{ secrets.VPS_USER }}
@@ -35,7 +35,7 @@ jobs:
             cd ${{ secrets.VPS_DIR }}
             
             # Dependencias de PHP
-            /opt/plesk/php/8.4/bin/php composer install --no-dev --optimize-autoloader --no-interaction
+            /opt/plesk/php/8.4/bin/php /usr/lib/composer/composer.phar install --no-dev --optimize-autoloader --no-interaction
             
             # Instalar dependencias de JS y compilar (Vite)
             npm install
