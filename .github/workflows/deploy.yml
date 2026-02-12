@@ -48,5 +48,4 @@ jobs:
             /opt/plesk/php/8.4/bin/php artisan event:cache
             
             # Permisos de directorios
-            chown -R www-data:www-data storage bootstrap/cache
             chmod -R 775 storage bootstrap/cache
