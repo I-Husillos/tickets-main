@@ -35,7 +35,7 @@ jobs:
             cd ${{ secrets.VPS_DIR }}
             
             # Dependencias de PHP
-            /opt/plesk/php/8.4/bin/php /opt/psa/var/modules/composer/composer.phar --no-dev --optimize-autoloader --no-interaction
+            /opt/plesk/php/8.4/bin/php /opt/psa/var/modules/composer/composer.phar install --no-dev --optimize-autoloader --no-interaction
             
             # Instalar dependencias de JS y compilar (Vite)
             npm install
