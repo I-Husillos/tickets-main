@@ -25,11 +25,11 @@ export function initUserTicketsTable(apiUrl, token) {
             }
         },
         columns: [
-            { data: 'title', className: 'text-center align-middle' },
-            { data: 'status', className: 'text-center align-middle' },
-            { data: 'priority', className: 'text-center align-middle' },
-            { data: 'comments', className: 'text-center align-middle' },
-            { data: 'date', className: 'text-center align-middle' },
+            { data: 'title', className: 'text-center align-middle', orderable: true  },
+            { data: 'status', className: 'text-center align-middle', orderable: true  },
+            { data: 'priority', className: 'text-center align-middle', orderable: true  },
+            { data: 'comments', className: 'text-center align-middle', orderable: true  },
+            { data: 'date', className: 'text-center align-middle', orderable: true  },
             { data: 'actions', orderable: false, searchable: false, className: 'text-center align-middle' },
         ]
     });

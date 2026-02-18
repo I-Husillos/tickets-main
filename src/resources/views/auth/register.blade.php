@@ -17,9 +17,6 @@
                 placeholder="Nombre y Apellidos" 
                 value="{{ old('name') }}">
             <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-user"></span>
-                </div>
             </div>
             @error('name')
                 <div class="invalid-feedback">
@@ -37,9 +34,6 @@
                 placeholder="example@domain.com"
                 value="{{ old('email') }}">
             <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-envelope"></span>
-                </div>
             </div>
             @error('email')
                 <div class="invalid-feedback">
@@ -56,9 +50,6 @@
                 class="form-control @error('password') is-invalid @enderror" 
                 placeholder="********">
             <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
-                </div>
             </div>
             @error('password')
                 <div class="invalid-feedback">
@@ -75,9 +66,6 @@
                 class="form-control" 
                 placeholder="********">
             <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
-                </div>
             </div>
         </div>
 

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\App;
 
-use App\Services\DataTables\GenericQueryService;
+use App\Services\DataTables\UserQueryService;
 use App\Services\DataTables\GenericDataActions;
 
 class UserDataController extends Controller
@@ -17,8 +17,8 @@ class UserDataController extends Controller
         $locale = $request->header('X-Locale') ?? $request->input('locale') ?? 'en';
         App::setLocale($locale);
 
-        $queryService = new GenericQueryService();
-        $query = $queryService->filter($request, User::query());
+        $queryService = new UserQueryService();
+        $query = $queryService->buildQuery($request);
 
         $total = User::count();
         $filtered = $query->count();

@@ -4,12 +4,29 @@ namespace App\Services\TicketsService;
 
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use App\Services\DataTables\BaseQueryService;
 
-class TicketQueryService
+class TicketQueryService extends BaseQueryService
 {
     public function total(): int
     {
         return Ticket::count();
+    }
+
+    protected function getSortableFields(): array
+    {
+        return [
+            'id' => 'id',
+            'title' => 'title',
+            'status' => 'status',
+            'priority' => 'priority',
+            'type' => 'type',
+            'comments' => 'comments_count',
+            'assigned_to' => [
+                'join' => ['admins', 'tickets.admin_id', '=', 'admins.id'],
+                'field' => 'admins.name'
+            ],
+        ];
     }
 
     public function buildQuery(Request $request)
@@ -18,6 +35,7 @@ class TicketQueryService
             ->with(['type', 'admin', 'comments'])
             ->withCount('comments');
 
+        // Búsqueda
         $search = $request->input('search.value');
         if ($search) {
             $query->where(function ($q) use ($search) {
@@ -28,37 +46,7 @@ class TicketQueryService
             });
         }
 
-        if ($request->has('order')) {
-            $order = $request->input('order');
-            if (isset($order[0])) {
-                $columnIdx = $order[0]['column'];
-                $dir = $order[0]['dir'];
-                $columnName = $request->input("columns.$columnIdx.data");
-
-                switch ($columnName) {
-                    case 'id':
-                    case 'title':
-                    case 'status':
-                    case 'priority':
-                    case 'type':
-                        $query->orderBy($columnName, $dir);
-                        break;
-                    case 'comments':
-                        $query->orderBy('comments_count', $dir);
-                        break;
-                    case 'assigned_to':
-                        $query->leftJoin('admins', 'tickets.admin_id', '=', 'admins.id')
-                              ->orderBy('admins.name', $dir);
-                        break;
-                    default:
-                        $query->orderBy('created_at', 'desc');
-                        break;
-                }
-            }
-        } else {
-            $query->orderBy('created_at', 'desc');
-        }
-
-        return $query;
+        // Aplicar ordenamiento
+        return $this->applyOrdering($query, $request);
     }
 }

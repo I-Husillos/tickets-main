@@ -10,8 +10,8 @@ export function initAdminTypesTable(apiUrl, token) {
             url: apiUrl,
             type: 'GET',
             dataType: 'json',
-            data: {
-                locale: locale
+            data: function(d) {
+                d.locale = locale;
             },
             resposive: true,
             beforeSend: function (xhr) {
@@ -25,8 +25,8 @@ export function initAdminTypesTable(apiUrl, token) {
             }
         },
         columns: [
-            { data: 'name', className: 'text-center align-middle' },
-            { data: 'description', className: 'text-center align-middle' },
+            { data: 'name', className: 'text-center align-middle', orderable: true },
+            { data: 'description', className: 'text-center align-middle', orderable: true },
             { data: 'actions', orderable: false, searchable: false, className: 'text-center align-middle' },
         ]
     });

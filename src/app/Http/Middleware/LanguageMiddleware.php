@@ -33,12 +33,7 @@ class LanguageMiddleware
         // Si el locale no es válido, redirigir al locale por defecto
         if (!in_array($locale, $availableLanguages)) {
             $defaultLocale = 'es';
-
-            if($request->isMethod('get')){
-                return redirect("/$defaultLocale" . $request->getPathInfo());
-            }
-
-            App::setLocale($defaultLocale); // Establecer el locale desde la sesión o usar el predeterminado
+            return redirect("/$defaultLocale" . $request->getPathInfo());
         }
 
         // Establecer el locale si es diferente al de la sesión

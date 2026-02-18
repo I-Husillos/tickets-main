@@ -22,9 +22,9 @@ export function initAdminNotificationsTable(apiUrl, token) {
             }
         },
         columns: [
-            { data: 'type', className: 'text-center align-middle' },
-            { data: 'content', className: 'align-middle' },
-            { data: 'created_at', className: 'text-center align-middle' },
+            { data: 'type', className: 'text-center align-middle', orderable: true },
+            { data: 'content', className: 'align-middle', orderable: true },
+            { data: 'created_at', className: 'text-center align-middle', orderable: true },
             { data: 'actions', orderable: false, searchable: false, className: 'text-center align-middle' },
         ],
     });

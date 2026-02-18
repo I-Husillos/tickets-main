@@ -8,11 +8,6 @@ export class NotificationModal {
         this.modal = document.querySelector(modalSelector);
         this.titleElement = this.modal?.querySelector('.modal-title');
         this.detailsContainer = this.modal?.querySelector('[data-notification-details]');
-        
-        if (!this.modal) {
-            console.warn(`Modal no encontrado: ${modalSelector}`);
-            return;
-        }
     }
 
     /**

@@ -71,7 +71,6 @@ $breadcrumbs = [
                     data-locale="{{ app()->getLocale() }}">
                     <thead class="text-center bg-white font-weight-bold">
                         <tr>
-                            <th>#</th>
                             <th>{{ __('Título') }}</th>
                             <th>{{ __('Descripción') }}</th>
                             <th>{{ __('Estado') }}</th>
@@ -84,7 +83,7 @@ $breadcrumbs = [
                     </thead>
                 </table>
             </div>
-        </div> <!-- /.card-body -->
-    </div> <!-- /.card -->
-</div> <!-- /.container-fluid -->
+        </div>
+    </div>
+</div>
 @endsection

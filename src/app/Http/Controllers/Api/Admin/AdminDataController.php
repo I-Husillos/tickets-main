@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin;
 use Illuminate\Support\Facades\App;
 
-use App\Services\DataTables\GenericQueryService;
+use App\Services\DataTables\AdminQueryService;
 use App\Services\DataTables\GenericDataActions;
 
 class AdminDataController extends Controller
@@ -23,8 +23,8 @@ class AdminDataController extends Controller
         $locale = $request->header('X-Locale') ?? $request->input('locale') ?? 'en';
         App::setLocale($locale);
 
-        $queryService = new GenericQueryService();
-        $query = $queryService->filter($request, Admin::query());
+        $queryService = new AdminQueryService();
+        $query = $queryService->buildQuery($request);
 
         $total = Admin::count();
         $filtered = $query->count();

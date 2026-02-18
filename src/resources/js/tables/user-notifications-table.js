@@ -13,6 +13,8 @@ export function initUserNotificationsTable(apiUrl, token) {
             data: function (d) {
                 d.locale = locale;
                 d.type = $('#filter-type').val(); // filtro
+                d.type = $('#filter-content').val();
+                d.type = $('#filter-created_at').val();
             },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', 'Bearer ' + token);
@@ -27,6 +29,9 @@ export function initUserNotificationsTable(apiUrl, token) {
             { data: 'created_at', className: 'text-center align-middle' },
             { data: 'actions', orderable: false, searchable: false, className: 'text-center align-middle' },
         ],
+    });
+    $('#filter-type, #filter-content, #filter-created_at').on('change', function() {
+        $('#tabla-notificaciones-usuario').DataTable().ajax.reload();
     });
 }
 

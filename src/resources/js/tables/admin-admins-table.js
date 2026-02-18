@@ -11,8 +11,10 @@ export function initAdminAdminsTable(apiUrl, token) {
             url: apiUrl,
             type: 'GET',
             dataType: 'json',
-            data: {
-                locale: locale
+            data: function(d) {
+                d.locale = locale;
+                d.name = $('#filter-name').val();
+                d.email = $('#filter-email').val();
             },
             responsive: true,
             beforeSend: function (xhr) {
@@ -25,10 +27,13 @@ export function initAdminAdminsTable(apiUrl, token) {
 
         },
         columns: [
-            { data: 'name', className: 'text-center align-middle' },
-            { data: 'email', className: 'text-center align-middle' },
+            { data: 'name', className: 'text-center align-middle', orderable: true  },
+            { data: 'email', className: 'text-center align-middle', orderable: true  },
             { data: 'actions', orderable: false, searchable: false, className: 'text-center align-middle' },
         ]
+    });
+    $('#filter-name, #filter-email').on('change', function() {
+        $('#tabla-admins').DataTable().ajax.reload();
     });
 }
 

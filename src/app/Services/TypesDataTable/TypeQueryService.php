@@ -5,10 +5,19 @@ namespace App\Services\TypesDataTable;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use App\Services\DataTables\BaseQueryService;
 
 
-class TypeQueryService
+class TypeQueryService extends BaseQueryService
 {
+    protected function getSortableFields(): array
+    {
+        return [
+            'name' => 'name',
+            'description' => 'description',
+        ];
+    }
+
     public function getFilteredTypes(Request $request): Builder
     {
         $query = Type::query();
@@ -20,7 +29,8 @@ class TypeQueryService
             });
         }
 
-        return $query;
+        // Aplicar ordenamiento
+        return $this->applyOrdering($query, $request);
     }
 
     public function countAll(): int

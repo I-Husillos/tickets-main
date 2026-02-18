@@ -5,9 +5,21 @@ namespace App\Services\TicketsService;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\DataTables\BaseQueryService;
 
-class AssignedTicketQueryService
+class AssignedTicketQueryService extends BaseQueryService
 {
+    protected function getSortableFields(): array
+    {
+        return [
+            'id' => 'id',
+            'title' => 'title',
+            'status' => 'status',
+            'priority' => 'priority',
+            'type' => 'type',
+        ];
+    }
+
     public function totalForAdmin(int $adminId): int
     {
         return Ticket::where('admin_id', $adminId)->count();
@@ -28,24 +40,8 @@ class AssignedTicketQueryService
             });
         }
 
-        if ($request->has('order')) {
-            $order = $request->input('order');
-            if (isset($order[0])) {
-                $columnIdx = $order[0]['column'];
-                $dir = $order[0]['dir'];
-                $columnName = $request->input("columns.$columnIdx.data");
-
-                if (in_array($columnName, ['id', 'title', 'status', 'priority', 'type'])) {
-                    $query->orderBy($columnName, $dir);
-                } else {
-                    $query->orderBy('created_at', 'desc');
-                }
-            }
-        } else {
-            $query->orderBy('created_at', 'desc');
-        }
-
-        return $query;
+        // Aplicar ordenamiento
+        return $this->applyOrdering($query, $request);
     }
 }
 

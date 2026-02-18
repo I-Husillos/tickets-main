@@ -28,7 +28,6 @@ export function initAdminTicketsTable(apiUrl, token) {
             }
         },
         columns: [
-            { data: 'id', className: 'text-center align-middle' },
             { data: 'title', className: 'text-center align-middle' },
             { data: 'description', className: 'text-center align-middle' },
             { data: 'status', className: 'text-center align-middle' },

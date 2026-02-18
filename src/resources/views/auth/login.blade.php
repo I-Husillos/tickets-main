@@ -3,8 +3,6 @@
 @section('title', __('general.frontoffice.auth.login.title'))
 
 @section('content')
-    <p class="login-box-msg">{{ __('general.frontoffice.auth.login.heading') }}</p>
-
     @if (session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
@@ -13,6 +11,8 @@
             </button>
         </div>
     @endif
+
+    <h2 class="text-center text-primary">{{ __('general.frontoffice.auth.login.heading') }}</h2>
 
 
     <form method="POST" action="{{ route('login', ['locale' => app()->getLocale()]) }}">
@@ -27,9 +27,6 @@
                 placeholder="example@domain.com"
                 value="{{ old('email') }}">
             <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-envelope"></span>
-                </div>
             </div>
             @error('email')
                 <div class="invalid-feedback">
@@ -46,9 +43,6 @@
                 class="form-control @error('password') is-invalid @enderror" 
                 placeholder="********">
             <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
-                </div>
             </div>
             @error('password')
                 <div class="invalid-feedback">

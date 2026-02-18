@@ -28,30 +28,16 @@ class AdminApiNotificationController extends Controller
         }
         app()->setLocale($locale);
 
-        $query = $admin->notifications();
-
-        if ($request->filled('type')) {
-            $query->where('data->type', $request->input('type'));
-        }
-
-        $total = $query->count();
-
-        if ($search = $request->input('search.value')) {
-            if ($search = $request->input('search.value')) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('data->message', 'LIKE', "%{$search}%")
-                      ->orWhere('data->type', 'LIKE', "%{$search}%")
-                    //   ->orWhere('data->user', 'LIKE', "%{$search}%") // si se guarda el autor como 'user'
-                      ->orWhere('data->assigned_by', 'LIKE', "%{$search}%") // si es asignación
-                      ->orWhere('data->closed_by', 'LIKE', "%{$search}%"); // si es cierre
-                });
-            }            
-        }
-
+        $queryService = new \App\Services\DataTables\NotificationQueryService();
+        
+        $total = $admin->notifications()->count();
+        
+        // Construir la query con filtrados y ordenamiento
+        $query = $queryService->buildQuery($request, $admin->notifications());
+        
         $filtered = $query->count();
 
-        $notifications = $query->orderBy('created_at', 'desc')
-            ->skip($request->input('start', 0))
+        $notifications = $query->skip($request->input('start', 0))
             ->take($request->input('length', 10))
             ->get();
 

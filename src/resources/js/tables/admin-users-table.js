@@ -10,8 +10,10 @@ export function initAdminUsersTable(apiUrl, token) {
             url: apiUrl,
             type: 'GET',
             dataType: 'json',
-            data: {
-                locale: locale
+            data: function(d) {
+                d.locale = locale;
+                d.name = $('#filter-name').val();
+                d.email = $('#filter-email').val();
             },
             responsive: true,
             beforeSend: function (xhr) {
@@ -25,8 +27,8 @@ export function initAdminUsersTable(apiUrl, token) {
             }
         },
         columns: [
-            { data: 'name', className: 'text-center align-middle' },
-            { data: 'email', className: 'text-center align-middle' },
+            { data: 'name', className: 'text-center align-middle', orderable: true },
+            { data: 'email', className: 'text-center align-middle', orderable: true },
             { 
                 data: 'actions', 
                 orderable: false, 
@@ -34,6 +36,10 @@ export function initAdminUsersTable(apiUrl, token) {
                 className: 'text-center align-middle' 
             },
         ]
+    });
+
+    $('#filter-name, #filter-email').on('change', function() {
+        $('#tabla-usuarios').DataTable().ajax.reload();
     });
 }
 
