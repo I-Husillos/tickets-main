@@ -49,3 +49,4 @@ jobs:
             
             # Permisos de directorios
             chmod -R 775 storage bootstrap/cache
+            chown -R tickets_ftpusr:psacln storage bootstrap/cache
