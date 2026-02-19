@@ -41,9 +41,9 @@ jobs:
             npm install
             npm run build
             
-            # Generar claves de Passport solo si no existen
+            # Generar claves de Passport solo si no existen (antes de migrate)
             if [ ! -f storage/oauth-private.key ]; then
-              /opt/plesk/php/8.4/bin/php artisan passport:install
+              /opt/plesk/php/8.4/bin/php artisan passport:keys
             fi
             
             # Migraciones y caché de laravel para rendimiento
