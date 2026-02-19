@@ -60,10 +60,4 @@
         </div>
     </form>
 
-    <p class="mt-3 mb-1 text-center">
-        {{ __('general.frontoffice.auth.login.no_account') }} 
-        <a href="{{ route('register', ['locale' => app()->getLocale()]) }}">
-            {{ __('general.frontoffice.auth.login.register_here') }}
-        </a>
-    </p>
 @endsection

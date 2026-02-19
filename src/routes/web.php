@@ -46,8 +46,8 @@ Route::middleware(['web', \App\Http\Middleware\LanguageMiddleware::class])
 
     Route::get($routes['login'], [UserAuthController::class, 'showLoginForm'])->name('login');
     Route::post($routes['login'], [UserAuthController::class, 'login'])->name('login.submit');
-    Route::get($routes['register'], [UserAuthController::class, 'showRegisterForm'])->name('register');
-    Route::post($routes['register'], [UserAuthController::class, 'register']);
+    // Route::get($routes['register'], [UserAuthController::class, 'showRegisterForm'])->name('register');
+    // Route::post($routes['register'], [UserAuthController::class, 'register']);
 
     Route::middleware('auth:user')->group(function () use ($routes) {
         Route::post($routes['user.logout'], [UserAuthController::class, 'logOut'])->name('user.logout');

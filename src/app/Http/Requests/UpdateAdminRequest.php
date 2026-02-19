@@ -26,7 +26,7 @@ class UpdateAdminRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:admins,email,' . $admin->id,
-            'password' => 'nullable|string|min:3|confirmed',
+            'password' => 'nullable|string|min:8|confirmed',
             'superadmin' => 'boolean',
         ];
     }

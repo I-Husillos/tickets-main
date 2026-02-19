@@ -51,36 +51,36 @@ class UserAuthController extends Controller
     }
 
 
-    public function showRegisterForm()
-    {
-        return view('auth.register');
-    }
+    // public function showRegisterForm()
+    // {
+    //     return view('auth.register');
+    // }
 
 
-    public function register(RegisterUserRequest $request)
-    {
-        $validated = $request->validated();
+    // public function register(RegisterUserRequest $request)
+    // {
+    //     $validated = $request->validated();
         
 
-        $validated['password'] = Hash::make($validated['password']);
+    //     $validated['password'] = Hash::make($validated['password']);
 
-        $user = User::create($validated);
+    //     $user = User::create($validated);
 
 
-        EventHistory::create([
-            'event_type' => 'Registro',
-            'description' => 'Nuevo usuario registrado',
-            'user' => $validated['name'],
-        ]);
+    //     EventHistory::create([
+    //         'event_type' => 'Registro',
+    //         'description' => 'Nuevo usuario registrado',
+    //         'user' => $validated['name'],
+    //     ]);
 
-        Auth::guard('user')->login($user);
+    //     Auth::guard('user')->login($user);
 
-        // Generar token y guardar en sesión (para que el frontend lo guarde en localStorage)
-        $token = $user->createToken('user-session-token')->accessToken;
-        session(['api_token' => $token]);
+    //     // Generar token y guardar en sesión (para que el frontend lo guarde en localStorage)
+    //     $token = $user->createToken('user-session-token')->accessToken;
+    //     session(['api_token' => $token]);
 
-        return redirect()->route('user.dashboard', ['locale' => app()->getLocale()])->with('success', '¡Registro exitoso! Bienvenido/a.');
-    }
+    //     return redirect()->route('user.dashboard', ['locale' => app()->getLocale()])->with('success', '¡Registro exitoso! Bienvenido/a.');
+    // }
 
     public function logOut()
     {

@@ -24,7 +24,7 @@ class StoreUserRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required|string|min:3|confirmed',
+            'password' => 'required|string|min:8|confirmed',
         ];
     }
 
@@ -43,7 +43,7 @@ class StoreUserRequest extends FormRequest
 
         'password.required' => 'La contraseña es obligatoria.',
         'password.string' => 'La contraseña debe ser una cadena de texto.',
-        'password.min' => 'La contraseña debe tener al menos 3 caracteres.',
+        'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
         'password.confirmed' => 'La confirmación de contraseña no coincide.',
     ];
 }

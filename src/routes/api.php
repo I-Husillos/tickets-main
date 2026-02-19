@@ -20,7 +20,7 @@ use App\Http\Controllers\Api\Notifications\AdminApiNotificationController;
 
 Route::prefix('admin')->group(function () {
     // Rutas públicas
-    Route::post('/register', [AuthController::class, 'register']);
+    // Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [ApiLoginController::class, 'login']);
 
 
@@ -82,7 +82,7 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('user')->group(function () {
 
-    Route::post('/register', [AuthController::class, 'register']);
+    // Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [ApiLoginController::class, 'login']);
 
     Route::middleware('auth:api_user')->group(function () {

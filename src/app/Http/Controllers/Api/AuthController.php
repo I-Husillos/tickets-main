@@ -6,35 +6,35 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
-use App\Http\Requests\RegisterUserRequest;
+// use App\Http\Requests\RegisterUserRequest;
 use App\Http\Requests\LoginRequest;
 
 
 class AuthController extends Controller
 {
-    // Registro
-    public function register(RegisterUserRequest $request)
-    {
-        $validated = $request->validated();
-
-
-        if ($validated->fails()) {
-            return response()->json($validated->errors(), 422);
-        }
-
-        $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-
-        $token = $user->createToken('API Token')->accessToken;
-
-        return response()->json([
-            'user'  => $user,
-            'token' => $token,
-        ]);
-    }
+    // // Registro
+    // public function register(RegisterUserRequest $request)
+    // {
+    //     $validated = $request->validated();
+    //
+    //
+    //     if ($validated->fails()) {
+    //         return response()->json($validated->errors(), 422);
+    //     }
+    //
+    //     $user = User::create([
+    //         'name'     => $request->name,
+    //         'email'    => $request->email,
+    //         'password' => bcrypt($request->password),
+    //     ]);
+    //
+    //     $token = $user->createToken('API Token')->accessToken;
+    //
+    //     return response()->json([
+    //         'user'  => $user,
+    //         'token' => $token,
+    //     ]);
+    // }
 
     // Login
     public function login(LoginRequest $request)

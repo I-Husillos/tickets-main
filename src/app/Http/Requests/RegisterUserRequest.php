@@ -31,7 +31,7 @@ class RegisterUserRequest extends FormRequest
                 'unique:users,email',
                 'regex:/(.+)@(.+)\.(.+)/i' // Fuerza a que haya un punto en la parte del dominio
             ],
-            'password' => 'required|string|confirmed|min:3',
+            'password' => 'required|string|confirmed|min:8',
         ];
     }
 
