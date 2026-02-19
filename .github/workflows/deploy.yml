@@ -16,7 +16,7 @@ jobs:
       - name: Deploy using Rsync
         uses: Burnett01/rsync-deployments@7.0.1
         with:
-          switches: -avz --delete --exclude='.env'
+          switches: -avz --delete --exclude='.env' --exclude='storage'
           path: ./src/
           remote_path: ${{ secrets.VPS_DIR }}
           remote_host: ${{ secrets.VPS_HOST }}
@@ -40,6 +40,11 @@ jobs:
             # Instalar dependencias de JS y compilar (Vite)
             npm install
             npm run build
+            
+            # Generar claves de Passport solo si no existen
+            if [ ! -f storage/oauth-private.key ]; then
+              /opt/plesk/php/8.4/bin/php artisan passport:install
+            fi
             
             # Migraciones y caché de laravel para rendimiento
             /opt/plesk/php/8.4/bin/php artisan migrate --force
