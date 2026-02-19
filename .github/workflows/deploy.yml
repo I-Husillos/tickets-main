@@ -53,5 +53,7 @@ jobs:
             /opt/plesk/php/8.4/bin/php artisan event:cache
             
             # Permisos de directorios
-            chmod -R 775 storage bootstrap/cache
-            chown -R tickets_ftpusr:psacln storage bootstrap/cache
+            chown -R tickets_ftpusr:psacln .
+            find storage bootstrap/cache -type d -exec chmod 775 {} \;
+            find storage bootstrap/cache -type f -exec chmod 664 {} \;
+            chmod 600 storage/oauth-private.key storage/oauth-public.key
