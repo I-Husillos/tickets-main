@@ -28,23 +28,7 @@ class AdminKanbanController extends Controller
 
     public function index()
     {
-        $admin    = Auth::guard('admin')->user();
-        $statuses = self::STATUSES;
-
-        $query = Ticket::with(['user', 'admin', 'tags', 'project']);
-
-        if (!$admin->superadmin) {
-            $query->where(function ($q) use ($admin) {
-                $q->where('admin_id', $admin->id)
-                  ->orWhere('created_by_admin_id', $admin->id);
-            });
-        }
-
-        $tickets       = $query->get()->groupBy('status');
-        $statusColors  = self::STATUS_COLORS;
-        $priorityColors = self::PRIORITY_COLORS;
-
-        return view('admin.kanban.index', compact('tickets', 'statuses', 'statusColors', 'priorityColors'));
+        return redirect()->route('admin.manage.tickets', ['locale' => app()->getLocale()]);
     }
 
     public function updateStatus(string $locale, Request $request, Ticket $ticket)

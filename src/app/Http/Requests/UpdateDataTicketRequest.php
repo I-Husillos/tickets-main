@@ -22,11 +22,11 @@ class UpdateDataTicketRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-            'priority' => 'required|string|max:255',
-            'status' => 'nullable|string|in:new,in_progress,pending,resolved,closed',
+            'title'       => 'required|string|max:255',
+            'description' => 'required|string|max:5000',
+            'type'        => 'nullable|string|max:255',
+            'priority'    => 'required|string|max:255',
+            'status'      => 'nullable|string|in:new,in_progress,pending,resolved,closed',
             'assigned_to' => 'nullable|exists:admins,id',
             'project_id' => 'nullable|exists:projects,id',
             'tags' => 'nullable|array',

@@ -30,17 +30,53 @@ class AdminTicketController extends Controller
     }
     
 
+    private const KANBAN_STATUSES = ['new', 'in_progress', 'pending', 'resolved', 'closed'];
+
+    private const KANBAN_STATUS_COLORS = [
+        'new'         => 'primary',
+        'in_progress' => 'warning',
+        'pending'     => 'secondary',
+        'resolved'    => 'success',
+        'closed'      => 'danger',
+    ];
+
+    private const KANBAN_PRIORITY_COLORS = [
+        'low'      => 'success',
+        'medium'   => 'info',
+        'high'     => 'warning',
+        'critical' => 'danger',
+    ];
+
     public function manageTickets(Request $request)
     {
-        $totalTickets = Ticket::count();
+        $totalTickets    = Ticket::count();
         $resolvedTickets = Ticket::where('status', 'resolved')->count();
-        $types = Type::all();
+        $types           = Type::all();
 
-        return view('admin.tickets.managetickets', [
-            'totalTickets' => $totalTickets,
-            'resolvedTickets' => $resolvedTickets,
-            'types' => $types,
-        ]);
+        $admin = Auth::guard('admin')->user();
+        $query = Ticket::with(['user', 'admin', 'tags', 'project']);
+
+        if (!$admin->superadmin) {
+            $query->where(function ($q) use ($admin) {
+                $q->where('admin_id', $admin->id)
+                  ->orWhere('created_by_admin_id', $admin->id);
+            });
+        }
+
+        $kanbanTickets   = $query->get()->groupBy('status');
+        $statuses        = self::KANBAN_STATUSES;
+        $statusColors    = self::KANBAN_STATUS_COLORS;
+        $priorityColors  = self::KANBAN_PRIORITY_COLORS;
+
+        return view('admin.tickets.managetickets', compact(
+            'totalTickets',
+            'resolvedTickets',
+            'types',
+            'kanbanTickets',
+            'statuses',
+            'statusColors',
+            'priorityColors'
+        ));
     }
 
 
@@ -83,10 +119,10 @@ class AdminTicketController extends Controller
         if (!empty($validated['type'])) {
             $typeName = $validated['type'];
 
-            $existingType = \App\Models\Type::where('name', $typeName)->first();
+            $existingType = Type::where('name', $typeName)->first();
 
             if (!$existingType) {
-                \App\Models\Type::create(['name' => $typeName]);
+                Type::create(['name' => $typeName]);
             }
 
             $ticket->type = $typeName;

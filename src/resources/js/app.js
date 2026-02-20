@@ -57,6 +57,7 @@ import { initUserNotificationsTable } from './tables/user-notifications-table.js
 import { initAdminNotificationsTable } from './tables/admin-notifications-table.js';
 
 import { initTicketActionButtons } from './tickets/events.js';
+import { initViewToggle } from './admin/tickets/view-toggle.js';
 
 import { getToken, clearTokenAndRedirect } from './api/auth.js';
 
@@ -105,6 +106,8 @@ const tablasDataTables = [
 
 // --- Inicialización automática de DataTables cuando el DOM esté listo ---
 document.addEventListener('DOMContentLoaded', () => {
+    initViewToggle();
+
     tablasDataTables.forEach(({ id, fn }) => {
         const tabla = document.getElementById(id);
         if (!tabla) return;

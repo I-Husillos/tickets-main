@@ -29,15 +29,28 @@ export function initEditTicketForm(token) {
             body: JSON.stringify(formData)
         })
         .then(res => {
-            if (!res.ok) throw new Error('Error al guardar');
+            if (!res.ok) {
+                return res.json().then(data => {
+                    // Mostrar errores de validación específicos si los hay
+                    if (data.errors) {
+                        const mensajes = Object.values(data.errors).flat().join('\n');
+                        alert('Error de validación:\n' + mensajes);
+                    } else {
+                        alert(data.message || 'Error al guardar los cambios');
+                    }
+                    throw new Error('Validación fallida');
+                });
+            }
             return res.json();
         })
         .then(data => {
             alert(data.message || 'Cambios guardados correctamente');
         })
         .catch(err => {
-            console.error(err);
-            alert('Error al guardar los cambios');
+            if (err.message !== 'Validación fallida') {
+                console.error(err);
+                alert('Error al guardar los cambios');
+            }
         });
     });
 }

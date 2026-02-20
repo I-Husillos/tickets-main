@@ -20,7 +20,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
 
                 {{-- DASHBOARD + TICKETS --}}
-                <li class="nav-item has-treeview {{ request()->routeIs('admin.manage.dashboard') || request()->is('*tickets*') || request()->routeIs('admin.my.*') || request()->routeIs('admin.kanban*') ? 'menu-open' : '' }}">
+                <li class="nav-item has-treeview {{ request()->routeIs('admin.manage.dashboard') || request()->is('*tickets*') || request()->routeIs('admin.my.*') ? 'menu-open' : '' }}">
                     <a href="{{ route('admin.manage.dashboard', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.manage.dashboard') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
@@ -29,14 +29,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview ps-3">
-                        @if(Auth::guard('admin')->user()->superadmin)
                         <li class="nav-item">
                             <a href="{{ route('admin.manage.tickets', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.manage.tickets') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ __('general.frontoffice.tech_panel.all_tickets') }}</p>
                             </a>
                         </li>
-                        @endif
                         <li class="nav-item">
                             <a href="{{ route('admin.show.assigned.tickets', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.show.assigned.tickets') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
@@ -47,12 +45,6 @@
                             <a href="{{ route('admin.my.tickets', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.my.*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>{{ __('general.admin_sidebar.my_tickets') }}</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.kanban', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.kanban*') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>{{ __('general.admin_sidebar.kanban') }}</p>
                             </a>
                         </li>
                     </ul>
