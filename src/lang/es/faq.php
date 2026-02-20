@@ -13,6 +13,8 @@ return [
         'admin' => [
             'users' => 'Usuarios',
             'event_history' => 'Historial de eventos',
+            'tickets' => 'Gestión de Tickets',
+            'users_and_staff' => 'Usuarios y Staff',
             
             'what_is_admin' => '¿Cuál es mi rol como administrador?',
             'what_is_admin_description' => 'Como administrador, eres responsable de gestionar todo el sistema: revisar y procesar tickets de usuarios, investigar problemas, implementar soluciones, comunicarte con usuarios, crear y gestionar otras cuentas de usuario, monitorear la actividad del sistema, mantener logs de auditoría, y garantizar que todo funcione correctamente. Es un rol de gran responsabilidad pero también de gran poder.',

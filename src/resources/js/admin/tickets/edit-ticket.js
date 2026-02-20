@@ -14,6 +14,8 @@ export function initEditTicketForm(token) {
             priority: $('#priority').val(),
             type: $('#type').val(),
             assigned_to: $('#assigned_to').val() || null,
+            project_id: $('#project_id').val() || null,
+            tags: $('#tags-edit-select').val() || [],
         };
 
         fetch(`/api/admin/tickets/update/${ticketId}`, {

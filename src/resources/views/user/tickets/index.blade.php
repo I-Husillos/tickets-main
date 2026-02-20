@@ -37,7 +37,44 @@ $breadcrumbs = [
             </div>
         </div>
 
-        <div class="card-body p-0">
+        <div class="card-body">
+
+            <!-- Filtros -->
+            <div class="row mb-3">
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <select id="filter-status" class="form-control">
+                        <option value="">{{ __('frontoffice.tickets.table.status') }}: {{ __('general.all') }}</option>
+                        <option value="new">{{ __('general.statuses.new') }}</option>
+                        <option value="pending">{{ __('general.statuses.pending') }}</option>
+                        <option value="in_progress">{{ __('general.statuses.in_progress') }}</option>
+                        <option value="resolved">{{ __('general.statuses.resolved') }}</option>
+                        <option value="closed">{{ __('general.statuses.closed') }}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <select id="filter-priority" class="form-control">
+                        <option value="">{{ __('frontoffice.tickets.table.priority') }}: {{ __('general.all') }}</option>
+                        <option value="low">{{ __('general.priorities.low') }}</option>
+                        <option value="medium">{{ __('general.priorities.medium') }}</option>
+                        <option value="high">{{ __('general.priorities.high') }}</option>
+                        <option value="critical">{{ __('general.priorities.critical') }}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <select id="filter-type" class="form-control">
+                        <option value="">{{ __('frontoffice.tickets.type') }}: {{ __('general.all') }}</option>
+                        @foreach($types as $type)
+                            <option value="{{ $type->name }}">{{ $type->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <button id="clear-filters" class="btn btn-secondary btn-block">
+                        <i class="fas fa-times"></i> {{ __('general.reset_filters') }}
+                    </button>
+                </div>
+            </div>
+
             <div class="table-responsive">
                 <table id="tabla-tickets-usuario"
                     class="table table-hover table-striped table-bordered mb-0 dt-responsive nowrap"

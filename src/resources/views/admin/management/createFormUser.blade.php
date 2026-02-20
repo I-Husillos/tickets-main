@@ -11,7 +11,7 @@
     ];
 @endphp
 
-<div class="container mt-5">
+<div class="container-fluid mt-3">
     <h1 class="text-center mb-4">{{ __('general.admin_create_user.heading') }}</h1>
 
     @if ($errors->any())

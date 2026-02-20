@@ -24,16 +24,30 @@ class UserTicketQueryService extends BaseQueryService
         // Solo tickets del usuario autenticado
         $query->where('user_id', Auth::id());
 
-        
-        if ($request->has('search.value')) {
+        // Filtro por estado
+        if ($request->filled('status')) {
+            $query->where('status', $request->input('status'));
+        }
+
+        // Filtro por prioridad
+        if ($request->filled('priority')) {
+            $query->where('priority', $request->input('priority'));
+        }
+
+        // Filtro por tipo
+        if ($request->filled('type')) {
+            $query->where('type', $request->input('type'));
+        }
+
+        // Búsqueda de texto
+        if ($request->filled('search.value')) {
             $search = $request->input('search.value');
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'LIKE', "%$search%")
-                  ->orWhere('status', 'LIKE', "%$search%")
-                  ->orWhere('priority', 'LIKE', "%$search%");
+                  ->orWhere('description', 'LIKE', "%$search%");
             });
         }
-        
+
         // Aplicar ordenamiento
         return $this->applyOrdering($query, $request);
     }

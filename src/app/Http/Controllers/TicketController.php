@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\SendNotifications;
 use App\Models\Ticket;
-use App\Models\EventHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -39,11 +37,9 @@ class TicketController extends Controller
     {
         $this->authorize('index', Ticket::class);
 
-        $user = Auth::guard('user')->user();
+        $types = Type::all();
 
-        $tickets = $user->tickets()->orderBy('created_at', 'desc')->paginate(10);
-
-        return view('user.tickets.index', compact('tickets'));
+        return view('user.tickets.index', compact('types'));
     }
 
 
@@ -57,23 +53,7 @@ class TicketController extends Controller
     {
         $this->authorize('create', Ticket::class);
 
-        $validated = $request->validated();
-
-        $validated['user_id'] = auth('user')->id();
-
-        $ticket = Ticket::create($validated);
-
-
-        EventHistory::create([
-            'event_type' => 'Registro',
-            'description' => 'Ticket con id ' . $ticket->id . 'con el título ' . $ticket->title . ' ha sido creado por el usuario con email ' 
-            . Auth::guard('user')->user()->email . ' y nombre ' . Auth::guard('user')->user()->name,
-            'user' => Auth::guard('user')->user()->name,
-        ]);
-
-
-        SendNotifications::dispatch($ticket->id, 'created');
-
+        $ticket = $this->ticketService->createTicket($request->validated());
 
         return redirect()->route('user.tickets.index', ['locale' => app()->getLocale()])->with('success', 'Ticket creado con éxito.');
     }

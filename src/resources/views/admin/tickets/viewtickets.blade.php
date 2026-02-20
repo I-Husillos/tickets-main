@@ -139,6 +139,32 @@
                                 </div>
                                 @endif
 
+                                {{-- Proyecto --}}
+                                <div class="form-group">
+                                    <label for="project_id">Proyecto</label>
+                                    <select id="project_id" class="form-control">
+                                        <option value="">-- Sin proyecto --</option>
+                                        @foreach($projects as $project)
+                                            <option value="{{ $project->id }}"
+                                                {{ $ticket->project_id == $project->id ? 'selected' : '' }}>
+                                                {{ $project->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                {{-- Etiquetas (Select2) --}}
+                                <div class="form-group">
+                                    <label for="tags-edit-select">Etiquetas</label>
+                                    <select name="tags[]" id="tags-edit-select" class="form-control" multiple
+                                            data-tags-search="{{ route('admin.tags.search', ['locale' => app()->getLocale()]) }}"
+                                            data-placeholder="{{ __('general.admin_own_tickets.tags_placeholder') }}">
+                                        @foreach($ticket->tags as $tag)
+                                            <option value="{{ $tag->id }}" selected>{{ $tag->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <button type="submit" class="btn btn-success mt-3">
                                     <i class="fas fa-save"></i> Guardar Cambios
                                 </button>
@@ -192,4 +218,5 @@
         </div>
     </div>
 </div>
+
 @endsection

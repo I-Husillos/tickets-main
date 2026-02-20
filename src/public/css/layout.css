@@ -43,6 +43,10 @@ main, .content {
     border-top: 1px solid #e0e0e0;
 }
 
+/* Kanban board */
+.col-kanban         { min-width: 260px; max-width: 300px; flex: 0 0 auto; padding: 0 6px; }
+.kanban-column-body { min-height: 200px; max-height: 70vh; overflow-y: auto; }
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     header {

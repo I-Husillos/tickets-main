@@ -12,7 +12,7 @@
 @endphp
 
 
-<div class="container mt-5">
+<div class="container-fluid mt-3">
     <h2>{{ __('general.admin_edit_admin.heading') }}</h2>
 
     <form method="POST" action="{{ route('admin.admins.update', ['admin' => $admin->id, 'locale' => app()->getLocale()]) }}">

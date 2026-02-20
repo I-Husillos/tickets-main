@@ -12,7 +12,7 @@ $breadcrumbs = [
 @endphp
 
 
-<div class="container">
+<div class="container-fluid mt-3">
     <h2>{{ __('frontoffice.tickets.edit') }}</h2>
 
     @if ($errors->any())

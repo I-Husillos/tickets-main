@@ -6,6 +6,7 @@
         "dev": "vite"
     },
     "devDependencies": {
+        "@rollup/plugin-inject": "^5.0.5",
         "@tailwindcss/vite": "^4.0.0",
         "axios": "^1.8.2",
         "concurrently": "^9.0.1",
@@ -21,6 +22,7 @@
         "datatables.net-dt": "^2.3.1",
         "datatables.net-responsive": "^3.0.4",
         "datatables.net-responsive-bs4": "^3.0.4",
-        "jquery": "^3.7.1"
+        "jquery": "^3.7.1",
+        "select2": "^4.0.13"
     }
 }

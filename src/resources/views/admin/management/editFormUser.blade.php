@@ -10,7 +10,7 @@
         ['label' => __('general.admin_edit_user.page_title')]
     ];
 @endphp
-<div class="container mt-5">
+<div class="container-fluid mt-3">
     <h2>{{ __('general.admin_edit_user.heading') }}</h2>
 
     <form method="POST" action="{{ route('admin.users.update', ['user' => $user->id, 'locale' => app()->getLocale()]) }}">

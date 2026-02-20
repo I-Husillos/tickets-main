@@ -10,7 +10,7 @@
         ['label' => __('general.admin_delete_user.page_title')]
     ];
 @endphp
-<div class="container mt-5">
+<div class="container-fluid mt-3">
     <h2>{{ __('general.admin_delete_user.heading') }}</h2>
 
     <p>{{ __('general.admin_delete_user.confirmation', ['name' => $user->name]) }}</p>

@@ -12,7 +12,7 @@
 @endphp
 
 
-<div class="container mt-5">
+<div class="container-fluid mt-3">
     <h2>{{ __('general.admin_delete_admin.heading') }}</h2>
 
     <p>{{ __('general.admin_delete_admin.confirmation', ['name' => $admin->name]) }}</p>

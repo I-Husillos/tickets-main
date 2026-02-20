@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Services\NotificationService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -11,7 +12,6 @@ class TicketCreatedNotification extends Notification
 {
     use Queueable;
 
-
     protected $ticket;
 
     /**
@@ -19,7 +19,7 @@ class TicketCreatedNotification extends Notification
      */
     public function __construct($ticket)
     {
-        $this->ticket = $ticket;   // Pasamos la información del ticket cuando se crea la notificación.
+        $this->ticket = $ticket;
     }
 
     /**
@@ -37,15 +37,21 @@ class TicketCreatedNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $locale = $notifiable->locale ?? config('app.locale');
+
+        // Construir URL igual que TicketDataActions
+        $path = trans('routes.admin.view.ticket', [], $locale);
+        $ticketUrl = NotificationService::ticketUrl('user', $this->ticket->id, $locale);
+
         $userName = $this->ticket->user?->name ?? 'Usuario desconocido';
-        
+
         return (new MailMessage)
-            ->subject(__('notifications.ticket_created'))
+            ->subject(__('notifications.ticket_created', [], $locale))
             ->line(__('notifications.content_created', [
                 'user' => $userName,
                 'title' => $this->ticket->title,
-            ]))
-            ->action(__('notifications.view_ticket'), url('/user/tickets/' . $this->ticket->id));
+            ], $locale))
+            ->action(__('notifications.view_ticket'), $ticketUrl);
     }
 
     /**

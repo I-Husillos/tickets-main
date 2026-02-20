@@ -125,6 +125,27 @@ return [
         'admin.help.notifications' => 'ayuda/administrador/notificaciones',
         'admin.help.events' => 'ayuda/administrador/eventos',
 
+        // Projects
+        'admin.projects.index' => 'administrador/proyectos',
+        'admin.projects.create' => 'administrador/proyectos/crear',
+        'admin.projects.store' => 'administrador/proyectos/guardar',
+        'admin.projects.edit' => 'administrador/proyectos/editar/{project}',
+        'admin.projects.update' => 'administrador/proyectos/actualizar/{project}',
+        'admin.projects.confirm_delete' => 'administrador/proyectos/confirmar-eliminar/{project}',
+        'admin.projects.destroy' => 'administrador/proyectos/eliminar/{project}',
+
+        // Tags
+        'admin.tags.search' => 'administrador/etiquetas/buscar',
+
+        // Admin own tickets (agenda)
+        'admin.my.tickets' => 'administrador/mis-tickets',
+        'admin.my.tickets.create' => 'administrador/mis-tickets/crear',
+        'admin.my.tickets.store' => 'administrador/mis-tickets/guardar',
+
+        // Kanban
+        'admin.kanban' => 'administrador/kanban',
+        'admin.kanban.update_status' => 'administrador/kanban/{ticket}/estado',
+
     ];
 
 

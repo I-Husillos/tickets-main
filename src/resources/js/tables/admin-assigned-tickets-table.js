@@ -10,8 +10,11 @@ export function initAssignedTicketsTable(apiUrl, token) {
             url: apiUrl,
             type: 'GET',
             dataType: 'json',
-            data: {
-                locale: locale
+            data: function(d) {
+                d.locale = locale;
+                d.status = $('#filter-status-asignados').val();
+                d.priority = $('#filter-priority-asignados').val();
+                d.type = $('#filter-type-asignados').val();
             },
             responsive: true,
             beforeSend: function (xhr) {
@@ -34,6 +37,15 @@ export function initAssignedTicketsTable(apiUrl, token) {
             { data: 'comments', className: 'text-center align-middle' },
             { data: 'actions', orderable: false, searchable: false, className: 'text-center align-middle' }
         ]
+    });
+
+    $('#filter-status-asignados, #filter-priority-asignados, #filter-type-asignados').on('change', function() {
+        $('#tabla-tickets-asignados').DataTable().ajax.reload();
+    });
+
+    $('#clear-filters-asignados').on('click', function() {
+        $('#filter-status-asignados, #filter-priority-asignados, #filter-type-asignados').val('');
+        $('#tabla-tickets-asignados').DataTable().search('').ajax.reload();
     });
 }
 

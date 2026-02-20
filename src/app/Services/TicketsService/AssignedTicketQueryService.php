@@ -30,12 +30,24 @@ class AssignedTicketQueryService extends BaseQueryService
         $query = Ticket::with(['type', 'admin', 'comments'])
                        ->where('admin_id', $adminId);
 
+        // Filtros específicos
+        if ($request->filled('status')) {
+            $query->where('status', $request->input('status'));
+        }
+
+        if ($request->filled('priority')) {
+            $query->where('priority', $request->input('priority'));
+        }
+
+        if ($request->filled('type')) {
+            $query->where('type', $request->input('type'));
+        }
+
+        // Búsqueda de texto
         $search = $request->input('search.value');
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'LIKE', "%$search%")
-                  ->orWhere('status', 'LIKE', "%$search%")
-                  ->orWhere('priority', 'LIKE', "%$search%")
                   ->orWhere('description', 'LIKE', "%$search%");
             });
         }

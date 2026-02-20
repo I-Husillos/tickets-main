@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Api\Tickets;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTicketRequest;
+use App\Models\Tag;
 use App\Models\Ticket;
 use App\Services\TicketService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use App\Models\EventHistory;
 use App\Http\Requests\UpdateDataTicketRequest;
@@ -97,14 +100,37 @@ class TicketApiController extends Controller
 
         $ticket->save(); // guardar todos los cambios
 
+        // Update project_id if provided
+        if (array_key_exists('project_id', $validated)) {
+            $ticket->project_id = $validated['project_id'];
+            $ticket->save();
+        }
+
+        // Sync tags (ids or new names)
+        if (isset($validated['tags'])) {
+            $tagIds = [];
+            foreach ($validated['tags'] as $input) {
+                if (is_numeric($input)) {
+                    $tagIds[] = (int) $input;
+                } else {
+                    $trimmed = trim($input);
+                    if ($trimmed !== '') {
+                        $tag = Tag::firstOrCreate(['name' => $trimmed]);
+                        $tagIds[] = $tag->id;
+                    }
+                }
+            }
+            $ticket->tags()->sync($tagIds);
+        }
+
         // Notification Logic
         if ($oldStatus !== $newStatus) {
             if ($newStatus === 'closed') {
-                SendNotifications::dispatch($ticket->id, 'closed', $admin);
+                SendNotifications::dispatch($ticket->id, 'closed', $admin, app()->getLocale());
             } elseif (($oldStatus === 'closed' || $oldStatus === 'resolved') && ($newStatus === 'pending' || $newStatus === 'in_progress')) {
-                SendNotifications::dispatch($ticket->id, 'reopened', $admin);
+                SendNotifications::dispatch($ticket->id, 'reopened', $admin, app()->getLocale());
             } else {
-                SendNotifications::dispatch($ticket->id, 'status_changed', $admin);
+                SendNotifications::dispatch($ticket->id, 'status_changed', $admin, app()->getLocale());
             }
         }
 
@@ -161,7 +187,7 @@ class TicketApiController extends Controller
             'user' => $user->name,
         ]);
 
-        SendNotifications::dispatch($ticket->id, 'created');
+        SendNotifications::dispatch($ticket->id, 'created', null, app()->getLocale());
 
         return response()->json([
             'success' => true,

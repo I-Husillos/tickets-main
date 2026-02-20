@@ -13,7 +13,7 @@
 @endphp
 
 
-<div class="container mt-5">
+<div class="container-fluid mt-3">
     <!-- Encabezado de confirmación -->
     <h2>{{ __('general.admin_types.confirm_deletion_heading') }}</h2>
 

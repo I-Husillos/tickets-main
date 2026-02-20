@@ -13,6 +13,8 @@ return [
         'admin' => [
             'users' => 'Users',
             'event_history' => 'Event History',
+            'tickets' => 'Ticket Management',
+            'users_and_staff' => 'Users and Staff',
         ],
     ],
 ];

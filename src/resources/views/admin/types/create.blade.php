@@ -11,7 +11,7 @@
         ['label' => __('general.admin_types.create_title')]
     ];
 @endphp
-<div class="container mt-4">
+<div class="container-fluid mt-3">
     <!-- Encabezado para la creación -->
     <h2>{{ __('general.admin_types.create_heading') }}</h2>
 

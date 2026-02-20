@@ -118,8 +118,28 @@ return [
         'admin.help.notifications' => 'help/admin/notifications',
         'admin.help.events' => 'help/admin/events',
 
-];
+        // Projects
+        'admin.projects.index' => 'admin/projects',
+        'admin.projects.create' => 'admin/projects/create',
+        'admin.projects.store' => 'admin/projects/store',
+        'admin.projects.edit' => 'admin/projects/edit/{project}',
+        'admin.projects.update' => 'admin/projects/update/{project}',
+        'admin.projects.confirm_delete' => 'admin/projects/confirm-delete/{project}',
+        'admin.projects.destroy' => 'admin/projects/destroy/{project}',
 
+        // Tags
+        'admin.tags.search' => 'admin/tags/search',
+
+        // Admin own tickets (agenda)
+        'admin.my.tickets' => 'admin/my-tickets',
+        'admin.my.tickets.create' => 'admin/my-tickets/create',
+        'admin.my.tickets.store' => 'admin/my-tickets/store',
+
+        // Kanban
+        'admin.kanban' => 'admin/kanban',
+        'admin.kanban.update_status' => 'admin/kanban/{ticket}/status',
+
+];
 
 
 

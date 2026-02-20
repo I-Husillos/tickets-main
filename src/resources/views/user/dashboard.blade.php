@@ -37,7 +37,7 @@ $breadcrumbs = [
         <div class="card-body">
             <!-- Resumen General -->
             <div class="row mb-4">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="small-box bg-success">
                         <div class="inner">
                             <h3>{{ $openTickets }}</h3>
@@ -48,7 +48,7 @@ $breadcrumbs = [
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="small-box bg-primary">
                         <div class="inner">
                             <h3>{{ $resolvedTickets }}</h3>
@@ -56,18 +56,6 @@ $breadcrumbs = [
                         </div>
                         <div class="icon">
                             <i class="fas fa-check"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- Nota: bg-warning text-white para asegurar contraste si es amarillo AdminLTE -->
-                <div class="col-md-4">
-                    <div class="small-box bg-warning">
-                        <div class="inner text-white">
-                            <h3>{{ $pendingTickets }}</h3>
-                            <p class="text-white">{{ __('frontoffice.dashboard.pending_tickets') }}</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-clock"></i>
                         </div>
                     </div>
                 </div>

@@ -23,7 +23,7 @@ class StoreTypeRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255|unique:types,name',
-            'description' => 'nullable|string|max:255',
+            'description' => 'nullable|string|max:3500',
         ];
     }
 
@@ -32,6 +32,7 @@ class StoreTypeRequest extends FormRequest
         return [
             'name.unique' => 'Ya existe un tipo con ese nombre.',
             'name.required' => 'El campo nombre es obligatorio.',
+            'description.max' => 'La descripción no puede exceder los 3500 caracteres.',
         ];
     }
 }

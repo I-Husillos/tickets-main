@@ -4,7 +4,7 @@
 @section('title', __('general.admin_dashboard.dashboard_title'))
 
 @section('admincontent')
-<div class="container min-vh-100 d-flex flex-column justify-content-center">
+<div class="container-fluid mt-3">
     <!-- Se muestra el título principal del dashboard -->
     <h1 class="text-center">{{ __('general.admin_dashboard.panel_admin') }}</h1>
     

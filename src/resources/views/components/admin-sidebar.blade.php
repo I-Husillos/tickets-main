@@ -2,7 +2,7 @@
     <!-- Brand -->
     
     <a href="{{ route('admin.dashboard', ['locale' => app()->getLocale()]) }}" class="brand-link text-center">
-        <span class="brand-text font-weight-light">Gestor de Tickets</span>
+        <span class="brand-text font-weight-light">{{ __('general.admin_sidebar.app_title') }}</span>
     </a>
 
     <!-- Sidebar -->
@@ -19,48 +19,12 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
 
-                {{-- DASHBOARD --}}
-                <li class="nav-item">
+                {{-- DASHBOARD + TICKETS --}}
+                <li class="nav-item has-treeview {{ request()->routeIs('admin.manage.dashboard') || request()->is('*tickets*') || request()->routeIs('admin.my.*') || request()->routeIs('admin.kanban*') ? 'menu-open' : '' }}">
                     <a href="{{ route('admin.manage.dashboard', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.manage.dashboard') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-home"></i>
-                        <p>{{ __('general.admin_sidebar.title_admin_panel') }}</p>
-                    </a>
-                </li>
-
-                {{-- USUARIOS Y ADMINISTRADORES (Solo Superadmin) --}}
-                @if(Auth::guard('admin')->user()->superadmin)
-                    <li class="nav-header">{{ __('general.admin_dashboard.superadmin_manage_all_users') }}</li>
-
-                    <li class="nav-item">
-                        <a href="{{ route('admin.dashboard.list.users', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.dashboard.list.users') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>{{ __('general.admin_dashboard.superadmin_manage_users') }}</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.dashboard.list.admins', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.dashboard.list.admins') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-user-shield"></i>
-                            <p>{{ __('general.admin_dashboard.superadmin_manage_admins') }}</p>
-                        </a>
-                    </li>
-                    {{-- Tipos de Tickets --}}
-                    <li class="nav-header">{{ __('general.admin_sidebar.types') }}</li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.types.index', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.manage.ticket.types') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-ticket-alt"></i>
-                            <p>{{ __('general.admin_sidebar.manage_ticket_types') }}</p>
-                        </a>
-                    </li>
-                @endif
-
-                
-                {{-- GESTIÓN DE TICKETS --}}
-                <li class="nav-header">{{ __('general.admin_sidebar.tickets') }}</li>
-                <li class="nav-item has-treeview {{ request()->is('*tickets*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ request()->is('*tickets*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-ticket-alt"></i>
                         <p>
-                            {{ __('general.admin_sidebar.gestionar_tickets') }}
+                            {{ __('general.admin_sidebar.title_admin_panel') }}
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -79,20 +43,22 @@
                                 <p>{{ __('general.admin_sidebar.tickets_asignados') }}</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.my.tickets', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.my.*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>{{ __('general.admin_sidebar.my_tickets') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.kanban', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.kanban*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>{{ __('general.admin_sidebar.kanban') }}</p>
+                            </a>
+                        </li>
                     </ul>
-                </li>
-    
-                {{-- Historial de Eventos --}}
-                <li class="nav-header">{{ __('general.admin_sidebar.historial_eventos') }}</li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.history.events', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.history.events') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-history"></i>
-                        <p>{{ __('general.admin_history_events.page_title') }}</p>
-                    </a>
                 </li>
 
                 {{-- NOTIFICACIONES --}}
-                <li class="nav-header">{{ __('general.admin_sidebar.notificaciones') }}</li>
                 <li class="nav-item">
                     <a href="{{ route('admin.notifications', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.notifications') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-bell"></i>
@@ -100,10 +66,54 @@
                     </a>
                 </li>
 
+                {{-- HISTORIAL DE EVENTOS --}}
+                <li class="nav-item">
+                    <a href="{{ route('admin.history.events', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.history.events') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-history"></i>
+                        <p>{{ __('general.admin_history_events.page_title') }}</p>
+                    </a>
+                </li>
+
+                {{-- CONFIGURACIÓN (Solo Superadmin) --}}
+                @if(Auth::guard('admin')->user()->superadmin)
+                <li class="nav-item has-treeview {{ request()->routeIs('admin.dashboard.list.*') || request()->routeIs('admin.types.*') || request()->routeIs('admin.projects.*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->routeIs('admin.dashboard.list.*') || request()->routeIs('admin.types.*') || request()->routeIs('admin.projects.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-cog"></i>
+                        <p>
+                            {{ __('general.admin_sidebar.configuration') }}
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ps-3">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.dashboard.list.users', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.dashboard.list.users') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>{{ __('general.admin_dashboard.superadmin_manage_users') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.dashboard.list.admins', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.dashboard.list.admins') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>{{ __('general.admin_dashboard.superadmin_manage_admins') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.types.index', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.types.index') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>{{ __('general.admin_sidebar.manage_ticket_types') }}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.projects.index', ['locale' => app()->getLocale()]) }}" class="nav-link {{ request()->routeIs('admin.projects.*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>{{ __('general.admin_sidebar.manage_projects') }}</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endif
 
                 {{-- AYUDA --}}
-                <li class="nav-header">{{ __('general.admin_sidebar.help') }}</li>
-
                 <li class="nav-item has-treeview {{ request()->routeIs('admin.help.*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ request()->routeIs('admin.help.*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-question-circle"></i>
@@ -112,10 +122,7 @@
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-
                     <ul class="nav nav-treeview ps-3">
-
-                        {{-- Introducción --}}
                         <li class="nav-item">
                             <a href="{{ route('admin.help.index', ['locale' => app()->getLocale()]) }}"
                             class="nav-link {{ request()->routeIs('admin.help.index') ? 'active' : '' }}">
@@ -123,57 +130,37 @@
                                 <p>{{ __('faq.faq.intoduction_title') }}</p>
                             </a>
                         </li>
-
-                        {{-- Tickets --}}
                         <li class="nav-item">
                             <a href="{{ route('admin.help.tickets', ['locale' => app()->getLocale()]) }}"
                             class="nav-link {{ request()->routeIs('admin.help.tickets') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Gestión de Tickets</p>
+                                <p>{{ __('faq.faq.admin.tickets') }}</p>
                             </a>
                         </li>
-
-                        {{-- Usuarios --}}
                         @if(Auth::guard('admin')->user()->superadmin)
                         <li class="nav-item">
                             <a href="{{ route('admin.help.users', ['locale' => app()->getLocale()]) }}"
                             class="nav-link {{ request()->routeIs('admin.help.users') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Usuarios y Staff</p>
+                                <p>{{ __('faq.faq.admin.users_and_staff') }}</p>
                             </a>
                         </li>
                         @endif
-
-                        {{-- Notificaciones --}}
                         <li class="nav-item">
                             <a href="{{ route('admin.help.notifications', ['locale' => app()->getLocale()]) }}"
                             class="nav-link {{ request()->routeIs('admin.help.notifications') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Notificaciones</p>
+                                <p>{{ __('faq.faq.notifications') }}</p>
                             </a>
                         </li>
-
-                        {{-- Eventos --}}
                         <li class="nav-item">
                             <a href="{{ route('admin.help.events', ['locale' => app()->getLocale()]) }}"
                             class="nav-link {{ request()->routeIs('admin.help.events') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Historial</p>
+                                <p>{{ __('faq.faq.admin.event_history') }}</p>
                             </a>
                         </li>
                     </ul>
-                </li>
-
-
-                {{-- CERRAR SESIÓN --}}
-                <li class="nav-item">
-                    <form method="POST" action="{{ route('admin.logout', ['locale' => app()->getLocale()]) }}">
-                        @csrf
-                        <button class="nav-link btn btn-link text-left text-white">
-                            <i class="nav-icon fas fa-sign-out-alt"></i>
-                            <p>{{ __('frontoffice.logout') }}</p>
-                        </button>
-                    </form>
                 </li>
 
             </ul>

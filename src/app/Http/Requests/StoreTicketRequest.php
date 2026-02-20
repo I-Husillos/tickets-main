@@ -23,9 +23,9 @@ class StoreTicketRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string|max:3500',
             'type' => 'required|exists:types,name',
-            'priority' => 'required|in:low,medium,high,critical',
+            'priority' => 'nullable|in:low,medium,high,critical',
             'status' => 'required|in:new,in_progress,pending,resolved,closed',
         ];
     }
@@ -35,8 +35,8 @@ class StoreTicketRequest extends FormRequest
         return [
             'title.required' => 'El título es obligatorio.',
             'description.required' => 'La descripción es obligatoria.',
+            'description.max' => 'La descripción no puede exceder los 3500 caracteres.',
             'type.required' => 'El tipo es obligatorio.',
-            'priority.required' => 'La prioridad es obligatoria.',
             'status.required' => 'El estado es obligatorio.',
         ];
     }

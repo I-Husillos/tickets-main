@@ -12,7 +12,7 @@ $breadcrumbs = [
 @endphp
 
 
-    <div class="container">
+    <div class="container-fluid mt-3">
         <div class="card">
             <div class="card-header bg-primary text-white">
                 <h3>{{ __('frontoffice.tickets.create_new_ticket') }}</h3>
@@ -63,13 +63,8 @@ $breadcrumbs = [
                     </div>
 
                     <div class="form-group mt-3">
-                        <label for="priority">{{ __('frontoffice.tickets.priority') }}</label>
-                        <select id="priority" name="priority" class="form-control">
-                            <option value="low" {{ old('priority') === 'low' ? 'selected' : '' }}>{{ __('frontoffice.tickets.priority_options.low') }}</option>
-                            <option value="medium" {{ old('priority') === 'medium' ? 'selected' : '' }}>{{ __('frontoffice.tickets.priority_options.medium') }}</option>
-                            <option value="high" {{ old('priority') === 'high' ? 'selected' : '' }}>{{ __('frontoffice.tickets.priority_options.high') }}</option>
-                            <option value="critical" {{ old('priority') === 'critical' ? 'selected' : '' }}>{{ __('frontoffice.tickets.priority_options.critical') }}</option>
-                        </select>
+                        <label for="priority">{{ __('frontoffice.tickets.urgent_priority') }}</label>
+                            <input type="checkbox" id="priority" name="priority" value="critical" {{ old('priority') === 'critical' ? 'checked' : '' }}>
                     </div>
 
                     <input type="hidden" name="status" value="new">

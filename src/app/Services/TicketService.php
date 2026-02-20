@@ -11,6 +11,7 @@ class TicketService
     public function createTicket(array $validated): Ticket
     {
         $validated['user_id'] = Auth::guard('user')->id();
+        $validated['priority'] = $validated['priority'] ?? 'low';
         $ticket = Ticket::create($validated);
 
         EventHistory::create([
@@ -19,7 +20,7 @@ class TicketService
             'user' => Auth::guard('user')->user()->name,
         ]);
 
-        SendNotifications::dispatch($ticket->id, 'created');
+        SendNotifications::dispatch($ticket->id, 'created', null, app()->getLocale());
         return $ticket;
     }
 
@@ -44,11 +45,11 @@ class TicketService
 
         // Dispatch notification
         if ($newStatus === 'closed') {
-            SendNotifications::dispatch($ticket->id, 'closed', $actor);
+            SendNotifications::dispatch($ticket->id, 'closed', $actor, app()->getLocale());
         } elseif (($oldStatus === 'closed' || $oldStatus === 'resolved') && ($newStatus === 'pending' || $newStatus === 'in_progress')) {
-            SendNotifications::dispatch($ticket->id, 'reopened', $actor);
+            SendNotifications::dispatch($ticket->id, 'reopened', $actor, app()->getLocale());
         } else {
-            SendNotifications::dispatch($ticket->id, 'status_changed', $actor);
+            SendNotifications::dispatch($ticket->id, 'status_changed', $actor, app()->getLocale());
         }
     }
 }

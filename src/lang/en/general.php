@@ -3,6 +3,14 @@
 return [
     'home' => 'Home',
     'log_out' => 'Log Out',
+    'all' => 'All',
+    'reset_filters' => 'Clear filters',
+    'priorities' => [
+        'low'      => 'Low',
+        'medium'   => 'Medium',
+        'high'     => 'High',
+        'critical' => 'Critical',
+    ],
     
     'admin_sidebar' => [
         'app_title'            => 'Management Tickets',
@@ -20,6 +28,10 @@ return [
         'types'                => 'Types',
         'help'                 => 'Help',
         'manage_ticket_types'  => 'Manage Ticket Types',
+        'manage_projects'      => 'Manage Projects',
+        'configuration'        => 'Configuration',
+        'my_tickets'           => 'My Tickets',
+        'kanban'               => 'Kanban Board',
     ],
 
     // Traducciones específicas para el dashboard
@@ -423,4 +435,68 @@ return [
             ],
         ],
     ],
+    // Projects
+    'admin_projects' => [
+        'page_title'             => 'Projects',
+        'list_title'             => 'Projects List',
+        'create_title'           => 'New Project',
+        'edit_title'             => 'Edit Project',
+        'confirm_delete_title'   => 'Confirm Delete',
+        'confirm_delete_message' => 'You are about to delete project ":name". Are you sure?',
+        'confirm_delete_warning' => 'Associated tickets will lose their project reference.',
+        'no_projects'            => 'No projects created yet.',
+        'name'                   => 'Name',
+        'description'            => 'Description',
+        'color'                  => 'Color',
+        'owner'                  => 'Created by',
+        'tickets_count'          => 'Tickets',
+        'actions'                => 'Actions',
+        'save'                   => 'Save',
+        'cancel'                 => 'Cancel',
+        'delete'                 => 'Delete',
+        'new_project'            => 'New Project',
+        'created'                => 'Project created successfully.',
+        'updated'                => 'Project updated successfully.',
+        'deleted'                => 'Project deleted successfully.',
+    ],
+
+    // Admin own tickets
+    'admin_own_tickets' => [
+        'page_title'        => 'My Tickets',
+        'list_title'        => 'My Agenda Tickets',
+        'create_title'      => 'Create Agenda Ticket',
+        'new_ticket'        => 'New Ticket',
+        'view_kanban'       => 'View Kanban',
+        'no_tickets'        => 'You have no agenda tickets yet.',
+        'title'             => 'Title',
+        'description'       => 'Description',
+        'priority'          => 'Priority',
+        'status'            => 'Status',
+        'type'              => 'Type',
+        'no_type'           => 'No type',
+        'project'           => 'Project',
+        'no_project'        => 'No project',
+        'tags'              => 'Tags',
+        'tags_help'         => 'Type to search or create tags on the fly.',
+        'tags_placeholder'  => 'Search or create tags...',
+        'created_at'        => 'Created',
+        'save'              => 'Save',
+        'cancel'            => 'Cancel',
+        'created'           => 'Agenda ticket created successfully.',
+    ],
+
+    // Kanban
+    'admin_kanban' => [
+        'page_title'    => 'Kanban Board',
+        'new_ticket'    => 'New Ticket',
+        'update_error'  => 'Error updating ticket status.',
+    ],
+
+    // Status labels used in kanban columns
+    'new'         => 'New',
+    'in_progress' => 'In Progress',
+    'pending'     => 'Pending',
+    'resolved'    => 'Resolved',
+    'closed'      => 'Closed',
+
 ];

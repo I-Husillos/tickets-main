@@ -47,7 +47,10 @@ class TicketPolicy
     public function update(User|Admin $user, Ticket $ticket)
     {
         if ($user instanceof Admin) {
-            return $user->superadmin || $ticket->admin_id === $user->id;
+            return $user->superadmin
+                || $ticket->admin_id === $user->id
+                || $ticket->created_by_admin_id === $user->id
+                || $ticket->admin_id === null;
         }
         // Users can update their own tickets
         return $user->id === $ticket->user_id;

@@ -3,7 +3,15 @@
 @section('title', __('general.frontoffice.auth.admin_login.title'))
 
 @section('content')
-<div class="container mt-5">
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="{{ __('Cerrar') }}">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
     <h2 class="text-center text-primary">{{ __('general.frontoffice.auth.admin_login.heading') }}</h2>
     <form action="{{ route('admin.login', ['locale' => app()->getLocale()]) }}" method="POST" class="mt-4">
         @csrf
@@ -30,11 +38,5 @@
 
         <button type="submit" class="btn btn-primary w-100">{{ __('general.frontoffice.auth.admin_login.submit') }}</button>
     </form>
-    @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
 
-</div>
 @endsection

@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
+use App\Services\NotificationService;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -38,13 +38,17 @@ class TicketStatusChanged extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $locale    = $notifiable->locale ?? app()->getLocale();
+        $ticketUrl = NotificationService::ticketUrl('user', $this->ticket->id, $locale);
+
         return (new MailMessage)
             ->subject(__('notifications.ticket_status_changed'))
-            ->line(__('notifications.ticket_status_changed', [
+            ->line(__('notifications.content_status_changed', [
                 'admin' => $this->admin->name,
                 'title' => $this->ticket->title,
+                'status' => $this->ticket->status,
             ]))
-            ->action(__('notifications.view_ticket'), url('/user/tickets/' . $this->ticket->id));
+            ->action(__('notifications.view_ticket'), $ticketUrl);
     }
 
     /**

@@ -37,4 +37,9 @@ export function initUserTicketsTable(apiUrl, token) {
     $('#filter-status, #filter-priority, #filter-type').on('change', function() {
         $('#tabla-tickets-usuario').DataTable().ajax.reload();
     });
+
+    $('#clear-filters').on('click', function() {
+        $('#filter-status, #filter-priority, #filter-type').val('');
+        $('#tabla-tickets-usuario').DataTable().search('').ajax.reload();
+    });
 }

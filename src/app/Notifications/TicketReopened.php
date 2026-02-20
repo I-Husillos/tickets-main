@@ -3,6 +3,7 @@ namespace App\Notifications;
 
 use App\Models\Ticket;
 use App\Models\Admin;
+use App\Services\NotificationService;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
@@ -22,15 +23,19 @@ class TicketReopened extends Notification
         return ['mail', 'database']; // Elige los canales que quieres usar
     }
 
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
+        $locale = $notifiable->locale ?? config('app.locale');
+
+        $ticketUrl = NotificationService::ticketUrl('user', $this->ticket->id, $locale);
+
         return (new MailMessage)
-            ->subject(__('notifications.ticket_reopened'))
-            ->line(__('notifications.ticket_reopened', [
+            ->subject(__('notifications.ticket_reopened', [], $locale))
+            ->line(__('notifications.content_reopened', [
                 'admin' => $this->admin->name,
                 'title' => $this->ticket->title,
-            ]))
-            ->action(__('notifications.view_ticket'), url('/user/tickets/' . $this->ticket->id));
+            ], $locale))
+            ->action(__('notifications.view_ticket'), $ticketUrl);
     }
 
     /**

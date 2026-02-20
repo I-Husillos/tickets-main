@@ -12,7 +12,7 @@
 @endphp
 
 
-<div class="container mt-5">
+<div class="container-fluid mt-3">
     <h1 class="text-center mb-4">{{ __('general.admin_create_admin.heading') }}</h1>
 
     <form id="create-admin-form" action="/api/admin/admins/store" method="POST">

@@ -28,7 +28,7 @@
         <div class="card-body">
             <!-- Info boxes -->
             <div class="row mb-4">
-                <div class="col-md-4 col-sm-6 col-12">
+                <div class="col-md-6 col-sm-6 col-12">
                     <div class="info-box">
                         <span class="info-box-icon bg-warning">
                             <i class="fas fa-ticket-alt"></i>
@@ -40,7 +40,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 col-sm-6 col-12">
+                <div class="col-md-6 col-sm-6 col-12">
                     <div class="info-box">
                         <span class="info-box-icon bg-success">
                             <i class="fas fa-ticket-alt"></i>
@@ -51,21 +51,44 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-danger">
-                            <i class="fas fa-ticket-alt"></i>
-                        </span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">{{ __('general.admin_dashboard.pending_tickets') }}</span>
-                            <span class="info-box-number">{{ $pendingTickets }}</span>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- Tabla de tickets asignados -->
+            <div class="row mb-3">
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <select id="filter-status-asignados" class="form-control">
+                        <option value="">{{ __('general.admin_ticket_manage.status_filter') }}: {{ __('general.all') }}</option>
+                        <option value="new">{{ __('general.statuses.new') }}</option>
+                        <option value="pending">{{ __('general.statuses.pending') }}</option>
+                        <option value="in_progress">{{ __('general.statuses.in_progress') }}</option>
+                        <option value="resolved">{{ __('general.statuses.resolved') }}</option>
+                        <option value="closed">{{ __('general.statuses.closed') }}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <select id="filter-priority-asignados" class="form-control">
+                        <option value="">{{ __('general.admin_ticket_manage.priority_filter') }}: {{ __('general.all') }}</option>
+                        <option value="low">{{ __('general.priorities.low') }}</option>
+                        <option value="medium">{{ __('general.priorities.medium') }}</option>
+                        <option value="high">{{ __('general.priorities.high') }}</option>
+                        <option value="critical">{{ __('general.priorities.critical') }}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <select id="filter-type-asignados" class="form-control">
+                        <option value="">{{ __('general.admin_types.page_title') }}: {{ __('general.all') }}</option>
+                        @foreach($types as $type)
+                            <option value="{{ $type->name }}">{{ $type->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-2">
+                    <button id="clear-filters-asignados" class="btn btn-secondary btn-block">
+                        <i class="fas fa-times"></i> {{ __('general.reset_filters') }}
+                    </button>
+                </div>
+            </div>
+
             <div class="table-responsive">
                 <table id="tabla-tickets-asignados"
                     class="table table-hover table-striped table-bordered text-center dt-responsive nowrap"

@@ -26,6 +26,11 @@ class CommentService
             'message' => $message,
         ]);
 
+        // Si el autor es admin y el ticket está en estado "new", cambiar a "in_progress"
+        if ($author instanceof Admin && $ticket->status === 'new') {
+            $ticket->status = 'in_progress';
+            $ticket->save();
+        }
 
         EventHistory::create([
             'event_type' => 'Comentario',
@@ -34,11 +39,11 @@ class CommentService
         ]);
 
         if ($author instanceof Admin && $ticket->user) {
-            SendNotifications::dispatch($ticket->id, 'commented', $comment);
+            SendNotifications::dispatch($ticket->id, 'commented', $comment, app()->getLocale());
         } elseif ($author instanceof User && $ticket->admin) {
-            SendNotifications::dispatch($ticket->id, 'user_commented', $comment);
+            SendNotifications::dispatch($ticket->id, 'user_commented', $comment, app()->getLocale());
         } elseif ($author instanceof User) {
-            SendNotifications::dispatch($ticket->id, 'user_commented', $comment);
+            SendNotifications::dispatch($ticket->id, 'user_commented', $comment, app()->getLocale());
         }
     }
 }

@@ -28,6 +28,9 @@ class UpdateDataTicketRequest extends FormRequest
             'priority' => 'required|string|max:255',
             'status' => 'nullable|string|in:new,in_progress,pending,resolved,closed',
             'assigned_to' => 'nullable|exists:admins,id',
+            'project_id' => 'nullable|exists:projects,id',
+            'tags' => 'nullable|array',
+            'tags.*' => 'nullable|string|max:100',
         ];
     }
 
@@ -38,7 +41,6 @@ class UpdateDataTicketRequest extends FormRequest
             'title.required' => 'El título es obligatorio.',
             'description.required' => 'La descripción es obligatoria.',
             'type.required' => 'El tipo es obligatorio.',
-            'priority.required' => 'La prioridad es obligatoria.',
             'assigned_to.exists' => 'El administrador seleccionado no existe.'
         ];
     }

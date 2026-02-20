@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Models\Admin;
 use App\Models\Ticket;
+use App\Services\NotificationService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -40,13 +41,17 @@ class TicketClosed extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $locale = $notifiable->locale ?? config('app.locale');
+
+        $ticketUrl = NotificationService::ticketUrl('user', $this->ticket->id, $locale);
+
         return (new MailMessage)
-            ->subject(__('notifications.ticket_closed'))
-            ->line(__('notifications.ticket_closed', [
+            ->subject(__('notifications.ticket_closed', [], $locale))
+            ->line(__('notifications.content_closed', [
                 'admin' => $this->admin->name,
                 'title' => $this->ticket->title,
-            ]))
-            ->action(__('notifications.view_ticket'), url('/user/tickets/' . $this->ticket->id));
+            ], $locale))
+            ->action(__('notifications.view_ticket'), $ticketUrl);
     }
 
     /**

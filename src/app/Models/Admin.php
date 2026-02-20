@@ -33,6 +33,15 @@ class Admin extends Authenticatable
         return 'admins';
     }
 
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    public function ownTickets()
+    {
+        return $this->hasMany(Ticket::class, 'created_by_admin_id');
+    }
 
 }
 

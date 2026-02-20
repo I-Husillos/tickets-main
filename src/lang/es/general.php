@@ -3,10 +3,18 @@
 return [
     'home' => 'Inicio',
     'log_out' => 'Cerrar Sesión',
+    'all' => 'Todos',
+    'reset_filters' => 'Limpiar filtros',
+    'priorities' => [
+        'low'      => 'Baja',
+        'medium'   => 'Media',
+        'high'     => 'Alta',
+        'critical' => 'Crítica',
+    ],
     
     'admin_sidebar' => [
         'app_title'            => 'Gestión de Tickets',
-        'title_admin_panel'    => 'Panel de administrador',
+        'title_admin_panel'    => 'Panel de control',
         'panel_control'        => 'Panel de Control',
         'ver_usuarios'         => 'Ver Usuarios',
         'ver_admins'           => 'Ver Admins',
@@ -20,6 +28,10 @@ return [
         'types'                => 'Tipos',
         'help'                 => 'Ayuda',
         'manage_ticket_types'  => 'Gestionar Tipos de Tickets',
+        'manage_projects'      => 'Gestionar Proyectos',
+        'configuration'        => 'Configuración',
+        'my_tickets'           => 'Mis Tickets',
+        'kanban'               => 'Tablero Kanban',
     ],
 
     // Traducciones específicas para el dashboard
@@ -424,5 +436,70 @@ return [
     ],
 
     // futuras traducciones
+
+    // Projects
+    'admin_projects' => [
+        'page_title'             => 'Proyectos',
+        'list_title'             => 'Lista de Proyectos',
+        'create_title'           => 'Nuevo Proyecto',
+        'edit_title'             => 'Editar Proyecto',
+        'confirm_delete_title'   => 'Confirmar Eliminación',
+        'confirm_delete_message' => 'Vas a eliminar el proyecto ":name". ¿Estás seguro?',
+        'confirm_delete_warning' => 'Los tickets asociados perderán la referencia al proyecto.',
+        'no_projects'            => 'No hay proyectos creados todavía.',
+        'name'                   => 'Nombre',
+        'description'            => 'Descripción',
+        'color'                  => 'Color',
+        'owner'                  => 'Creado por',
+        'tickets_count'          => 'Tickets',
+        'actions'                => 'Acciones',
+        'save'                   => 'Guardar',
+        'cancel'                 => 'Cancelar',
+        'delete'                 => 'Eliminar',
+        'new_project'            => 'Nuevo Proyecto',
+        'created'                => 'Proyecto creado correctamente.',
+        'updated'                => 'Proyecto actualizado correctamente.',
+        'deleted'                => 'Proyecto eliminado correctamente.',
+    ],
+
+    // Admin own tickets
+    'admin_own_tickets' => [
+        'page_title'        => 'Mis Tickets',
+        'list_title'        => 'Mis Tickets de Agenda',
+        'create_title'      => 'Crear Ticket de Agenda',
+        'new_ticket'        => 'Nuevo Ticket',
+        'view_kanban'       => 'Ver Kanban',
+        'no_tickets'        => 'No tienes tickets de agenda todavía.',
+        'title'             => 'Título',
+        'description'       => 'Descripción',
+        'priority'          => 'Prioridad',
+        'status'            => 'Estado',
+        'type'              => 'Tipo',
+        'no_type'           => 'Sin tipo',
+        'project'           => 'Proyecto',
+        'no_project'        => 'Sin proyecto',
+        'tags'              => 'Etiquetas',
+        'tags_help'         => 'Escribe para buscar o crear etiquetas al vuelo.',
+        'tags_placeholder'  => 'Buscar o crear etiquetas...',
+        'created_at'        => 'Creado',
+        'save'              => 'Guardar',
+        'cancel'            => 'Cancelar',
+        'created'           => 'Ticket de agenda creado correctamente.',
+    ],
+
+    // Kanban
+    'admin_kanban' => [
+        'page_title'    => 'Tablero Kanban',
+        'new_ticket'    => 'Nuevo Ticket',
+        'update_error'  => 'Error al actualizar el estado del ticket.',
+    ],
+
+    // Status labels used in kanban columns (also reuse general status)
+    'new'         => 'Nuevo',
+    'in_progress' => 'En Progreso',
+    'pending'     => 'Pendiente',
+    'resolved'    => 'Resuelto',
+    'closed'      => 'Cerrado',
+
 ];
 

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->enum('type', ['bug', 'improvement', 'request']);
             $table->enum('priority', ['low', 'medium', 'high', 'critical']);
             $table->enum('status', ['new', 'in_progress', 'pending', 'resolved', 'closed']);

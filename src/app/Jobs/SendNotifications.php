@@ -7,12 +7,14 @@ use App\Models\Admin;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use App\Notifications\TicketCreatedNotification;
+use App\Notifications\TicketCreatedUserConfirmation;
 use App\Notifications\TicketCommented;
 use App\Notifications\TicketStatusChanged;
 use App\Notifications\TicketClosed;
 use App\Notifications\TicketReopened;
 use DebugBar\DebugBar;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\App;
 
 
 
@@ -28,15 +30,17 @@ class SendNotifications implements ShouldQueue
     protected $comment;
     protected $actor;
     protected mixed $extraData;
+    protected string $locale;
 
     /**
      * Create a new job instance.
      */
-    public function __construct($ticketId, string $type, $extraData = null)
+    public function __construct($ticketId, string $type, $extraData = null, string $locale = 'es')
     {
         $this->ticket = $ticketId;
         $this->type = $type;
         $this->extraData = $extraData;
+        $this->locale = $locale;
 
         if ($type === 'commented' || $type === 'user_commented') {
             $this->comment = $extraData;
@@ -53,6 +57,8 @@ class SendNotifications implements ShouldQueue
      */
     public function handle(): void
     {
+        App::setLocale($this->locale);
+
         $ticket = $this->ticket instanceof Ticket ? $this->ticket->load(['user', 'admin']): Ticket::with(['user', 'admin'])->find($this->ticket);
 
 
@@ -78,6 +84,11 @@ class SendNotifications implements ShouldQueue
             
                 foreach ($admins as $admin) {
                     $admin->notify(new TicketCreatedNotification($ticket));
+                }
+
+                // Enviar email de confirmación al usuario que creó el ticket
+                if ($ticket->user) {
+                    $ticket->user->notify(new TicketCreatedUserConfirmation($ticket));
                 }
                 break;
 

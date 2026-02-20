@@ -13,7 +13,7 @@
 @endphp
 
 
-<div class="container mt-4">
+<div class="container-fluid mt-3">
     <!-- Título del formulario de edición, usando parámetro para el nombre -->
     <h2>{{ __('general.admin_types.edit_heading', ['name' => $type->name]) }}</h2>
 
