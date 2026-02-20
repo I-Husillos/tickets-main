@@ -42,14 +42,13 @@ class NotificationService
         )->all();
     }
 
-    // ------
     /**
      * Genera la URL web correcta hacia un ticket, respetando el locale y
      * las rutas traducidas del proyecto.
      *
-     * @param string $guard   'user' | 'admin'
+     * @param string $guard    'user' | 'admin'
      * @param int    $ticketId
-     * @param string $locale  'es' | 'en'
+     * @param string $locale   'es' | 'en'
      */
     public static function ticketUrl(string $guard, int $ticketId, string $locale): string
     {
@@ -103,8 +102,7 @@ class NotificationService
                 'status' => self::translateStatus($data['status'] ?? '', $locale),
             ], $locale),
 
-            'closed' => trans('general.admin_notifications.ticket_closed', [], $locale),
-
+            'closed'   => trans('general.admin_notifications.ticket_closed', [], $locale),
             'reopened' => trans('general.admin_notifications.ticket_reopened', [], $locale),
 
             default => 'Notificación',
@@ -126,30 +124,38 @@ class NotificationService
     }
 
     /**
-     * Construye la URL traducida correctamente, igual que TicketDataActions.
+     * Construye la URL al ticket de forma fiable tanto en HTTP como en Jobs de cola.
      *
-     * Carga el array completo de routes.php para el locale dado y sustituye
-     * el parámetro {ticket} con el ID real. De este modo nunca se usa
-     * route() (que en Jobs en cola puede resolver mal la ruta) ni url()
-     * con paths hardcodeados sin locale.
+     * No usa trans() ni url() porque dentro de un worker Redis pueden no estar
+     * disponibles. Usa las rutas web traducidas definidas explícitamente aquí
+     * y config('app.url') como base.
+     *
+     * Las rutas deben coincidir con lang/{locale}/routes.php:
+     *   es usuario → /es/usuario/tickets/{id}
+     *   en usuario → /en/user/tickets/{id}
+     *   es admin   → /es/administrador/tickets/{id}
+     *   en admin   → /en/admin/tickets/{id}
      */
     private static function buildTranslatedRoute(string $routeKey, int $ticketId, string $locale): string
     {
-        // Cargar el array completo: lang/{locale}/routes.php
-        $routes = trans('routes', [], $locale);
+        $base = rtrim(config('app.url'), '/');
 
-        $translatedPath = $routes[$routeKey] ?? null;
+        $map = [
+            'es' => [
+                'user.tickets.show' => "usuario/tickets/$ticketId",
+                'admin.view.ticket' => "administrador/tickets/$ticketId",
+            ],
+            'en' => [
+                'user.tickets.show' => "user/tickets/$ticketId",
+                'admin.view.ticket' => "admin/tickets/$ticketId",
+            ],
+        ];
 
-        if (!$translatedPath) {
-            // Fallback seguro si la clave no existe en el fichero de rutas
-            return url("/$locale/tickets/$ticketId");
-        }
+        $path = $map[$locale][$routeKey]
+            ?? $map['es'][$routeKey]
+            ?? "usuario/tickets/$ticketId";
 
-        // Sustituir {ticket} por el ID real
-        $path = str_replace('{ticket}', $ticketId, $translatedPath);
-
-        // Resultado: http://tudominio.com/es/usuario/tickets/97
-        return url("/$locale/$path");
+        return "$base/$locale/$path";
     }
 
     /**

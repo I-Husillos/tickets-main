@@ -83,28 +83,28 @@ class SendNotifications implements ShouldQueue
                 }
             
                 foreach ($admins as $admin) {
-                    $admin->notify(new TicketCreatedNotification($ticket));
+                    $admin->notify(new TicketCreatedNotification($ticket, $this->locale));
                 }
 
                 // Enviar email de confirmación al usuario que creó el ticket
                 if ($ticket->user) {
-                    $ticket->user->notify(new TicketCreatedUserConfirmation($ticket));
+                    $ticket->user->notify(new TicketCreatedUserConfirmation($ticket, $this->locale));
                 }
                 break;
 
             case 'commented':
                 if ($ticket->user) {
-                    $ticket->user->notify(new TicketCommented($ticket, $this->comment));
+                    $ticket->user->notify(new TicketCommented($ticket, $this->comment, $this->locale));
                 }
                 break;
 
             case 'user_commented':
                 if ($ticket->admin) {
-                    $ticket->admin->notify(new TicketCommented($ticket, $this->extraData));
+                    $ticket->admin->notify(new TicketCommented($ticket, $this->extraData, $this->locale));
                 } else {
                     $admins = Admin::all(); // o filtra los superadmins
                     foreach ($admins as $admin) {
-                        $admin->notify(new TicketCommented($ticket, $this->extraData));
+                        $admin->notify(new TicketCommented($ticket, $this->extraData, $this->locale));
                     }
                 }
                 break;
@@ -120,7 +120,7 @@ class SendNotifications implements ShouldQueue
                     }
                     
                     if ($actor) {
-                        $ticket->user->notify(new TicketStatusChanged($ticket, $actor));
+                        $ticket->user->notify(new TicketStatusChanged($ticket, $actor, $this->locale));
                     }
                 } else {
                     Log::warning("No admin found for ticket: {$ticket->id}. Notifying all admins.");
@@ -129,31 +129,31 @@ class SendNotifications implements ShouldQueue
                     foreach ($admins as $admin) {
                         // Usar $this->actor o una instancia válida
                         $actor = $this->actor instanceof Admin ? $this->actor : $admin; 
-                        $admin->notify(new TicketStatusChanged($ticket, $actor));
+                        $admin->notify(new TicketStatusChanged($ticket, $actor, $this->locale));
                     }
                 }
                 break;
             
                 case 'closed':
                     if ($ticket->user && $this->extraData instanceof Admin) {
-                        $ticket->user->notify(new TicketClosed($ticket, $this->extraData));
+                        $ticket->user->notify(new TicketClosed($ticket, $this->extraData, $this->locale));
                     } else {
                         Log::warning("No admin found or actor is not Admin for ticket: {$ticket->id}. Notifying all admins.");
                         $admins = Admin::all();
                         foreach ($admins as $admin) {
-                            $admin->notify(new TicketClosed($ticket, $admin));
+                            $admin->notify(new TicketClosed($ticket, $admin, $this->locale));
                         }
                     }
                     break;
 
                 case 'reopened':
                     if ($ticket->user && $this->extraData instanceof Admin) {
-                        $ticket->user->notify(new TicketReopened($ticket, $this->extraData));
+                        $ticket->user->notify(new TicketReopened($ticket, $this->extraData, $this->locale));
                     } else {
                         Log::warning("No admin found or actor is not Admin for ticket: {$ticket->id}. Notifying all admins.");
                         $admins = Admin::all();
                         foreach ($admins as $admin) {
-                            $admin->notify(new TicketReopened($ticket, $admin));
+                            $admin->notify(new TicketReopened($ticket, $admin, $this->locale));
                         }
                     }
                     break;

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Notifications;
 
 use App\Models\Ticket;
@@ -12,44 +13,38 @@ class TicketReopened extends Notification
     protected $ticket;
     protected $admin;
 
-    public function __construct(Ticket $ticket, Admin $admin)
+    public function __construct(Ticket $ticket, Admin $admin, string $locale = 'es')
     {
         $this->ticket = $ticket;
-        $this->admin = $admin;
+        $this->admin  = $admin;
+        $this->locale = $locale;
     }
 
-    public function via($notifiable)
+    public function via($notifiable): array
     {
-        return ['mail', 'database']; // Elige los canales que quieres usar
+        return ['mail', 'database'];
     }
 
     public function toMail($notifiable): MailMessage
     {
-        $locale = $notifiable->locale ?? config('app.locale');
-
-        $ticketUrl = NotificationService::ticketUrl('user', $this->ticket->id, $locale);
+        $ticketUrl = NotificationService::ticketUrl('user', $this->ticket->id, $this->locale);
 
         return (new MailMessage)
-            ->subject(__('notifications.ticket_reopened', [], $locale))
+            ->subject(__('notifications.ticket_reopened', [], $this->locale))
             ->line(__('notifications.content_reopened', [
                 'admin' => $this->admin->name,
                 'title' => $this->ticket->title,
-            ], $locale))
-            ->action(__('notifications.view_ticket'), $ticketUrl);
+            ], $this->locale))
+            ->action(__('notifications.view_ticket', [], $this->locale), $ticketUrl);
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray($notifiable): array
     {
         return [
-            'type' => 'reopened',
-            'ticket_id' => $this->ticket->id,
-            'title' => $this->ticket->title,
-            'created_by' => $this->admin->name,
+            'type'        => 'reopened',
+            'ticket_id'   => $this->ticket->id,
+            'title'       => $this->ticket->title,
+            'created_by'  => $this->admin->name,
             'reopened_by' => $this->admin->name,
         ];
     }

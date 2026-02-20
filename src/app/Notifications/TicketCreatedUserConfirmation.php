@@ -14,9 +14,10 @@ class TicketCreatedUserConfirmation extends Notification implements ShouldQueue
 
     protected $ticket;
 
-    public function __construct($ticket)
+    public function __construct($ticket, string $locale = 'es')
     {
         $this->ticket = $ticket;
+        $this->locale = $locale;
     }
 
     public function via(object $notifiable): array
@@ -26,21 +27,19 @@ class TicketCreatedUserConfirmation extends Notification implements ShouldQueue
 
     public function toMail(object $notifiable): MailMessage
     {
-        $locale = $notifiable->locale ?? config('app.locale');
-
-        $ticketUrl = NotificationService::ticketUrl('user', $this->ticket->id, $locale);
+        $ticketUrl = NotificationService::ticketUrl('user', $this->ticket->id, $this->locale);
 
         return (new MailMessage)
-            ->subject(__('notifications.ticket_created_confirmation_subject', ['id' => $this->ticket->id], $locale))
-            ->greeting(__('notifications.ticket_created_confirmation_greeting', ['name' => $notifiable->name], $locale))
-            ->line(__('notifications.ticket_created_confirmation_intro', [], $locale))
+            ->subject(__('notifications.ticket_created_confirmation_subject', ['id' => $this->ticket->id], $this->locale))
+            ->greeting(__('notifications.ticket_created_confirmation_greeting', ['name' => $notifiable->name], $this->locale))
+            ->line(__('notifications.ticket_created_confirmation_intro', [], $this->locale))
             ->line(__('notifications.ticket_created_confirmation_detail', [
                 'id'    => $this->ticket->id,
                 'title' => $this->ticket->title,
-            ], $locale))
-            ->line(__('notifications.ticket_created_confirmation_next', [], $locale))
-            ->action(__('notifications.view_ticket'), $ticketUrl)
-            ->line(__('notifications.ticket_created_confirmation_thanks', [], $locale));
+            ], $this->locale))
+            ->line(__('notifications.ticket_created_confirmation_next', [], $this->locale))
+            ->action(__('notifications.view_ticket', [], $this->locale), $ticketUrl)
+            ->line(__('notifications.ticket_created_confirmation_thanks', [], $this->locale));
     }
 
     public function toArray(object $notifiable): array

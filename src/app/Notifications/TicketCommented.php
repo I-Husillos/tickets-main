@@ -14,10 +14,11 @@ class TicketCommented extends Notification
     protected $ticket;
     protected $comment;
 
-    public function __construct($ticket, $comment)
+    public function __construct($ticket, $comment, string $locale = 'es')
     {
         $this->ticket  = $ticket;
         $this->comment = $comment;
+        $this->locale  = $locale;
     }
 
     public function via(object $notifiable): array
@@ -27,16 +28,15 @@ class TicketCommented extends Notification
 
     public function toMail(object $notifiable): MailMessage
     {
-        $locale    = $notifiable->locale ?? config('app.locale');
-        $ticketUrl = NotificationService::ticketUrl('user', $this->ticket->id, $locale);
+        $ticketUrl = NotificationService::ticketUrl('user', $this->ticket->id, $this->locale);
 
         return (new MailMessage)
-            ->subject(__('notifications.ticket_commented'))
+            ->subject(__('notifications.ticket_commented', [], $this->locale))
             ->line(__('notifications.content_commented', [
                 'author' => $this->comment->author->name,
                 'title'  => $this->ticket->title,
-            ]))
-            ->action(__('notifications.view_ticket'), $ticketUrl);
+            ], $this->locale))
+            ->action(__('notifications.view_ticket', [], $this->locale), $ticketUrl);
     }
 
     public function toArray(object $notifiable): array
@@ -50,3 +50,4 @@ class TicketCommented extends Notification
         ];
     }
 }
+
