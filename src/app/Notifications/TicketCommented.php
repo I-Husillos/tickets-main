@@ -45,6 +45,8 @@ class TicketCommented extends Notification
                 'author' => $this->comment->author->name,
                 'title'  => $this->ticket->title,
             ], $this->notifLocale))
+            ->line(__('notifications.comment_body_label', [], $this->notifLocale))
+            ->line('"' . $this->comment->message . '"')
             ->action(__('notifications.view_ticket', [], $this->notifLocale), $ticketUrl);
     }
 

@@ -9,7 +9,8 @@ return [
 
     // Descriptive content for DB/API
     'content_created' => 'User :user has created a new ticket: ":title"',
-    'content_commented' => ':author has added a comment to ticket ":title"',
+    'content_commented' => ':author has added a comment to ticket ":title":',
+    'comment_body_label' => 'Comment content:',
     'content_status_changed' => ':admin changed the status of ticket ":title" to: :status',
     'content_closed' => ':admin has closed ticket ":title"',
     'content_reopened' => ':admin has reopened ticket ":title"',

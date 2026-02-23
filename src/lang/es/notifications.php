@@ -9,7 +9,8 @@ return [
 
     // Contenido descriptivo para BD/API
     'content_created' => 'El usuario :user ha creado un nuevo ticket: ":title"',
-    'content_commented' => ':author ha añadido un comentario al ticket ":title"',
+    'content_commented' => ':author ha añadido un comentario al ticket ":title":',
+    'comment_body_label' => 'Contenido del comentario:',
     'content_status_changed' => ':admin ha cambiado el estado del ticket ":title" a: :status',
     'content_closed' => ':admin ha cerrado el ticket ":title"',
     'content_reopened' => ':admin ha reabierto el ticket ":title"',

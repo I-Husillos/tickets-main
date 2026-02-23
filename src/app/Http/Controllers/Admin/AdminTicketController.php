@@ -244,7 +244,7 @@ class AdminTicketController extends Controller
             } else {
                 $trimmed = trim($input);
                 if ($trimmed !== '') {
-                    $tag      = Tag::firstOrCreate(['name' => $trimmed]);
+                    $tag = Tag::firstOrCreate(['name' => $trimmed]);
                     $tagIds[] = $tag->id;
                 }
             }
