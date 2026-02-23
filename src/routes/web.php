@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Admin\AdminProjectController;
 use App\Http\Controllers\Admin\AdminTagController;
+use App\Http\Controllers\Admin\AdminKanbanController;
 use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
@@ -39,9 +40,15 @@ Route::middleware(['web', \App\Http\Middleware\LanguageMiddleware::class])
 
 
     $locale = request()->segment(1);
+    $availableLocales = ['es', 'en'];
+    if (!in_array($locale, $availableLocales, true)) {
+        $fallbackLocale = config('app.locale', 'es');
+        $locale = in_array($fallbackLocale, $availableLocales, true) ? $fallbackLocale : 'es';
+    }
+
     App::setLocale($locale);
 
-    $routes = trans('routes'); // Cargar traducciones en el idioma correcto
+    $routes = trans('routes', [], $locale); // Cargar traducciones en el idioma correcto
     
     
     Route::get($routes['home'], [HomeController::class, 'showOptions'])->name('home');
@@ -188,7 +195,6 @@ Route::middleware(['web', \App\Http\Middleware\LanguageMiddleware::class])
         Route::get($routes['admin.my.tickets'], [AdminTicketController::class, 'myTickets'])->name('admin.my.tickets');
         Route::get($routes['admin.my.tickets.create'], [AdminTicketController::class, 'createAdminTicket'])->name('admin.my.tickets.create');
         Route::post($routes['admin.my.tickets.store'], [AdminTicketController::class, 'storeAdminTicket'])->name('admin.my.tickets.store');
-
 
         Route::get($routes['admin.help.index'], [AdminHelpController::class, 'indexHelpAdmin'])->name('admin.help.index');
         Route::get($routes['admin.help.users'], [AdminHelpController::class, 'usersHelpAdmin'])->name('admin.help.users');
