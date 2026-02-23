@@ -43,7 +43,6 @@
                             <tr>
                                 <th>{{ __('general.admin_projects.name') }}</th>
                                 <th>{{ __('general.admin_projects.description') }}</th>
-                                <th>{{ __('general.admin_projects.color') }}</th>
                                 <th>{{ __('general.admin_projects.owner') }}</th>
                                 <th>{{ __('general.admin_projects.tickets_count') }}</th>
                                 <th>{{ __('general.admin_projects.actions') }}</th>
@@ -58,7 +57,6 @@
                                     </span>
                                 </td>
                                 <td>{{ $project->description ?? '-' }}</td>
-                                <td class="text-monospace">{{ $project->color }}</td>
                                 <td>{{ $project->admin->name ?? '-' }}</td>
                                 <td>{{ $project->tickets->count() }}</td>
                                 <td>

@@ -13,12 +13,21 @@ class TicketCommented extends Notification
 
     protected $ticket;
     protected $comment;
+    protected string $notifLocale;
+    protected string $notifGuard;
 
-    public function __construct($ticket, $comment, string $locale = 'es')
+    /**
+     * @param mixed  $ticket
+     * @param mixed  $comment
+     * @param string $locale  Idioma del email ('es'|'en')
+     * @param string $guard   Destinatario: 'user' o 'admin'
+     */
+    public function __construct($ticket, $comment, string $locale = 'es', string $guard = 'user')
     {
-        $this->ticket  = $ticket;
-        $this->comment = $comment;
-        $this->locale  = $locale;
+        $this->ticket      = $ticket;
+        $this->comment     = $comment;
+        $this->notifLocale = $locale;
+        $this->notifGuard  = $guard;
     }
 
     public function via(object $notifiable): array
@@ -28,15 +37,15 @@ class TicketCommented extends Notification
 
     public function toMail(object $notifiable): MailMessage
     {
-        $ticketUrl = NotificationService::ticketUrl('user', $this->ticket->id, $this->locale);
+        $ticketUrl = NotificationService::ticketUrl($this->notifGuard, $this->ticket->id, $this->notifLocale);
 
         return (new MailMessage)
-            ->subject(__('notifications.ticket_commented', [], $this->locale))
+            ->subject(__('notifications.ticket_commented', [], $this->notifLocale))
             ->line(__('notifications.content_commented', [
                 'author' => $this->comment->author->name,
                 'title'  => $this->ticket->title,
-            ], $this->locale))
-            ->action(__('notifications.view_ticket', [], $this->locale), $ticketUrl);
+            ], $this->notifLocale))
+            ->action(__('notifications.view_ticket', [], $this->notifLocale), $ticketUrl);
     }
 
     public function toArray(object $notifiable): array
@@ -50,4 +59,3 @@ class TicketCommented extends Notification
         ];
     }
 }
-

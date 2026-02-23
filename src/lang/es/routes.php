@@ -142,9 +142,6 @@ return [
         'admin.my.tickets.create' => 'administrador/mis-tickets/crear',
         'admin.my.tickets.store' => 'administrador/mis-tickets/guardar',
 
-        // Kanban
-        'admin.kanban' => 'administrador/kanban',
-        'admin.kanban.update_status' => 'administrador/kanban/{ticket}/estado',
 
     ];
 

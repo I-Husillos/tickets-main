@@ -23,7 +23,10 @@ class AdminTicketController extends Controller
     {
         $admins = Admin::all();
         $ticketTypes = Type::all();
-        $projects = Project::all();
+        $admin = Auth::guard('admin')->user();
+        $projects = $admin->superadmin
+            ? Project::all()
+            : Project::where('admin_id', $admin->id)->get();
         $allTags  = Tag::orderBy('name')->get();
 
         return view('admin.tickets.viewtickets', compact('ticket', 'admins', 'ticketTypes', 'projects', 'allTags'));
@@ -77,28 +80,6 @@ class AdminTicketController extends Controller
             'statusColors',
             'priorityColors'
         ));
-    }
-
-
-
-    public function filterTickets(Request $request)
-    {
-        $query = Ticket::query();
-
-        if($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
-
-        if($request->filled('priority')){
-            $query->where('priority', $request->priority);
-        }
-
-        if($request->filled('type')){
-            $query->where('type', $request->type);
-        }
-
-        $tickets = $query->get();
-        return view('admin.managetickets', compact('tickets'));
     }
 
 

@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\App;
 
 class NotificationService
 {
-    /**
-     * Formatea una notificación individual para la API/vista
-     */
     public static function format(DatabaseNotification $notification, string $locale, string $guard): array
     {
         App::setLocale($locale);
@@ -29,9 +26,6 @@ class NotificationService
         ];
     }
 
-    /**
-     * Formatea una colección de notificaciones
-     */
     public static function formatCollection(
         $notifications,
         string $locale = 'es',
@@ -43,15 +37,13 @@ class NotificationService
     }
 
     /**
-     * Genera la URL web correcta hacia un ticket, respetando el locale y
-     * las rutas traducidas del proyecto.
-     *
-     * @param string $guard    'user' | 'admin'
-     * @param int    $ticketId
-     * @param string $locale   'es' | 'en'
+     * Genera la URL web correcta hacia un ticket según guard e idioma.
      */
     public static function ticketUrl(string $guard, int $ticketId, string $locale): string
     {
+        $guard = self::normalizeGuard($guard);
+        $locale = self::normalizeLocale($locale);
+
         $routeKey = $guard === 'admin'
             ? 'admin.view.ticket'
             : 'user.tickets.show';
@@ -60,8 +52,48 @@ class NotificationService
     }
 
     /**
-     * Devuelve el asunto/título traducido según el tipo de notificación
+     * Construye la URL sin usar trans() ni url() para que funcione
+     * correctamente dentro de Jobs en cola Redis donde no hay contexto HTTP.
+     * Usa config('app.url') + mapa explícito de rutas traducidas.
      */
+    private static function buildTranslatedRoute(string $routeKey, int $ticketId, string $locale): string
+    {
+        $base = rtrim(config('app.url'), '/');
+
+        $translatedPath = trans("routes.{$routeKey}", ['ticket' => $ticketId], $locale);
+
+        $fallbackMap = [
+            'user.tickets.show' => "usuario/tickets/{$ticketId}",
+            'admin.view.ticket' => "administrador/tickets/{$ticketId}",
+        ];
+
+        $path = $translatedPath;
+        if ($translatedPath === "routes.{$routeKey}" || str_contains($translatedPath, '{ticket}')) {
+            $path = $fallbackMap[$routeKey] ?? "usuario/tickets/{$ticketId}";
+        }
+
+        $path = ltrim($path, '/');
+
+        return "{$base}/{$locale}/{$path}";
+    }
+
+    public static function normalizeLocale(string $locale): string
+    {
+        $allowedLocales = ['es', 'en'];
+        $defaultLocale = config('app.locale', 'es');
+
+        if (in_array($locale, $allowedLocales, true)) {
+            return $locale;
+        }
+
+        return in_array($defaultLocale, $allowedLocales, true) ? $defaultLocale : 'es';
+    }
+
+    private static function normalizeGuard(string $guard): string
+    {
+        return $guard === 'admin' ? 'admin' : 'user';
+    }
+
     private static function getMessage(string $type, string $locale): string
     {
         $typeMap = [
@@ -82,9 +114,6 @@ class NotificationService
         return trans($messageKey, [], $locale);
     }
 
-    /**
-     * Devuelve el contenido descriptivo interpolado con los datos del ticket
-     */
     private static function getContent(string $type, array $data, string $locale): string
     {
         return match ($type) {
@@ -109,58 +138,13 @@ class NotificationService
         };
     }
 
-    /**
-     * Genera el enlace al ticket según el guard del destinatario
-     */
     private static function generateLink(string $guard, array $data, string $locale): ?string
     {
         $ticketId = $data['ticket_id'] ?? null;
-
-        if (!$ticketId) {
-            return null;
-        }
-
+        if (!$ticketId) return null;
         return self::ticketUrl($guard, (int) $ticketId, $locale);
     }
 
-    /**
-     * Construye la URL al ticket de forma fiable tanto en HTTP como en Jobs de cola.
-     *
-     * No usa trans() ni url() porque dentro de un worker Redis pueden no estar
-     * disponibles. Usa las rutas web traducidas definidas explícitamente aquí
-     * y config('app.url') como base.
-     *
-     * Las rutas deben coincidir con lang/{locale}/routes.php:
-     *   es usuario → /es/usuario/tickets/{id}
-     *   en usuario → /en/user/tickets/{id}
-     *   es admin   → /es/administrador/tickets/{id}
-     *   en admin   → /en/admin/tickets/{id}
-     */
-    private static function buildTranslatedRoute(string $routeKey, int $ticketId, string $locale): string
-    {
-        $base = rtrim(config('app.url'), '/');
-
-        $map = [
-            'es' => [
-                'user.tickets.show' => "usuario/tickets/$ticketId",
-                'admin.view.ticket' => "administrador/tickets/$ticketId",
-            ],
-            'en' => [
-                'user.tickets.show' => "user/tickets/$ticketId",
-                'admin.view.ticket' => "admin/tickets/$ticketId",
-            ],
-        ];
-
-        $path = $map[$locale][$routeKey]
-            ?? $map['es'][$routeKey]
-            ?? "usuario/tickets/$ticketId";
-
-        return "$base/$locale/$path";
-    }
-
-    /**
-     * Traduce el valor de estado al idioma indicado
-     */
     private static function translateStatus(string $status, string $locale): string
     {
         $maps = [
@@ -191,13 +175,9 @@ class NotificationService
             ?? ucfirst($status);
     }
 
-    /**
-     * Formatea una fecha Carbon para su presentación
-     */
     private static function formatDate(Carbon $date, string $locale = 'es'): array
     {
         $date->locale($locale);
-
         return [
             'display'   => $date->format('d/m/Y H:i'),
             'relative'  => $date->diffForHumans(),
@@ -205,9 +185,6 @@ class NotificationService
         ];
     }
 
-    /**
-     * Renderiza el componente Blade de acciones para la notificación
-     */
     private static function generateActions(
         DatabaseNotification $notification,
         string $locale,

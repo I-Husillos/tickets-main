@@ -11,7 +11,7 @@ class Project extends Model
 
     protected $table = 'projects';
 
-    protected $fillable = ['name', 'description', 'color', 'admin_id'];
+    protected $fillable = ['name', 'description', 'admin_id'];
 
     public function tickets()
     {

@@ -16,6 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#edit-user-password').val('');
         $('#edit-user-password-confirmation').val('');
 
+        // Limpiar errores previos
+        const editForm = document.getElementById('edit-user-form');
+        if (editForm) {
+            editForm.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+            editForm.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
+        }
+
         // Mostrar modal
         $('#editUserModal').modal('show');
     });
@@ -46,13 +53,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (!response.ok) {
-                if (response.status === 422) {
-                    // Mostrar errores de validación (simple alert por ahora)
-                    let errorMsg = '';
-                    for (const [key, value] of Object.entries(data.errors)) {
-                        errorMsg += `${value}\n`;
+                if (response.status === 422 && data.errors) {
+                    const form = document.getElementById('edit-user-form');
+                    for (const [field, messages] of Object.entries(data.errors)) {
+                        const input = form.querySelector(`[name="${field}"]`);
+                        if (input) {
+                            input.classList.add('is-invalid');
+                            let feedback = input.nextElementSibling;
+                            if (!feedback || !feedback.classList.contains('invalid-feedback')) {
+                                feedback = document.createElement('div');
+                                feedback.className = 'invalid-feedback';
+                                input.parentNode.appendChild(feedback);
+                            }
+                            feedback.textContent = messages[0];
+                        }
                     }
-                    alert(errorMsg);
                 } else {
                     alert('Error al actualizar: ' + (data.message || 'Desconocido'));
                 }

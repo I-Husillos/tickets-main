@@ -32,7 +32,6 @@ class AdminProjectController extends Controller
         $validated = $request->validate([
             'name'        => 'required|string|max:255',
             'description' => 'nullable|string|max:500',
-            'color'       => 'nullable|string|max:7',
         ]);
 
         $locale = app()->getLocale();
@@ -41,7 +40,6 @@ class AdminProjectController extends Controller
         Project::create([
             'name'        => $validated['name'],
             'description' => $validated['description'] ?? null,
-            'color'       => $validated['color'] ?? '#6c757d',
             'admin_id'    => $admin->id,
         ]);
 
@@ -62,7 +60,6 @@ class AdminProjectController extends Controller
         $validated = $request->validate([
             'name'        => 'required|string|max:255',
             'description' => 'nullable|string|max:500',
-            'color'       => 'nullable|string|max:7',
         ]);
 
         $project->update($validated);
@@ -86,7 +83,7 @@ class AdminProjectController extends Controller
             ->with('success', __('general.admin_projects.deleted'));
     }
 
-    /** Only allow the owner or superadmin to manage a project. */
+    /** Permitir solo al propietario o superadministrador gestionar un proyecto. */
     private function authorizeProject(Project $project): void
     {
         $admin = Auth::guard('admin')->user();

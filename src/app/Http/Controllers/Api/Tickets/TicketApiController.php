@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Tickets;
 
 use App\Http\Controllers\Controller;
+use App\Http\ValidatesLocale;
 use App\Http\Requests\StoreTicketRequest;
 use App\Models\Tag;
 use App\Models\Ticket;
@@ -19,6 +20,8 @@ use Illuminate\Support\Facades\Log;
 
 class TicketApiController extends Controller
 {
+    use ValidatesLocale;
+
     protected $ticketService;
 
     public function __construct(TicketService $ticketService)
@@ -26,9 +29,10 @@ class TicketApiController extends Controller
         $this->ticketService = $ticketService;
     }
 
-    public function close(Ticket $ticket): JsonResponse
+    public function close(Request $request, Ticket $ticket): JsonResponse
     {
         $admin = Auth::guard('api')->user();
+        $locale = $this->getValidatedLocale($request);
 
         if ($ticket->status === 'closed') {
             return response()->json(['message' => 'El ticket ya está cerrado.'], 200);
@@ -39,14 +43,16 @@ class TicketApiController extends Controller
             'closed',
             $admin,
             'Ticket con id ' . $ticket->id . ' con el título ' . $ticket->title . ' cerrado por ' . $admin->name,
+            $locale,
         );
 
         return response()->json(['message' => 'Ticket cerrado correctamente.']);
     }
 
-    public function reopen(Ticket $ticket): JsonResponse
+    public function reopen(Request $request, Ticket $ticket): JsonResponse
     {
         $admin = Auth::guard('api')->user();
+        $locale = $this->getValidatedLocale($request);
 
         if ($ticket->status !== 'closed') {
             return response()->json(['message' => 'Solo se pueden reabrir tickets cerrados.'], 400);
@@ -57,6 +63,7 @@ class TicketApiController extends Controller
             'pending',
             $admin,
             'Ticket con id ' . $ticket->id . ' con el título ' . $ticket->title . ' reabierto por ' . $admin->name,
+            $locale,
         );
 
         return response()->json(['message' => 'Ticket reabierto correctamente.']);
@@ -65,6 +72,7 @@ class TicketApiController extends Controller
     public function updateTicket(UpdateDataTicketRequest $request, Ticket $ticket): JsonResponse
     {
         $admin = Auth::guard('api')->user();
+        $locale = $this->getValidatedLocale($request);
 
         Log::info('Petición de actualización recibida', [
             'admin_id' => $admin?->id,
@@ -126,11 +134,11 @@ class TicketApiController extends Controller
         // Notification Logic
         if ($oldStatus !== $newStatus) {
             if ($newStatus === 'closed') {
-                SendNotifications::dispatch($ticket->id, 'closed', $admin, app()->getLocale());
+                SendNotifications::dispatch($ticket->id, 'closed', $admin, $locale);
             } elseif (($oldStatus === 'closed' || $oldStatus === 'resolved') && ($newStatus === 'pending' || $newStatus === 'in_progress')) {
-                SendNotifications::dispatch($ticket->id, 'reopened', $admin, app()->getLocale());
+                SendNotifications::dispatch($ticket->id, 'reopened', $admin, $locale);
             } else {
-                SendNotifications::dispatch($ticket->id, 'status_changed', $admin, app()->getLocale());
+                SendNotifications::dispatch($ticket->id, 'status_changed', $admin, $locale);
             }
         }
 
@@ -175,6 +183,7 @@ class TicketApiController extends Controller
     public function storeTicket(StoreTicketRequest $request): JsonResponse
     {
         $user = Auth::guard('api_user')->user();
+        $locale = $this->getValidatedLocale($request);
 
         $data = $request->validated();
         $data['user_id'] = $user->id;
@@ -187,7 +196,7 @@ class TicketApiController extends Controller
             'user' => $user->name,
         ]);
 
-        SendNotifications::dispatch($ticket->id, 'created', null, app()->getLocale());
+        SendNotifications::dispatch($ticket->id, 'created', null, $locale);
 
         return response()->json([
             'success' => true,

@@ -21,7 +21,6 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Admin\AdminProjectController;
 use App\Http\Controllers\Admin\AdminTagController;
-use App\Http\Controllers\Admin\AdminKanbanController;
 use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
@@ -190,9 +189,6 @@ Route::middleware(['web', \App\Http\Middleware\LanguageMiddleware::class])
         Route::get($routes['admin.my.tickets.create'], [AdminTicketController::class, 'createAdminTicket'])->name('admin.my.tickets.create');
         Route::post($routes['admin.my.tickets.store'], [AdminTicketController::class, 'storeAdminTicket'])->name('admin.my.tickets.store');
 
-        // Kanban
-        Route::get($routes['admin.kanban'], [AdminKanbanController::class, 'index'])->name('admin.kanban');
-        Route::patch($routes['admin.kanban.update_status'], [AdminKanbanController::class, 'updateStatus'])->name('admin.kanban.update-status');
 
         Route::get($routes['admin.help.index'], [AdminHelpController::class, 'indexHelpAdmin'])->name('admin.help.index');
         Route::get($routes['admin.help.users'], [AdminHelpController::class, 'usersHelpAdmin'])->name('admin.help.users');

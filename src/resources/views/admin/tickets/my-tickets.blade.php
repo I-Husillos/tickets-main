@@ -31,7 +31,7 @@
                        class="btn btn-light text-dark mr-2">
                         <i class="fas fa-plus"></i> {{ __('general.admin_own_tickets.new_ticket') }}
                     </a>
-                    <a href="{{ route('admin.kanban', ['locale' => app()->getLocale()]) }}"
+                    <a href="{{ route('admin.manage.tickets', ['locale' => app()->getLocale()]) }}"
                        class="btn btn-light text-dark">
                         <i class="fas fa-th-large"></i> {{ __('general.admin_own_tickets.view_kanban') }}
                     </a>

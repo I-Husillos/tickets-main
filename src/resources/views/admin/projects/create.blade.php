@@ -49,17 +49,6 @@
                            value="{{ old('description') }}">
                 </div>
 
-                <div class="form-group">
-                    <label for="color">{{ __('general.admin_projects.color') }}</label>
-                    <div class="input-group col-sm-4 pl-0">
-                        <input type="color" name="color" id="color"
-                               class="form-control form-control-color"
-                               value="{{ old('color', '#6c757d') }}">
-                        <input type="text" id="color_hex" class="form-control"
-                               value="{{ old('color', '#6c757d') }}" readonly>
-                    </div>
-                </div>
-
                 <button type="submit" class="btn btn-success">
                     <i class="fas fa-save"></i> {{ __('general.admin_projects.save') }}
                 </button>

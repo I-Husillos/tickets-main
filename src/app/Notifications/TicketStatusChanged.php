@@ -13,42 +13,63 @@ class TicketStatusChanged extends Notification
 
     protected $ticket;
     protected $admin;
+    protected string $notifLocale;
+    protected string $notifGuard;
 
-    public function __construct($ticket, $admin, string $locale = 'es')
+    /**
+     * Create a new notification instance.
+     */
+    public function __construct($ticket, $admin, string $locale = 'es', string $guard = 'user')
     {
-        $this->ticket = $ticket;
-        $this->admin  = $admin;
-        $this->locale = $locale;
+        $this->ticket      = $ticket;
+        $this->admin       = $admin;
+        $this->notifLocale = $locale;
+        $this->notifGuard  = $guard;
     }
 
+    /**
+     * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
+     */
     public function via(object $notifiable): array
     {
         return ['mail', 'database'];
     }
 
+    /**
+     * Get the mail representation of the notification.
+     */
     public function toMail(object $notifiable): MailMessage
     {
-        $ticketUrl = NotificationService::ticketUrl('user', $this->ticket->id, $this->locale);
+        $locale    = $this->notifLocale;
+        $ticketUrl = NotificationService::ticketUrl($this->notifGuard, $this->ticket->id, $locale);
 
         return (new MailMessage)
-            ->subject(__('notifications.ticket_status_changed', [], $this->locale))
+            ->subject(__('notifications.ticket_status_changed', [], $locale))
             ->line(__('notifications.content_status_changed', [
-                'admin'  => $this->admin->name,
-                'title'  => $this->ticket->title,
+                'admin' => $this->admin->name,
+                'title' => $this->ticket->title,
                 'status' => $this->ticket->status,
-            ], $this->locale))
-            ->action(__('notifications.view_ticket', [], $this->locale), $ticketUrl);
+            ], $locale))
+            ->action(__('notifications.view_ticket', [], $locale), $ticketUrl);
     }
 
+    /**
+     * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
+     */
     public function toArray(object $notifiable): array
     {
         return [
-            'type'       => 'status',
-            'ticket_id'  => $this->ticket->id,
-            'title'      => $this->ticket->title,
-            'priority'   => $this->ticket->priority,
-            'status'     => $this->ticket->status,
+            'type' => 'status',
+            'ticket_id' => $this->ticket->id,
+            'title' => $this->ticket->title,
+            'priority' => $this->ticket->priority,
+            'status' => $this->ticket->status,
             'updated_by' => $this->admin,
         ];
     }
 }
+

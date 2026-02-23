@@ -15,6 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#edit-admin-password').val('');
         $('#edit-admin-password-confirmation').val('');
 
+        // Limpiar errores previos
+        const editForm = document.getElementById('edit-admin-form');
+        if (editForm) {
+            editForm.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+            editForm.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
+        }
+
         $('#edit-admin-form').attr('data-admin-id', adminId);
         $('#editAdminModal').modal('show');
     });
@@ -72,6 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData(form);
             formData.append('_method', 'PUT');
 
+            // Limpiar errores previos
+            form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+            form.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
+
             try {
                 const response = await fetch(`/api/admin/admins/${adminId}`, {
                     method: 'POST',
@@ -85,14 +96,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 const result = await response.json();
 
                 if (!response.ok) {
-                    console.error('Errores de validación:', result.errors || result);
-                    throw result;
+                    if (response.status === 422 && result.errors) {
+                        for (const [field, messages] of Object.entries(result.errors)) {
+                            const input = form.querySelector(`[name="${field}"]`);
+                            if (input) {
+                                input.classList.add('is-invalid');
+                                let feedback = input.nextElementSibling;
+                                if (!feedback || !feedback.classList.contains('invalid-feedback')) {
+                                    feedback = document.createElement('div');
+                                    feedback.className = 'invalid-feedback';
+                                    input.parentNode.appendChild(feedback);
+                                }
+                                feedback.textContent = messages[0];
+                            }
+                        }
+                    } else {
+                        alert(result.message || 'No se pudo actualizar el administrador');
+                    }
+                    return;
                 }
 
                 $('#editAdminModal').modal('hide');
                 alert(result.message || 'Administrador actualizado correctamente');
 
-                // FIX: Selector de tabla correcto
                 if ($.fn.DataTable.isDataTable('#tabla-admins')) {
                     $('#tabla-admins').DataTable().ajax.reload(null, false);
                 }

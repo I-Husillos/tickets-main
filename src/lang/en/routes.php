@@ -135,9 +135,6 @@ return [
         'admin.my.tickets.create' => 'admin/my-tickets/create',
         'admin.my.tickets.store' => 'admin/my-tickets/store',
 
-        // Kanban
-        'admin.kanban' => 'admin/kanban',
-        'admin.kanban.update_status' => 'admin/kanban/{ticket}/status',
 
 ];
 

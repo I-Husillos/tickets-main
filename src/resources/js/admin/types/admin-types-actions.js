@@ -12,6 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
         $('#edit-type-id').val(id);
         $('#edit-type-name').val(name);
         $('#edit-type-description').val(description);
+
+        // Limpiar errores previos
+        const editForm = document.getElementById('edit-type-form');
+        if (editForm) {
+            editForm.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+            editForm.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
+        }
+
         $('#editTypeModal').modal('show');
     });
 
@@ -21,6 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = $('#edit-type-id').val();
         const formData = new FormData(this);
         formData.append('_method', 'PUT');
+        const form = this;
+
+        // Limpiar errores previos
+        form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+        form.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
 
         try {
             const response = await fetch(`/api/admin/types/${id}`, {
@@ -33,7 +46,27 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const result = await response.json();
-            if (!response.ok) throw result;
+
+            if (!response.ok) {
+                if (response.status === 422 && result.errors) {
+                    for (const [field, messages] of Object.entries(result.errors)) {
+                        const input = form.querySelector(`[name="${field}"]`);
+                        if (input) {
+                            input.classList.add('is-invalid');
+                            let feedback = input.nextElementSibling;
+                            if (!feedback || !feedback.classList.contains('invalid-feedback')) {
+                                feedback = document.createElement('div');
+                                feedback.className = 'invalid-feedback';
+                                input.parentNode.appendChild(feedback);
+                            }
+                            feedback.textContent = messages[0];
+                        }
+                    }
+                } else {
+                    alert(result.message || 'No se pudo actualizar el tipo');
+                }
+                return;
+            }
 
             $('#editTypeModal').modal('hide');
             $('#tabla-types').DataTable().ajax.reload(null, false);
