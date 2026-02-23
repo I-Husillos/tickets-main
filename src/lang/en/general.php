@@ -11,7 +11,15 @@ return [
         'high'     => 'High',
         'critical' => 'Critical',
     ],
-    
+
+    'statuses' => [
+        'new'         => 'New',
+        'pending'     => 'Pending',
+        'in_progress' => 'In Progress',
+        'resolved'    => 'Resolved',
+        'closed'      => 'Closed',
+    ],
+
     'admin_sidebar' => [
         'app_title'            => 'Management Tickets',
         'title_admin_panel'    => 'Admin Panel',
