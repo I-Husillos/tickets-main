@@ -51,10 +51,10 @@ jobs:
             /opt/plesk/php/8.4/bin/php artisan optimize
             /opt/plesk/php/8.4/bin/php artisan view:cache
             /opt/plesk/php/8.4/bin/php artisan event:cache
-            # /opt/plesk/php/8.4/bin/php artisan route:clear
-            # /opt/plesk/php/8.4/bin/php artisan view:clear
-            # /opt/plesk/php/8.4/bin/php artisan cache:clear
-            # /opt/plesk/php/8.4/bin/php artisan clear:config
+            /opt/plesk/php/8.4/bin/php artisan route:clear
+            /opt/plesk/php/8.4/bin/php artisan view:clear
+            /opt/plesk/php/8.4/bin/php artisan cache:clear
+            /opt/plesk/php/8.4/bin/php artisan clear:config
             
             # Permisos de directorios
             chown -R tickets_ftpusr:psacln .
