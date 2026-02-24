@@ -54,6 +54,7 @@ import { initAdminCommentsTable } from './tables/admin-comments';
 import { initUserTicketsTable } from './tables/user-tickets-table';
 import { initUserNotificationsTable } from './tables/user-notifications-table.js';
 import { initAdminNotificationsTable } from './tables/admin-notifications-table.js';
+import { initKanbanDrag } from './admin/tickets/kanban-drag.js';
 
 import { initTicketActionButtons } from './tickets/events.js';
 import { initViewToggle } from './admin/tickets/view-toggle.js';
@@ -105,6 +106,7 @@ const tablasDataTables = [
 // --- Inicialización automática de DataTables cuando el DOM esté listo ---
 document.addEventListener('DOMContentLoaded', () => {
     initViewToggle();
+    initKanbanDrag();
 
     tablasDataTables.forEach(({ id, fn }) => {
         const tabla = document.getElementById(id);

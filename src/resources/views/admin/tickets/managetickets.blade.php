@@ -24,7 +24,6 @@ $breadcrumbs = [
         </div>
     </div>
 
-    <!-- Card contenedora -->
     <div class="card">
         <div class="card-header bg-warning text-white">
             <h3 class="card-title m-0">
@@ -34,97 +33,95 @@ $breadcrumbs = [
         </div>
 
         <div class="card-body">
+
             {{-- ===== VISTA TABLA ===== --}}
             <div id="view-section-table">
 
-            <!-- Resumen de Tickets -->
-            <div class="row mb-4">
-                <div class="col-md-6 col-sm-6 col-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-warning">
-                            <i class="fas fa-ticket-alt"></i>
-                        </span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">{{ __('general.admin_dashboard.total_tickets') }}</span>
-                            <span class="info-box-number">{{ $totalTickets }}</span>
+                <div class="row mb-4">
+                    <div class="col-md-6 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-warning"><i class="fas fa-ticket-alt"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">{{ __('general.admin_dashboard.total_tickets') }}</span>
+                                <span class="info-box-number">{{ $totalTickets }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success"><i class="fas fa-ticket-alt"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">{{ __('general.admin_dashboard.resolved_tickets') }}</span>
+                                <span class="info-box-number">{{ $resolvedTickets }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6 col-sm-6 col-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-success">
-                            <i class="fas fa-ticket-alt"></i>
-                        </span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">{{ __('general.admin_dashboard.resolved_tickets') }}</span>
-                            <span class="info-box-number">{{ $resolvedTickets }}</span>
-                        </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 col-sm-6 mb-2">
+                        <select id="filter-status" class="form-control">
+                            <option value="">{{ __('general.admin_ticket_manage.status_filter') }}: {{ __('general.all') }}</option>
+                            <option value="new">{{ __('general.statuses.new') }}</option>
+                            <option value="pending">{{ __('general.statuses.pending') }}</option>
+                            <option value="in_progress">{{ __('general.statuses.in_progress') }}</option>
+                            <option value="resolved">{{ __('general.statuses.resolved') }}</option>
+                            <option value="closed">{{ __('general.statuses.closed') }}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-2">
+                        <select id="filter-priority" class="form-control">
+                            <option value="">{{ __('general.admin_ticket_manage.priority_filter') }}: {{ __('general.all') }}</option>
+                            <option value="low">{{ __('general.priorities.low') }}</option>
+                            <option value="medium">{{ __('general.priorities.medium') }}</option>
+                            <option value="high">{{ __('general.priorities.high') }}</option>
+                            <option value="critical">{{ __('general.priorities.critical') }}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-2">
+                        <select id="filter-type" class="form-control">
+                            <option value="">{{ __('general.admin_types.page_title') }}: {{ __('general.all') }}</option>
+                            @foreach($types as $type)
+                                <option value="{{ $type->name }}">{{ $type->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-2">
+                        <button id="clear-filters" class="btn btn-secondary btn-block">
+                            <i class="fas fa-times"></i> {{ __('general.reset_filters') }}
+                        </button>
                     </div>
                 </div>
-            </div>
 
-
-            <!-- Tabla de tickets -->
-            <div class="row mb-3">
-                <div class="col-md-3 col-sm-6 mb-2">
-                    <select id="filter-status" class="form-control">
-                        <option value="">{{ __('general.admin_ticket_manage.status_filter') }}: {{ __('general.all') }}</option>
-                        <option value="new">{{ __('general.statuses.new') }}</option>
-                        <option value="pending">{{ __('general.statuses.pending') }}</option>
-                        <option value="in_progress">{{ __('general.statuses.in_progress') }}</option>
-                        <option value="resolved">{{ __('general.statuses.resolved') }}</option>
-                        <option value="closed">{{ __('general.statuses.closed') }}</option>
-                    </select>
+                <div class="table-responsive">
+                    <table id="tabla-tickets"
+                        class="table table-hover table-striped table-bordered mb-0 text-center dt-responsive"
+                        data-api-url="{{ url('/api/admin/tickets') }}"
+                        data-locale="{{ app()->getLocale() }}">
+                        <thead class="text-center bg-white font-weight-bold">
+                            <tr>
+                                <th class="align-middle text-left">{{ __('Título') }}</th>
+                                <th class="align-middle text-left">{{ __('Descripción') }}</th>
+                                <th class="align-middle">{{ __('Estado') }}</th>
+                                <th class="align-middle">{{ __('Prioridad') }}</th>
+                                <th class="align-middle">{{ __('Tipo') }}</th>
+                                <th class="align-middle">{{ __('Comentarios') }}</th>
+                                <th class="align-middle">{{ __('Asignado a') }}</th>
+                                <th class="align-middle">{{ __('Acciones') }}</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
-                <div class="col-md-3 col-sm-6 mb-2">
-                    <select id="filter-priority" class="form-control">
-                        <option value="">{{ __('general.admin_ticket_manage.priority_filter') }}: {{ __('general.all') }}</option>
-                        <option value="low">{{ __('general.priorities.low') }}</option>
-                        <option value="medium">{{ __('general.priorities.medium') }}</option>
-                        <option value="high">{{ __('general.priorities.high') }}</option>
-                        <option value="critical">{{ __('general.priorities.critical') }}</option>
-                    </select>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-2">
-                    <select id="filter-type" class="form-control">
-                        <option value="">{{ __('general.admin_types.page_title') }}: {{ __('general.all') }}</option>
-                        @foreach($types as $type)
-                            <option value="{{ $type->name }}">{{ $type->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-2">
-                    <button id="clear-filters" class="btn btn-secondary btn-block">
-                        <i class="fas fa-times"></i> {{ __('general.reset_filters') }}
-                    </button>
-                </div>
-            </div>
-
-            <div class="table-responsive">
-                <table id="tabla-tickets"
-                    class="table table-hover table-striped table-bordered mb-0 text-center dt-responsive"
-                    data-api-url="{{ url('/api/admin/tickets') }}"
-                    data-locale="{{ app()->getLocale() }}">
-                    <thead class="text-center bg-white font-weight-bold">
-                        <tr>
-                            <th class="align-middle text-left">{{ __('Título') }}</th>
-                            <th class="align-middle text-left">{{ __('Descripción') }}</th>
-                            <th class="align-middle">{{ __('Estado') }}</th>
-                            <th class="align-middle">{{ __('Prioridad') }}</th>
-                            <th class="align-middle">{{ __('Tipo') }}</th>
-                            <th class="align-middle">{{ __('Comentarios') }}</th>
-                            <th class="align-middle">{{ __('Asignado a') }}</th>
-                            <th class="align-middle">{{ __('Acciones') }}</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
 
             </div>{{-- /view-section-table --}}
 
             {{-- ===== VISTA KANBAN ===== --}}
-            <div id="view-section-kanban" style="display:none;">
+            <div id="view-section-kanban"
+                 style="display:none;"
+                 data-update-url="{{ route('admin.kanban', ['locale' => app()->getLocale()]) }}"
+                 data-update-suffix="{{ app()->getLocale() === 'es' ? 'estado' : 'status' }}"
+                 data-error-msg="{{ __('general.admin_kanban.update_error') }}">
+
                 <div class="row flex-nowrap overflow-auto pb-3">
                     @foreach($statuses as $status)
                     @php $columnTickets = $kanbanTickets[$status] ?? collect(); @endphp
@@ -134,13 +131,17 @@ $breadcrumbs = [
                             <div class="card-header bg-{{ $statusColors[$status] }} {{ in_array($status, ['new', 'in_progress']) ? 'text-dark' : 'text-white' }} py-2">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <strong>{{ __('general.' . $status) }}</strong>
-                                    <span class="badge badge-light text-dark">{{ $columnTickets->count() }}</span>
+                                    <span class="badge badge-light text-dark kanban-count">{{ $columnTickets->count() }}</span>
                                 </div>
                             </div>
 
-                            <div class="card-body p-2 kanban-column-body">
+                            <div class="card-body p-2 kanban-column-body" data-status="{{ $status }}">
                                 @forelse($columnTickets as $ticket)
-                                <div class="card mb-2 shadow-sm">
+
+                                <div class="card mb-2 shadow-sm kanban-card"
+                                     draggable="true"
+                                     data-ticket-id="{{ $ticket->id }}"
+                                     data-status="{{ $status }}">
                                     <div class="card-body p-2">
 
                                         <div class="d-flex justify-content-between align-items-start mb-1">
@@ -181,8 +182,9 @@ $breadcrumbs = [
 
                                     </div>
                                 </div>
+
                                 @empty
-                                <p class="text-muted text-center small py-3">—</p>
+                                <p class="text-muted text-center small py-3 kanban-empty">—</p>
                                 @endforelse
                             </div>
                         </div>
