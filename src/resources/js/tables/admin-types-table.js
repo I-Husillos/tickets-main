@@ -6,6 +6,13 @@ export function initAdminTypesTable(apiUrl, token) {
     $('#tabla-types').DataTable({
         processing: true,
         serverSide: true,
+        responsive: {
+            details: {
+                type: 'inline',
+                target: 'tr'
+            }
+        },
+        autoWidth: false,
         ajax: {
             url: apiUrl,
             type: 'GET',
@@ -13,7 +20,6 @@ export function initAdminTypesTable(apiUrl, token) {
             data: function(d) {
                 d.locale = locale;
             },
-            resposive: true,
             beforeSend: function (xhr) {
                 if (token) {
                     xhr.setRequestHeader('Authorization', 'Bearer ' + token);
@@ -26,8 +32,13 @@ export function initAdminTypesTable(apiUrl, token) {
         },
         columns: [
             { data: 'name', className: 'text-center align-middle', orderable: true },
-            { data: 'description', className: 'text-center align-middle', orderable: true },
+            { data: 'description', className: 'align-middle text-wrap', orderable: true },
             { data: 'actions', orderable: false, searchable: false, className: 'text-center align-middle' },
-        ]
+        ],
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: 1 },
+            { responsivePriority: 100, targets: 2 },
+        ],
     });
 }

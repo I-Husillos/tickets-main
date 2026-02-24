@@ -48,15 +48,15 @@
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table id="tabla-usuarios"
-                    class="table table-hover table-striped table-bordered mb-0 dt-responsive nowrap" 
+                    class="table table-hover table-striped table-bordered mb-0 dt-responsive" 
                     data-api-url="{{ url('/api/admin/users') }}"
                     data-locale="{{ app()->getLocale() }}">
 
                     <thead class="text-center bg-white font-weight-bold">
                         <tr>
-                            <th>{{ __('general.admin_users.table_name') }}</th>
-                            <th>{{ __('general.admin_users.table_email') }}</th>
-                            <th>{{ __('general.admin_users.table_actions') }}</th>
+                            <th class="align-middle">{{ __('general.admin_users.table_name') }}</th>
+                            <th class="align-middle">{{ __('general.admin_users.table_email') }}</th>
+                            <th class="align-middle">{{ __('general.admin_users.table_actions') }}</th>
                         </tr>
                     </thead>
                 </table>

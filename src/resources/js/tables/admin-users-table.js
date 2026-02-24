@@ -6,6 +6,13 @@ export function initAdminUsersTable(apiUrl, token) {
     $('#tabla-usuarios').DataTable({
         processing: true,
         serverSide: true,
+        responsive: {
+            details: {
+                type: 'inline',
+                target: 'tr'
+            }
+        },
+        autoWidth: false,
         ajax: {
             url: apiUrl,
             type: 'GET',
@@ -15,7 +22,6 @@ export function initAdminUsersTable(apiUrl, token) {
                 d.name = $('#filter-name').val();
                 d.email = $('#filter-email').val();
             },
-            responsive: true,
             beforeSend: function (xhr) {
                 if (token) {
                     xhr.setRequestHeader('Authorization', 'Bearer ' + token);
@@ -35,7 +41,12 @@ export function initAdminUsersTable(apiUrl, token) {
                 searchable: false, 
                 className: 'text-center align-middle' 
             },
-        ]
+        ],
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: 1 },
+            { responsivePriority: 100, targets: 2 },
+        ],
     });
 
     $('#filter-name, #filter-email').on('change', function() {

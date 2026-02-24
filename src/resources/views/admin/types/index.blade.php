@@ -34,19 +34,21 @@
             </div>
         </div>
 
-        <div class="card-body">
-            <table id="tabla-types"
-                class="table table-hover table-bordered text-center align-middle dt-responsive nowrap"
-                data-api-url="{{ url('/api/admin/types') }}"
-                data-locale="{{ app()->getLocale() }}">
-                <thead class="text-center bg-white font-weight-bold">
-                    <tr>
-                        <th>{{ __('general.admin_types.name') }}</th>
-                        <th>{{ __('general.admin_types.description') }}</th>
-                        <th>{{ __('general.admin_types.actions') }}</th>
-                    </tr>
-                </thead>
-            </table>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table id="tabla-types"
+                    class="table table-hover table-striped table-bordered mb-0 text-center align-middle dt-responsive"
+                    data-api-url="{{ url('/api/admin/types') }}"
+                    data-locale="{{ app()->getLocale() }}">
+                    <thead class="text-center bg-white font-weight-bold">
+                        <tr>
+                            <th class="align-middle">{{ __('general.admin_types.name') }}</th>
+                            <th class="align-middle text-left">{{ __('general.admin_types.description') }}</th>
+                            <th class="align-middle">{{ __('general.admin_types.actions') }}</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div> <!-- /.card-body -->
     </div> <!-- /.card -->
 
