@@ -55,7 +55,6 @@ jobs:
             /opt/plesk/php/8.4/bin/php artisan view:clear
             /opt/plesk/php/8.4/bin/php artisan cache:clear
 
-            /opt/plesk/php/8.4/bin/php artisan queue:work redis --queue=notifications
             
             # Permisos de directorios
             chown -R tickets_ftpusr:psacln .
