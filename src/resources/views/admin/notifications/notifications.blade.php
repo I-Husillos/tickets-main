@@ -44,15 +44,15 @@
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table id="tabla-notificaciones-admin"
-                    class="table table-hover table-striped table-bordered mb-0 dt-responsive nowrap"
+                    class="table table-hover table-striped table-bordered mb-0 dt-responsive"
                     data-api-url="{{ url('/api/admin/notifications') }}"
                     data-locale="{{ app()->getLocale() }}">
                     <thead class="text-center bg-white font-weight-bold">
                         <tr>
-                            <th>{{ __('Tipo') }}</th>
-                            <th>{{ __('Contenido') }}</th>
-                            <th>{{ __('Fecha') }}</th>
-                            <th>{{ __('Acciones') }}</th>
+                            <th class="align-middle">{{ __('Tipo') }}</th>
+                            <th class="align-middle text-left">{{ __('Contenido') }}</th>
+                            <th class="align-middle">{{ __('Fecha') }}</th>
+                            <th class="align-middle">{{ __('Acciones') }}</th>
                         </tr>
                     </thead>
                 </table>
