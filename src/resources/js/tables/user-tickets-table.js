@@ -6,6 +6,14 @@ export function initUserTicketsTable(apiUrl, token) {
     $('#tabla-tickets-usuario').DataTable({
         processing: true,
         serverSide: true,
+        responsive: {
+            details: {
+                type: 'inline',
+                target: 'tr'
+            }
+        },
+        autoWidth: false,
+        order: [[4, 'desc']],
         ajax: {
             url: apiUrl,
             type: 'GET',
@@ -25,13 +33,21 @@ export function initUserTicketsTable(apiUrl, token) {
             }
         },
         columns: [
-            { data: 'title', className: 'text-center align-middle', orderable: true  },
+            { data: 'title', className: 'align-middle text-wrap', orderable: true  },
             { data: 'status', className: 'text-center align-middle', orderable: true  },
             { data: 'priority', className: 'text-center align-middle', orderable: true  },
             { data: 'comments', className: 'text-center align-middle', orderable: true  },
             { data: 'date', className: 'text-center align-middle', orderable: true  },
             { data: 'actions', orderable: false, searchable: false, className: 'text-center align-middle' },
-        ]
+        ],
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: 1 },
+            { responsivePriority: 3, targets: 2 },
+            { responsivePriority: 4, targets: 4 },
+            { responsivePriority: 100, targets: 5 },
+            { responsivePriority: 101, targets: 3 },
+        ],
     });
 
     $('#filter-status, #filter-priority, #filter-type').on('change', function() {

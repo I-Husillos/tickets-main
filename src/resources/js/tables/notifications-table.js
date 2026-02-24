@@ -29,12 +29,20 @@ export class NotificationsTable {
         this.dataTable = $(this.tableElement).DataTable({
             processing: true,
             serverSide: true,
+            responsive: {
+                details: {
+                    type: 'inline',
+                    target: 'tr'
+                }
+            },
+            autoWidth: false,
+            order: [[2, 'desc']],
             ajax: (request, callback, settings) => {
                 this.fetchData(request, callback);
             },
             columns: [
                 { data: 'type', className: 'text-center align-middle' },
-                { data: 'content', className: 'align-middle' },
+                { data: 'content', className: 'align-middle text-wrap' },
                 { data: 'created_at', className: 'text-center align-middle' },
                 { 
                     data: null, 
@@ -43,6 +51,12 @@ export class NotificationsTable {
                     className: 'text-center align-middle',
                     render: (data, type, row) => this.renderActions(row)
                 },
+            ],
+            columnDefs: [
+                { responsivePriority: 1, targets: 1 },
+                { responsivePriority: 2, targets: 0 },
+                { responsivePriority: 3, targets: 2 },
+                { responsivePriority: 100, targets: 3 },
             ],
             language: this.getDataTablesLanguage(),
             dom: 'lBfrtip',

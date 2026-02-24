@@ -182,15 +182,15 @@
                             <div class="table-responsive">
                                 <table 
                                     id="tabla-comentarios"
-                                    class="table table-hover table-striped table-bordered dt-responsive nowrap"
+                                    class="table table-hover table-striped table-bordered dt-responsive"
                                     data-api-url="{{ url('/api/admin/tickets/' . $ticket->id . '/comments') }}"
                                     data-locale="{{ app()->getLocale() }}">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>{{ __('general.admin_ticket_details.author') }}</th>
-                                            <th>{{ __('general.admin_ticket_details.message') }}</th>
-                                            <th>{{ __('general.admin_ticket_details.date') }}</th>
-                                            <th>{{ __('general.admin_ticket_details.actions') }}</th>
+                                            <th class="align-middle">{{ __('general.admin_ticket_details.author') }}</th>
+                                            <th class="align-middle text-left">{{ __('general.admin_ticket_details.message') }}</th>
+                                            <th class="align-middle">{{ __('general.admin_ticket_details.date') }}</th>
+                                            <th class="align-middle">{{ __('general.admin_ticket_details.actions') }}</th>
                                         </tr>
                                     </thead>
                                 </table>

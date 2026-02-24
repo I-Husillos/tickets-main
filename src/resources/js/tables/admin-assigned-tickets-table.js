@@ -6,6 +6,14 @@ export function initAssignedTicketsTable(apiUrl, token) {
     $('#tabla-tickets-asignados').DataTable({
         processing: true,
         serverSide: true,
+        responsive: {
+            details: {
+                type: 'inline',
+                target: 'tr'
+            }
+        },
+        autoWidth: false,
+        order: [[0, 'desc']],
         ajax: {
             url: apiUrl,
             type: 'GET',
@@ -16,7 +24,6 @@ export function initAssignedTicketsTable(apiUrl, token) {
                 d.priority = $('#filter-priority-asignados').val();
                 d.type = $('#filter-type-asignados').val();
             },
-            responsive: true,
             beforeSend: function (xhr) {
                 if (token) {
                     xhr.setRequestHeader('Authorization', 'Bearer ' + token);
@@ -29,14 +36,24 @@ export function initAssignedTicketsTable(apiUrl, token) {
         },
         columns: [
             { data: 'id', className: 'text-center align-middle' },
-            { data: 'title', className: 'text-center align-middle' },
-            { data: 'description', className: 'text-center align-middle' },
+            { data: 'title', className: 'align-middle text-wrap' },
+            { data: 'description', className: 'align-middle text-wrap' },
             { data: 'status', className: 'text-center align-middle' },
             { data: 'priority', className: 'text-center align-middle' },
             { data: 'type', className: 'text-center align-middle' },
             { data: 'comments', className: 'text-center align-middle' },
             { data: 'actions', orderable: false, searchable: false, className: 'text-center align-middle' }
-        ]
+        ],
+        columnDefs: [
+            { responsivePriority: 1, targets: 1 },
+            { responsivePriority: 2, targets: 3 },
+            { responsivePriority: 3, targets: 4 },
+            { responsivePriority: 4, targets: 5 },
+            { responsivePriority: 100, targets: 7 },
+            { responsivePriority: 101, targets: 2 },
+            { responsivePriority: 102, targets: 6 },
+            { responsivePriority: 103, targets: 0 },
+        ],
     });
 
     $('#filter-status-asignados, #filter-priority-asignados, #filter-type-asignados').on('change', function() {

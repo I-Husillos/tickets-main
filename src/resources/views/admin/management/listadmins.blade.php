@@ -49,14 +49,14 @@
         <div class="card-body">
             <div class="table-responsive">
                 <table id="tabla-admins"
-                    class="table table-hover table-striped table-bordered mb-0 dt-responsive nowrap"
+                    class="table table-hover table-striped table-bordered mb-0 dt-responsive"
                     data-api-url="{{ url('/api/admin/admins') }}"
                     data-locale="{{ app()->getLocale() }}">
                     <thead class="text-center bg-white font-weight-bold">
                         <tr>
-                            <th>{{ __('general.admin_admins.table_name') }}</th>
-                            <th>{{ __('general.admin_admins.table_email') }}</th>
-                            <th>{{ __('general.admin_admins.table_actions') }}</th>
+                            <th class="align-middle">{{ __('general.admin_admins.table_name') }}</th>
+                            <th class="align-middle">{{ __('general.admin_admins.table_email') }}</th>
+                            <th class="align-middle">{{ __('general.admin_admins.table_actions') }}</th>
                         </tr>
                     </thead>
                 </table>

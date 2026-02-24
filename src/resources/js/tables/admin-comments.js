@@ -18,6 +18,14 @@ export function initAdminCommentsTable(apiUrl, token) {
     tabla.DataTable({
         processing: true,
         serverSide: true,
+        responsive: {
+            details: {
+                type: 'inline',
+                target: 'tr'
+            }
+        },
+        autoWidth: false,
+        order: [[2, 'desc']],
         ajax: {
             url: apiUrl,
             type: 'GET',
@@ -25,7 +33,6 @@ export function initAdminCommentsTable(apiUrl, token) {
             data: {
                 locale: locale
             },
-            responsive: true,
             beforeSend: function(xhr) {
                 if(token) {
                     xhr.setRequestHeader('Authorization', 'Bearer ' + token);
@@ -37,11 +44,17 @@ export function initAdminCommentsTable(apiUrl, token) {
             }
         },
         columns: [
-            { data: 'author', className: 'text-center' },
-            { data: 'message', className: 'text-left' },
-            { data: 'date', className: 'text-center' },
-            { data: 'actions', orderable: false, searchable: false, className: 'text-center' },
-        ]
+            { data: 'author', className: 'text-center align-middle' },
+            { data: 'message', className: 'text-left align-middle text-wrap' },
+            { data: 'date', className: 'text-center align-middle' },
+            { data: 'actions', orderable: false, searchable: false, className: 'text-center align-middle' },
+        ],
+        columnDefs: [
+            { responsivePriority: 1, targets: 1 },
+            { responsivePriority: 2, targets: 0 },
+            { responsivePriority: 3, targets: 2 },
+            { responsivePriority: 100, targets: 3 },
+        ],
     });    
 }
 

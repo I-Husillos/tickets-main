@@ -73,7 +73,7 @@
                 <p class="text-muted text-center py-4">{{ __('general.admin_own_tickets.no_tickets') }}</p>
             @else
                 <div class="table-responsive">
-                    <table id="tabla-my-tickets" class="table table-hover table-bordered align-middle">
+                    <table id="tabla-my-tickets" class="table table-hover table-striped table-bordered align-middle dt-responsive">
                         <thead class="thead-light text-center">
                             <tr>
                                 <th>#</th>
@@ -110,7 +110,7 @@
                                         <span class="badge badge-info">{{ $tag->name }}</span>
                                     @endforeach
                                 </td>
-                                <td class="text-center text-nowrap">
+                                <td class="text-center">
                                     {{ $ticket->created_at->format('d/m/Y H:i') }}
                                 </td>
                             </tr>
@@ -131,7 +131,23 @@ document.addEventListener('DOMContentLoaded', function () {
         searching: true,
         ordering: true,
         info: true,
-        responsive: true,
+        responsive: {
+            details: {
+                type: 'inline',
+                target: 'tr'
+            }
+        },
+        autoWidth: false,
+        order: [[6, 'desc']],
+        columnDefs: [
+            { responsivePriority: 1, targets: 1 },
+            { responsivePriority: 2, targets: 2 },
+            { responsivePriority: 3, targets: 3 },
+            { responsivePriority: 4, targets: 6 },
+            { responsivePriority: 100, targets: 0 },
+            { responsivePriority: 101, targets: 4 },
+            { responsivePriority: 102, targets: 5 },
+        ],
     });
 
     // Custom filtering by status and priority data attributes

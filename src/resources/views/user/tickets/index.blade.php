@@ -77,17 +77,17 @@ $breadcrumbs = [
 
             <div class="table-responsive">
                 <table id="tabla-tickets-usuario"
-                    class="table table-hover table-striped table-bordered mb-0 dt-responsive nowrap"
+                    class="table table-hover table-striped table-bordered mb-0 dt-responsive"
                     data-api-url="{{ url('/api/user/tickets') }}"
                     data-locale="{{ app()->getLocale() }}">
                     <thead class="text-center bg-white font-weight-bold">
                         <tr>
-                            <th>{{ __('Título') }}</th>
-                            <th>{{ __('Estado') }}</th>
-                            <th>{{ __('Prioridad') }}</th>
-                            <th>{{ __('Comentarios') }}</th>
-                            <th>{{ __('Fecha') }}</th>
-                            <th>{{ __('Acciones') }}</th>
+                            <th class="align-middle text-left">{{ __('Título') }}</th>
+                            <th class="align-middle">{{ __('Estado') }}</th>
+                            <th class="align-middle">{{ __('Prioridad') }}</th>
+                            <th class="align-middle">{{ __('Comentarios') }}</th>
+                            <th class="align-middle">{{ __('Fecha') }}</th>
+                            <th class="align-middle">{{ __('Acciones') }}</th>
                         </tr>
                     </thead>
                 </table>

@@ -7,6 +7,13 @@ export function initAdminAdminsTable(apiUrl, token) {
     $('#tabla-admins').DataTable({
         processing: true,
         serverSide: true,
+        responsive: {
+            details: {
+                type: 'inline',
+                target: 'tr'
+            }
+        },
+        autoWidth: false,
         ajax: {
             url: apiUrl,
             type: 'GET',
@@ -16,7 +23,6 @@ export function initAdminAdminsTable(apiUrl, token) {
                 d.name = $('#filter-name').val();
                 d.email = $('#filter-email').val();
             },
-            responsive: true,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', 'Bearer ' + token);
                 xhr.setRequestHeader('X-Locale', locale);
@@ -30,7 +36,12 @@ export function initAdminAdminsTable(apiUrl, token) {
             { data: 'name', className: 'text-center align-middle', orderable: true  },
             { data: 'email', className: 'text-center align-middle', orderable: true  },
             { data: 'actions', orderable: false, searchable: false, className: 'text-center align-middle' },
-        ]
+        ],
+        columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: 1 },
+            { responsivePriority: 100, targets: 2 },
+        ],
     });
     $('#filter-name, #filter-email').on('change', function() {
         $('#tabla-admins').DataTable().ajax.reload();

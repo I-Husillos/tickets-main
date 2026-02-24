@@ -29,15 +29,15 @@
         <div class="card-body pb-3">
             <div class="table-responsive">
                 <table id="tabla-eventos"
-                    class="table table-striped table-bordered text-center mb-3 dt-responsive nowrap"
+                    class="table table-striped table-bordered text-center mb-3 dt-responsive"
                     data-api-url="{{ url('/api/admin/historyEvents') }}"
                     data-locale="{{ app()->getLocale() }}">
                     <thead class="text-center bg-white font-weight-bold">
                         <tr>
-                            <th>{{ __('general.admin_history_events.table.header_event_type') }}</th>
-                            <th>{{ __('general.admin_history_events.table.header_description') }}</th>
-                            <th>{{ __('general.admin_history_events.table.header_user') }}</th>
-                            <th>{{ __('general.admin_history_events.table.header_date') }}</th>
+                            <th class="align-middle">{{ __('general.admin_history_events.table.header_event_type') }}</th>
+                            <th class="align-middle text-left">{{ __('general.admin_history_events.table.header_description') }}</th>
+                            <th class="align-middle">{{ __('general.admin_history_events.table.header_user') }}</th>
+                            <th class="align-middle">{{ __('general.admin_history_events.table.header_date') }}</th>
                         </tr>
                     </thead>
                 </table>
