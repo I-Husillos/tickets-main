@@ -39,83 +39,83 @@ return [
         'user.help.notifications' => 'ayuda/usuario/notificaciones',
 
         //administrador
-        'admin.redirect' => 'admin',
-        'admin.login' => 'admin/iniciar-sesion',
-        'admin.logout' => 'admin/cerrar-sesion',
+        'admin.redirect' => 'administrador',
+        'admin.login' => 'administrador/iniciar-sesion',
+        'admin.logout' => 'administrador/cerrar-sesion',
         '/' => 'panel-control',
-        'admin.manage.dashboard' => 'admin/panel-control',
-        'admin.show.profile' => 'admin/perfil',
+        'admin.manage.dashboard' => 'administrador/panel-control',
+        'admin.show.profile' => 'administrador/perfil',
 
         'admin.api.token' => 'admin/api/token',
 
 
         // Tickets
-        'admin.ajax.tickets' => 'admin/tickets/ajax',
-        'admin.show.assigned.tickets' => 'admin/tickets/asignados',
-        'admin.tickets.update_status' => 'admin/tickets/actualizar-estado/{ticket}',
-        'admin.tickets.close' => 'admin/tickets/cerrar/{ticket}',
-        'admin.tickets.reopen' => 'admin/tickets/reabrir/{ticket}',
-        'admin.ajax.assigned_tickets' => 'admin/tickets/asignados/ajax',
-        'admin.tickets.assign' => 'admin/tickets/asignar/{ticket}',
-        'admin.manage.tickets' => 'admin/tickets/lista',
-        'admin.view.ticket' => 'admin/tickets/{ticket}',
+        'admin.ajax.tickets' => 'administrador/tickets/ajax',
+        'admin.show.assigned.tickets' => 'administrador/tickets/asignados',
+        'admin.tickets.update_status' => 'administrador/tickets/actualizar-estado/{ticket}',
+        'admin.tickets.close' => 'administrador/tickets/cerrar/{ticket}',
+        'admin.tickets.reopen' => 'administrador/tickets/reabrir/{ticket}',
+        'admin.ajax.assigned_tickets' => 'administrador/tickets/asignados/ajax',
+        'admin.tickets.assign' => 'administrador/tickets/asignar/{ticket}',
+        'admin.manage.tickets' => 'administrador/tickets/lista',
+        'admin.view.ticket' => 'administrador/tickets/{ticket}',
 
 
         // Users
-        'admin.ajax.users' => 'admin/usuarios/ajax',
-        'admin.users.update' => 'admin/usuarios/actualizar/{user}',
-        'admin.dashboard.list.users' => 'admin/usuarios/lista',
-        'admin.filter.users' => 'admin/usuarios/filtrar',
-        'admin.users.add_dashboard' => 'admin/usuarios/dashboard',
-        'admin.users.create' => 'admin/usuarios/crear',
-        'admin.users.store' => 'admin/usuarios/guardar',
-        'admin.users.edit' => 'admin/usuarios/editar/{user}',
-        'admin.users.destroy' => 'admin/usuarios/eliminar/{user}',
-        'admin.users.confirm_delete' => 'admin/usuarios/confirmar-eliminar/{user}',
+        'admin.ajax.users' => 'administrador/usuarios/ajax',
+        'admin.users.update' => 'administrador/usuarios/actualizar/{user}',
+        'admin.dashboard.list.users' => 'administrador/usuarios/lista',
+        'admin.filter.users' => 'administrador/usuarios/filtrar',
+        'admin.users.add_dashboard' => 'administrador/usuarios/dashboard',
+        'admin.users.create' => 'administrador/usuarios/crear',
+        'admin.users.store' => 'administrador/usuarios/guardar',
+        'admin.users.edit' => 'administrador/usuarios/editar/{user}',
+        'admin.users.destroy' => 'administrador/usuarios/eliminar/{user}',
+        'admin.users.confirm_delete' => 'administrador/usuarios/confirmar-eliminar/{user}',
 
 
         // Comments
-        'admin.ajax.ticket_comments' => 'admin/tickets/{ticket}/comentarios/json',
-        'admin.comments.add' => 'admin/comentarios/agregar/{ticket}',
-        'admin.comments.delete' => 'admin/comentarios/eliminar/{comment}',
-        'admin.comments.view' => 'admin/comentarios/ver/{ticket}',
+        'admin.ajax.ticket_comments' => 'administrador/tickets/{ticket}/comentarios/json',
+        'admin.comments.add' => 'administrador/comentarios/agregar/{ticket}',
+        'admin.comments.delete' => 'administrador/comentarios/eliminar/{comment}',
+        'admin.comments.view' => 'administrador/comentarios/ver/{ticket}',
 
 
         // Admins
-        'admin.ajax.admins' => 'admin/administradores/ajax',
-        'admin.dashboard.list.admins' => 'admin/administradores/lista',
-        'admin.filter.admins' => 'admin/administradores/filtrar',
-        'admin.admins.list' => 'admin/administradores/lista',
-        'admin.admins.create' => 'admin/administradores/crear',
-        'admin.admins.edit' => 'admin/administradores/editar/{admin}',
-        'admin.admins.update' => 'admin/administradores/actualizar/{admin}',
-        'admin.admins.confirm_delete' => 'admin/administradores/confirmar-eliminar/{admin}',
-        'admin.admins.destroy' => 'admin/administradores/eliminar/{admin}',
+        'admin.ajax.admins' => 'administrador/administradores/ajax',
+        'admin.dashboard.list.admins' => 'administrador/administradores/lista',
+        'admin.filter.admins' => 'administrador/administradores/filtrar',
+        'admin.admins.list' => 'administrador/administradores/lista',
+        'admin.admins.create' => 'administrador/administradores/crear',
+        'admin.admins.edit' => 'administrador/administradores/editar/{admin}',
+        'admin.admins.update' => 'administrador/administradores/actualizar/{admin}',
+        'admin.admins.confirm_delete' => 'administrador/administradores/confirmar-eliminar/{admin}',
+        'admin.admins.destroy' => 'administrador/administradores/eliminar/{admin}',
 
 
         // Types
-        'admin.ajax.types' => 'admin/tipos/ajax',
-        'admin.types.index' => 'admin/tipos',
-        'admin.types.create' => 'admin/tipos/crear',
-        'admin.types.edit' => 'admin/tipos/editar/{type}',
-        'admin.types.store' => 'admin/tipos/guardar',
-        'admin.types.confirm_delete' => 'admin/tipos/confirmar-eliminar/{type}',
-        'admin.types.update' => 'admin/tipos/actualizar/{type}',
-        'admin.types.destroy' => 'admin/tipos/eliminar/{type}',
+        'admin.ajax.types' => 'administrador/tipos/ajax',
+        'admin.types.index' => 'administrador/tipos',
+        'admin.types.create' => 'administrador/tipos/crear',
+        'admin.types.edit' => 'administrador/tipos/editar/{type}',
+        'admin.types.store' => 'administrador/tipos/guardar',
+        'admin.types.confirm_delete' => 'administrador/tipos/confirmar-eliminar/{type}',
+        'admin.types.update' => 'administrador/tipos/actualizar/{type}',
+        'admin.types.destroy' => 'administrador/tipos/eliminar/{type}',
 
 
         // Notifications
-        'admin.ajax.notifications' => 'admin/notificaciones/ajax',
-        'admin.notifications' => 'admin/notificaciones',
-        'admin.notifications.read' => 'admin/notificaciones/marcar-leida/{notification}',
-        'admin.notifications.markAllAsRead' => 'admin/notificaciones/marcar-todas-leidas',
-        'admin.notifications.unread' => 'admin/notificaciones/marcar-no-leida/{notification}',
-        'admin.notifications.show' => 'admin/notificaciones/mostrar/{notification}',
+        'admin.ajax.notifications' => 'administrador/notificaciones/ajax',
+        'admin.notifications' => 'administrador/notificaciones',
+        'admin.notifications.read' => 'administrador/notificaciones/marcar-leida/{notification}',
+        'admin.notifications.markAllAsRead' => 'administrador/notificaciones/marcar-todas-leidas',
+        'admin.notifications.unread' => 'administrador/notificaciones/marcar-no-leida/{notification}',
+        'admin.notifications.show' => 'administrador/notificaciones/mostrar/{notification}',
 
 
         // History
-        'admin.ajax.events' => 'admin/historial/eventos/ajax',
-        'admin.history.events' => 'admin/historial/eventos',
+        'admin.ajax.events' => 'administrador/historial/eventos/ajax',
+        'admin.history.events' => 'administrador/historial/eventos',
 
         // Help administrador
         'admin.help.index' => 'ayuda/administrador',
@@ -126,21 +126,21 @@ return [
         'admin.help.events' => 'ayuda/administrador/eventos',
 
         // Projects
-        'admin.projects.index' => 'admin/proyectos',
-        'admin.projects.create' => 'admin/proyectos/crear',
-        'admin.projects.store' => 'admin/proyectos/guardar',
-        'admin.projects.edit' => 'admin/proyectos/editar/{project}',
-        'admin.projects.update' => 'admin/proyectos/actualizar/{project}',
-        'admin.projects.confirm_delete' => 'admin/proyectos/confirmar-eliminar/{project}',
-        'admin.projects.destroy' => 'admin/proyectos/eliminar/{project}',
+        'admin.projects.index' => 'administrador/proyectos',
+        'admin.projects.create' => 'administrador/proyectos/crear',
+        'admin.projects.store' => 'administrador/proyectos/guardar',
+        'admin.projects.edit' => 'administrador/proyectos/editar/{project}',
+        'admin.projects.update' => 'administrador/proyectos/actualizar/{project}',
+        'admin.projects.confirm_delete' => 'administrador/proyectos/confirmar-eliminar/{project}',
+        'admin.projects.destroy' => 'administrador/proyectos/eliminar/{project}',
 
         // Tags
-        'admin.tags.search' => 'admin/etiquetas/buscar',
+        'admin.tags.search' => 'administrador/etiquetas/buscar',
 
         // Admin own tickets (agenda)
-        'admin.my.tickets' => 'admin/mis-tickets',
-        'admin.my.tickets.create' => 'admin/mis-tickets/crear',
-        'admin.my.tickets.store' => 'admin/mis-tickets/guardar',
+        'admin.my.tickets' => 'administrador/mis-tickets',
+        'admin.my.tickets.create' => 'administrador/mis-tickets/crear',
+        'admin.my.tickets.store' => 'administrador/mis-tickets/guardar',
 
 
     ];
@@ -160,7 +160,7 @@ return [
         // 'users.confirmDelete' => 'confirmar-eliminacion/{user}',
         // 'users.destroy' => 'eliminar/{user}',
         
-        // 'dashboard.list.admins' => 'admines',
+        // 'dashboard.list.admins' => 'administradores',
         // 'admins.create' => 'crear',
         // 'admins.store' => 'guardar',
         // 'admins.edit' => 'editar/{admin}',
@@ -204,7 +204,7 @@ return [
 //     'read_notification' => 'marcar-leida',
 //     'index' => 'inicio',
 //     'change_language' => 'cambiar-idioma',
-//     'admin' => 'admin',
+//     'admin' => 'administrador',
 //     'dashboard' => 'panel-de-control',
 //     'update_status' => 'actualizar-estado',
 //     'update' => 'actualizar',
