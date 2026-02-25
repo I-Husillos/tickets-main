@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'auth' => \App\Http\Middleware\AuthenticateWithLocale::class,
             'auth.admin' => \Illuminate\Auth\Middleware\Authenticate::class,
+            'no-cache' => \App\Http\Middleware\MobileReloadMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

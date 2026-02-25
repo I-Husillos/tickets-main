@@ -51,14 +51,19 @@ Route::middleware(['web', \App\Http\Middleware\LanguageMiddleware::class])
     $routes = trans('routes', [], $locale); // Cargar traducciones en el idioma correcto
     
     
-    Route::get($routes['home'], [HomeController::class, 'showOptions'])->name('home');
+    Route::get($routes['home'], [HomeController::class, 'showOptions'])
+        ->middleware('no-cache')
+        ->name('home');
 
-    Route::get($routes['login'], [UserAuthController::class, 'showLoginForm'])->name('login');
+    Route::get($routes['login'], [UserAuthController::class, 'showLoginForm'])
+        ->middleware('no-cache')
+        ->name('login');
+
     Route::post($routes['login'], [UserAuthController::class, 'login'])->name('login.submit');
     // Route::get($routes['register'], [UserAuthController::class, 'showRegisterForm'])->name('register');
     // Route::post($routes['register'], [UserAuthController::class, 'register']);
 
-    Route::middleware('auth:user')->group(function () use ($routes) {
+    Route::middleware(['auth:user', 'no-cache'])->group(function () use ($routes) {
         Route::post($routes['user.logout'], [UserAuthController::class, 'logOut'])->name('user.logout');
 
         Route::get($routes['user.dashboard'], [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('user.dashboard');
@@ -102,11 +107,13 @@ Route::middleware(['web', \App\Http\Middleware\LanguageMiddleware::class])
     Route::get($routes['admin.redirect'], [AdminAuthController::class, 'redirectToLogin'])->name('admin.redirect');
 
 
-    Route::get($routes['admin.login'], [AdminAuthController::class, 'showLoginForm']) -> name('admin.login');
-    Route::post($routes['admin.login'], [AdminAuthController::class, 'login']);
+    Route::get($routes['admin.login'], [AdminAuthController::class, 'showLoginForm'])
+        ->middleware('no-cache')
+        ->name('admin.login');
+    Route::post($routes['admin.login'], [AdminAuthController::class, 'login'])->name('admin.login.submit');
 
 
-    Route::middleware('auth:admin')->group(function () use ($routes) {
+    Route::middleware(['auth:admin', 'no-cache'])->group(function () use ($routes) {
 
         Route::post($routes['admin.logout'], [AdminAuthController::class, 'logout']) -> name('admin.logout');
 

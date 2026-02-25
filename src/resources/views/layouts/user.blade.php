@@ -72,6 +72,8 @@
                     <strong>&copy; {{ date('Y') }} - Mi Aplicación.</strong> Todos los derechos reservados.
                 </footer>
             </div>
+
+        @include('layouts.notifications')
         </body>
     </html>
 

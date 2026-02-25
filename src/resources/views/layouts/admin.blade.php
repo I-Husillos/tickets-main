@@ -85,6 +85,7 @@
         </div>
 
     @stack('scripts')
+    @include('layouts.reloadScript')
     </body>
 </html>
 
