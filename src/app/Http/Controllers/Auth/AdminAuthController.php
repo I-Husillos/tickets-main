@@ -39,6 +39,7 @@ class AdminAuthController extends Controller
         }
 
         $admin = auth('admin')->user();
+        $request->session()->regenerate();
 
         // revocar tokens del otro guard user
         DB::table('oauth_access_tokens')
@@ -58,9 +59,11 @@ class AdminAuthController extends Controller
 
 
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::guard('admin')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect()->route('admin.login', ['locale' => app()->getLocale()]);
     }
 }

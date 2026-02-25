@@ -33,6 +33,7 @@ class UserAuthController extends Controller
 
 
         $user = auth('user') -> user();
+        $request->session()->regenerate();
 
         // revocar tokens del otro guard admin
         DB::table('oauth_access_tokens')
@@ -82,10 +83,11 @@ class UserAuthController extends Controller
     //     return redirect()->route('user.dashboard', ['locale' => app()->getLocale()])->with('success', '¡Registro exitoso! Bienvenido/a.');
     // }
 
-    public function logOut()
+    public function logOut(Request $request)
     {
         Auth::guard('user')->logout();
-        session()->forget('url.intended');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect()->route('login', ['locale' => app()->getLocale()]);
     }
 }
