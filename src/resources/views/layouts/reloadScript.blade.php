@@ -8,13 +8,11 @@
 
     document.addEventListener('submit', function(event) {
         const form = event.target;
-        const button = form.querySelector('.btn-block');
+        
+        const button = form.querySelector('button[type="submit"]');
 
         if (button && !button.disabled) {
-            // Deshabilitamos para evitar el segundo POST que causa el Error 419
             button.disabled = true;
-            
-            // Feedback visual para el usuario impaciente
             const loadingText = '{{ __("Cargando...") }}';
             button.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${loadingText}`;
         }
