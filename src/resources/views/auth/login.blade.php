@@ -53,7 +53,7 @@
 
         <div class="row">
             <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block">
+                <button type="submit" class="btn btn-primary btn-block btn-block">
                     <i class="fas fa-sign-in-alt"></i> {{ __('general.frontoffice.auth.login.submit') }}
                 </button>
             </div>

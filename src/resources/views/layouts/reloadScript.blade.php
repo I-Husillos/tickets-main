@@ -8,7 +8,7 @@
 
     document.addEventListener('submit', function(event) {
         const form = event.target;
-        const button = form.querySelector('button[type="submit"]');
+        const button = form.querySelector('.btn-block');
 
         if (button && !button.disabled) {
             // Deshabilitamos para evitar el segundo POST que causa el Error 419
