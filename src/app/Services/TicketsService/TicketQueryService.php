@@ -48,6 +48,10 @@ class TicketQueryService extends BaseQueryService
             $query->where('type', $request->input('type'));
         }
 
+        if ($request->filled('project_id')) {
+            $query->where('project_id', $request->input('project_id'));
+        }
+
         // Búsqueda de texto
         $search = $request->input('search.value');
         if ($search) {

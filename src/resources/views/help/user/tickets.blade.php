@@ -2,22 +2,6 @@
 
 @section('title', __('help.title'))
 
-@section('content-header')
-<div class="container-fluid">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1>{{ __('help.header') }}</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('user.help.index', ['locale' => app()->getLocale()]) }}">{{ __('help.breadcrumbs.help') }}</a></li>
-                <li class="breadcrumb-item active">{{ __('help.breadcrumbs.tickets') }}</li>
-            </ol>
-        </div>
-    </div>
-</div>
-@endsection
-
 @section('content')
 <div class="container-fluid">
 

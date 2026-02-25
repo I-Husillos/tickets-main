@@ -47,6 +47,10 @@
                             <b>{{ __('general.admin_ticket_details.type_label') }}:</b> {{ ucfirst($ticket->type) }}
                         </li>
                         <li class="list-group-item">
+                            <b>{{ __('general.admin_ticket_details.requester_label') }}:</b>
+                            {{ $ticket->user?->name ?? $ticket->createdByAdmin?->name ?? __('general.admin_ticket_details.requester_not_available') }}
+                        </li>
+                        <li class="list-group-item">
                             <b>{{ __('general.admin_ticket_details.assigned_to_label') }}:</b>
                             {{ $ticket->admin ? $ticket->admin->name : __('general.admin_ticket_details.without_assignment') }}
                         </li>

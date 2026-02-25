@@ -118,73 +118,27 @@ $breadcrumbs = [
             {{-- ===== VISTA KANBAN ===== --}}
             <div id="view-section-kanban"
                  style="display:none;"
+                 data-api-url="{{ url('/api/admin/kanban/tickets') }}"
+                 data-per-page="50"
                   data-update-url="{{ route('admin.update.ticket', ['locale' => app()->getLocale(), 'ticket' => '__TICKET__']) }}"
-                 data-error-msg="{{ __('general.admin_kanban.update_error') }}">
+                 data-error-msg="{{ __('general.admin_kanban.update_error') }}"
+                 data-unassigned-label="{{ __('general.admin_ticket_manage.unassigned') }}"
+                 data-loading-label="{{ __('general.loading') }}"
+                 data-load-more-label="{{ __('general.load_more') }}">
 
                 <div class="row flex-nowrap overflow-auto pb-3">
                     @foreach($statuses as $status)
-                    @php $columnTickets = $kanbanTickets[$status] ?? collect(); @endphp
-
                     <div class="col-kanban">
                         <div class="card">
                             <div class="card-header bg-{{ $statusColors[$status] }} {{ in_array($status, ['new', 'in_progress']) ? 'text-dark' : 'text-white' }} py-2">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <strong>{{ __('general.' . $status) }}</strong>
-                                    <span class="badge badge-light text-dark kanban-count">{{ $columnTickets->count() }}</span>
+                                    <span class="badge badge-light text-dark kanban-count">{{ $kanbanCounts[$status] ?? 0 }}</span>
                                 </div>
                             </div>
 
                             <div class="card-body p-2 kanban-column-body" data-status="{{ $status }}">
-                                @forelse($columnTickets as $ticket)
-
-                                <div class="card mb-2 shadow-sm kanban-card"
-                                     draggable="true"
-                                     data-ticket-id="{{ $ticket->id }}"
-                                     data-status="{{ $status }}">
-                                    <div class="card-body p-2">
-
-                                        <div class="d-flex justify-content-between align-items-start mb-1">
-                                            <a href="{{ route('admin.view.ticket', ['locale' => app()->getLocale(), 'ticket' => $ticket]) }}"
-                                               class="font-weight-bold text-dark small">
-                                                {{ \Illuminate\Support\Str::limit($ticket->title, 55) }}
-                                            </a>
-                                            <span class="badge badge-{{ $priorityColors[$ticket->priority] ?? 'secondary' }} small">
-                                                {{ ucfirst($ticket->priority) }}
-                                            </span>
-                                        </div>
-
-                                        @if($ticket->project)
-                                        <div class="mb-1">
-                                            <span class="badge badge-secondary small">
-                                                <i class="fas fa-project-diagram"></i> {{ $ticket->project->name }}
-                                            </span>
-                                        </div>
-                                        @endif
-
-                                        @if($ticket->tags->isNotEmpty())
-                                        <div class="mb-1">
-                                            @foreach($ticket->tags as $tag)
-                                                <span class="badge badge-info small">{{ $tag->name }}</span>
-                                            @endforeach
-                                        </div>
-                                        @endif
-
-                                        @if($ticket->user)
-                                        <div class="text-muted small">
-                                            <i class="fas fa-user"></i> {{ $ticket->user->name }}
-                                        </div>
-                                        @elseif($ticket->createdByAdmin)
-                                        <div class="text-muted small">
-                                            <i class="fas fa-user-shield"></i> {{ $ticket->createdByAdmin->name }}
-                                        </div>
-                                        @endif
-
-                                    </div>
-                                </div>
-
-                                @empty
-                                <p class="text-muted text-center small py-3 kanban-empty">—</p>
-                                @endforelse
+                                <p class="text-muted text-center small py-3 kanban-empty">{{ __('general.loading') }}</p>
                             </div>
                         </div>
                     </div>

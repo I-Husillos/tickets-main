@@ -55,6 +55,7 @@ import { initUserTicketsTable } from './tables/user-tickets-table';
 import { initUserNotificationsTable } from './tables/user-notifications-table.js';
 import { initAdminNotificationsTable } from './tables/admin-notifications-table.js';
 import { initKanbanDrag } from './admin/tickets/kanban-drag.js';
+import { initKanbanLoader } from './admin/tickets/kanban-loader.js';
 
 import { initTicketActionButtons } from './tickets/events.js';
 import { initViewToggle } from './admin/tickets/view-toggle.js';
@@ -107,6 +108,7 @@ const tablasDataTables = [
 document.addEventListener('DOMContentLoaded', () => {
     initViewToggle();
     initKanbanDrag();
+    initKanbanLoader(token);
 
     tablasDataTables.forEach(({ id, fn }) => {
         const tabla = document.getElementById(id);

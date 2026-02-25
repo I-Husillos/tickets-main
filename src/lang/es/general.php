@@ -88,6 +88,8 @@ return [
         'status_label'      => 'Estado',
         'priority_label'    => 'Prioridad',
         'type_label'        => 'Tipo',
+        'requester_label'   => 'Usuario',
+        'requester_not_available' => 'No disponible',
         'assigned_to_label' => 'Asignado a',
         'unassigned'        => 'Sin Asignar',
         'created_at_label'  => 'Fecha de Creación',
@@ -452,6 +454,12 @@ return [
         'color'                  => 'Color',
         'owner'                  => 'Creado por',
         'tickets_count'          => 'Tickets',
+        'project_tickets'        => 'Tickets del proyecto',
+        'requested_by'           => 'Solicitado por',
+        'unknown_requester'      => 'Desconocido',
+        'no_project_tickets'     => 'Sin tickets asociados',
+        'view_all_tickets'       => 'Ver todos',
+        'more_tickets'           => '+:count más',
         'actions'                => 'Acciones',
         'save'                   => 'Guardar',
         'cancel'                 => 'Cancelar',
@@ -500,6 +508,9 @@ return [
     'pending'     => 'Pendiente',
     'resolved'    => 'Resuelto',
     'closed'      => 'Cerrado',
+
+    'loading'     => 'Cargando...',
+    'load_more'   => 'Cargar más',
 
 ];
 

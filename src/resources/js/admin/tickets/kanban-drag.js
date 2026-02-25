@@ -35,9 +35,18 @@ export function initKanbanDrag() {
         badge.textContent = String(column.querySelectorAll('.kanban-card').length);
     };
 
-    root.querySelectorAll('.kanban-card').forEach(card => {
-        card.addEventListener('dragstart', () => { dragged = card; card.classList.add('opacity-50'); });
-        card.addEventListener('dragend',   () => { card.classList.remove('opacity-50'); dragged = null; });
+    root.addEventListener('dragstart', event => {
+        const card = event.target.closest('.kanban-card');
+        if (!card) return;
+        dragged = card;
+        card.classList.add('opacity-50');
+    });
+
+    root.addEventListener('dragend', event => {
+        const card = event.target.closest('.kanban-card');
+        if (!card) return;
+        card.classList.remove('opacity-50');
+        dragged = null;
     });
 
     root.querySelectorAll('.kanban-column-body').forEach(col => {

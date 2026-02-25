@@ -2,6 +2,7 @@ import $ from 'jquery';
 
 export function initAdminTicketsTable(apiUrl, token) {
     const locale = document.documentElement.lang || 'en';
+    const projectId = new URLSearchParams(window.location.search).get('project_id');
 
     $('#tabla-tickets').DataTable({
         processing: true,
@@ -22,6 +23,7 @@ export function initAdminTicketsTable(apiUrl, token) {
                 d.status = $('#filter-status').val();
                 d.priority = $('#filter-priority').val();
                 d.type = $('#filter-type').val();
+                d.project_id = projectId || '';
             },
             beforeSend: function (xhr) {
                 if (token) {

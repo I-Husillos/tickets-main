@@ -53,6 +53,7 @@ Route::prefix('admin')->group(function () {
 
 
         Route::get('/tickets', [TicketDataController::class, 'indexTicketsAdmin']);
+        Route::get('/kanban/tickets', [TicketDataController::class, 'indexKanbanTicketsAdmin']);
         Route::get('/assigned-tickets', [AssignedTicketDataController::class, 'indexAssignedTickets']);
         Route::patch('/tickets/{ticket}/close', [TicketApiController::class, 'close']);
         Route::patch('/tickets/{ticket}/reopen', [TicketApiController::class, 'reopen']);

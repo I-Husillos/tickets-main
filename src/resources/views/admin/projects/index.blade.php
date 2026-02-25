@@ -45,6 +45,7 @@
                                 <th>{{ __('general.admin_projects.description') }}</th>
                                 <th>{{ __('general.admin_projects.owner') }}</th>
                                 <th>{{ __('general.admin_projects.tickets_count') }}</th>
+                                <th>{{ __('general.admin_projects.project_tickets') }}</th>
                                 <th>{{ __('general.admin_projects.actions') }}</th>
                             </tr>
                         </thead>
@@ -59,6 +60,34 @@
                                 <td>{{ $project->description ?? '-' }}</td>
                                 <td>{{ $project->admin->name ?? '-' }}</td>
                                 <td>{{ $project->tickets->count() }}</td>
+                                <td class="text-left">
+                                    @if($project->tickets->isEmpty())
+                                        <span class="text-muted">{{ __('general.admin_projects.no_project_tickets') }}</span>
+                                    @else
+                                        <ul class="list-unstyled mb-0">
+                                            @foreach($project->tickets->take(5) as $ticket)
+                                                <li class="mb-1">
+                                                    <a href="{{ route('admin.view.ticket', ['locale' => app()->getLocale(), 'ticket' => $ticket]) }}">
+                                                        #{{ $ticket->id }} - {{ $ticket->title }}
+                                                    </a>
+                                                    <small class="text-muted d-block">
+                                                        {{ __('general.admin_projects.requested_by') }}:
+                                                        {{ $ticket->user?->name ?? $ticket->createdByAdmin?->name ?? __('general.admin_projects.unknown_requester') }}
+                                                    </small>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                        @if($project->tickets->count() > 5)
+                                            <small class="text-muted d-block mt-1">
+                                                {{ __('general.admin_projects.more_tickets', ['count' => $project->tickets->count() - 5]) }}
+                                            </small>
+                                        @endif
+                                        <a href="{{ route('admin.manage.tickets', ['locale' => app()->getLocale(), 'project_id' => $project->id]) }}"
+                                           class="btn btn-sm btn-outline-primary mt-2">
+                                            <i class="fas fa-list"></i> {{ __('general.admin_projects.view_all_tickets') }}
+                                        </a>
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="{{ route('admin.projects.edit', ['locale' => app()->getLocale(), 'project' => $project]) }}"
                                        class="btn btn-sm btn-warning">

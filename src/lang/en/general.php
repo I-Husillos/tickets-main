@@ -88,6 +88,8 @@ return [
         'status_label'      => 'Status',
         'priority_label'    => 'Priority',
         'type_label'        => 'Type',
+        'requester_label'   => 'User',
+        'requester_not_available' => 'Not available',
         'assigned_to_label' => 'Assigned to',
         'unassigned'        => 'Unassigned',
         'created_at_label'  => 'Creation Date',
@@ -458,6 +460,12 @@ return [
         'color'                  => 'Color',
         'owner'                  => 'Created by',
         'tickets_count'          => 'Tickets',
+        'project_tickets'        => 'Project tickets',
+        'requested_by'           => 'Requested by',
+        'unknown_requester'      => 'Unknown',
+        'no_project_tickets'     => 'No associated tickets',
+        'view_all_tickets'       => 'View all',
+        'more_tickets'           => '+:count more',
         'actions'                => 'Actions',
         'save'                   => 'Save',
         'cancel'                 => 'Cancel',
@@ -506,5 +514,8 @@ return [
     'pending'     => 'Pending',
     'resolved'    => 'Resolved',
     'closed'      => 'Closed',
+
+    'loading'     => 'Loading...',
+    'load_more'   => 'Load more',
 
 ];

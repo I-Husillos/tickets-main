@@ -64,7 +64,7 @@ class NotificationService
 
         $fallbackMap = [
             'user.tickets.show' => "usuario/tickets/{$ticketId}",
-            'admin.view.ticket' => "administrador/tickets/{$ticketId}",
+            'admin.view.ticket' => "admin/tickets/{$ticketId}",
         ];
 
         $path = $translatedPath;

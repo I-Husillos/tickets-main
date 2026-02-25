@@ -21,6 +21,8 @@ class AdminTicketController extends Controller
 {
     public function viewTicket(String $locale, Ticket $ticket)
     {
+        $ticket->loadMissing(['user', 'createdByAdmin']);
+
         $admins = Admin::all();
         $ticketTypes = Type::all();
         $admin = Auth::guard('admin')->user();
@@ -57,7 +59,7 @@ class AdminTicketController extends Controller
         $types           = Type::all();
 
         $admin = Auth::guard('admin')->user();
-        $query = Ticket::with(['user', 'admin', 'tags', 'project']);
+        $query = Ticket::query();
 
         if (!$admin->superadmin) {
             $query->where(function ($q) use ($admin) {
@@ -66,7 +68,11 @@ class AdminTicketController extends Controller
             });
         }
 
-        $kanbanTickets   = $query->get()->groupBy('status');
+        $kanbanCounts    = (clone $query)
+            ->selectRaw('status, COUNT(*) as total')
+            ->groupBy('status')
+            ->pluck('total', 'status');
+
         $statuses        = self::KANBAN_STATUSES;
         $statusColors    = self::KANBAN_STATUS_COLORS;
         $priorityColors  = self::KANBAN_PRIORITY_COLORS;
@@ -75,7 +81,7 @@ class AdminTicketController extends Controller
             'totalTickets',
             'resolvedTickets',
             'types',
-            'kanbanTickets',
+            'kanbanCounts',
             'statuses',
             'statusColors',
             'priorityColors'

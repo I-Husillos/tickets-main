@@ -12,11 +12,19 @@ class AdminProjectController extends Controller
     public function index()
     {
         $admin = Auth::guard('admin')->user();
+        $projectRelations = [
+            'admin',
+            'tickets' => fn ($query) => $query
+                ->with(['user', 'createdByAdmin'])
+                ->latest(),
+        ];
 
         if ($admin->superadmin) {
-            $projects = Project::with('admin')->get();
+            $projects = Project::with($projectRelations)->get();
         } else {
-            $projects = Project::where('admin_id', $admin->id)->with('admin')->get();
+            $projects = Project::where('admin_id', $admin->id)
+                ->with($projectRelations)
+                ->get();
         }
 
         return view('admin.projects.index', compact('projects'));
