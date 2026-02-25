@@ -73,7 +73,7 @@
                 </footer>
             </div>
 
-        @include('layouts.notifications')
+        @include('layouts.reloadScript')
         </body>
     </html>
 
