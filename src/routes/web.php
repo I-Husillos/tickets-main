@@ -202,7 +202,7 @@ Route::middleware(['web', \App\Http\Middleware\LanguageMiddleware::class])
         Route::get($routes['admin.help.notifications'], [AdminHelpController::class, 'notificationsHelpAdmin'])->name('admin.help.notifications');
         Route::get($routes['admin.help.events'], [AdminHelpController::class, 'eventsHelpAdmin'])->name('admin.help.events');
 
-
+        
     });
 
 });

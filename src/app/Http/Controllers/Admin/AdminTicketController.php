@@ -142,6 +142,14 @@ class AdminTicketController extends Controller
             'user' => $admin->name,
         ]);
 
+        if ($request->expectsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'ticket_id' => $ticket->id,
+                'status' => $ticket->status,
+            ]);
+        }
+
         if($admin->superadmin) {
             return redirect()->route('admin.manage.tickets', ['locale' => $locale])->with('success', 'Ticket actualizado correctamente.');
         }else{

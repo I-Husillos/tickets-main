@@ -118,8 +118,7 @@ $breadcrumbs = [
             {{-- ===== VISTA KANBAN ===== --}}
             <div id="view-section-kanban"
                  style="display:none;"
-                 data-update-url="{{ route('admin.kanban', ['locale' => app()->getLocale()]) }}"
-                 data-update-suffix="{{ app()->getLocale() === 'es' ? 'estado' : 'status' }}"
+                  data-update-url="{{ route('admin.update.ticket', ['locale' => app()->getLocale(), 'ticket' => '__TICKET__']) }}"
                  data-error-msg="{{ __('general.admin_kanban.update_error') }}">
 
                 <div class="row flex-nowrap overflow-auto pb-3">
