@@ -82,7 +82,7 @@ $breadcrumbs = [
                         <select id="filter-type" class="form-control">
                             <option value="">{{ __('general.admin_types.page_title') }}: {{ __('general.all') }}</option>
                             @foreach($types as $type)
-                                <option value="{{ $type->name }}">{{ $type->name }}</option>
+                            <option value="{{ $type->name }}">{{ $type->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -113,18 +113,18 @@ $breadcrumbs = [
                     </table>
                 </div>
 
-            </div>{{-- /view-section-table --}}
+            </div>
 
             {{-- ===== VISTA KANBAN ===== --}}
             <div id="view-section-kanban"
-                 style="display:none;"
-                 data-api-url="{{ url('/api/admin/kanban/tickets') }}"
-                 data-per-page="50"
-                  data-update-url="{{ route('admin.update.ticket', ['locale' => app()->getLocale(), 'ticket' => '__TICKET__']) }}"
-                 data-error-msg="{{ __('general.admin_kanban.update_error') }}"
-                 data-unassigned-label="{{ __('general.admin_ticket_manage.unassigned') }}"
-                 data-loading-label="{{ __('general.loading') }}"
-                 data-load-more-label="{{ __('general.load_more') }}">
+                style="display:none;"
+                data-api-url="{{ url('/api/admin/kanban/tickets') }}"
+                data-per-page="50"
+                data-update-url="{{ route('admin.update.ticket', ['locale' => app()->getLocale(), 'ticket' => '__TICKET__']) }}"
+                data-error-msg="{{ __('general.admin_kanban.update_error') }}"
+                data-unassigned-label="{{ __('general.admin_ticket_manage.unassigned') }}"
+                data-loading-label="{{ __('general.loading') }}"
+                data-load-more-label="{{ __('general.load_more') }}">
 
                 <div class="row flex-nowrap overflow-auto pb-3">
                     @foreach($statuses as $status)

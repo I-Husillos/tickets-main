@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Log;
 
 class TicketDataController extends Controller
 {
-    private const KANBAN_STATUSES = ['new', 'in_progress', 'pending', 'resolved', 'closed'];
-
     protected $queryService;
     protected $dataActions;
     protected $userActions;

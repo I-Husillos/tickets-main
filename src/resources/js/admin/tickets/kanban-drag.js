@@ -1,5 +1,7 @@
 'use strict';
 
+import { syncEmptyState, updateColumnCount } from './kanban-utils.js';
+
 export function initKanbanDrag() {
     const root = document.getElementById('view-section-kanban');
     if (!root) return;
@@ -7,33 +9,6 @@ export function initKanbanDrag() {
     const updateUrlTemplate = root.dataset.updateUrl;
     const csrf    = document.querySelector('meta[name="csrf-token"]').content;
     let dragged   = null;
-
-    const createEmptyPlaceholder = () => {
-        const placeholder = document.createElement('p');
-        placeholder.className = 'text-muted text-center small py-3 kanban-empty';
-        placeholder.textContent = '—';
-        return placeholder;
-    };
-
-    const syncEmptyState = column => {
-        const hasCards = column.querySelector('.kanban-card');
-        const empty = column.querySelector('.kanban-empty');
-
-        if (!hasCards && !empty) {
-            column.appendChild(createEmptyPlaceholder());
-        }
-
-        if (hasCards && empty) {
-            empty.remove();
-        }
-    };
-
-    const updateColumnCount = column => {
-        const card = column.closest('.card');
-        const badge = card?.querySelector('.kanban-count');
-        if (!badge) return;
-        badge.textContent = String(column.querySelectorAll('.kanban-card').length);
-    };
 
     root.addEventListener('dragstart', event => {
         const card = event.target.closest('.kanban-card');

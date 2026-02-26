@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Support\Kanban\KanbanConfig;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\Admin;
@@ -33,24 +34,6 @@ class AdminTicketController extends Controller
 
         return view('admin.tickets.viewtickets', compact('ticket', 'admins', 'ticketTypes', 'projects', 'allTags'));
     }
-    
-
-    private const KANBAN_STATUSES = ['new', 'in_progress', 'pending', 'resolved', 'closed'];
-
-    private const KANBAN_STATUS_COLORS = [
-        'new'         => 'primary',
-        'in_progress' => 'warning',
-        'pending'     => 'secondary',
-        'resolved'    => 'success',
-        'closed'      => 'danger',
-    ];
-
-    private const KANBAN_PRIORITY_COLORS = [
-        'low'      => 'success',
-        'medium'   => 'info',
-        'high'     => 'warning',
-        'critical' => 'danger',
-    ];
 
     public function manageTickets(Request $request)
     {
@@ -73,9 +56,8 @@ class AdminTicketController extends Controller
             ->groupBy('status')
             ->pluck('total', 'status');
 
-        $statuses        = self::KANBAN_STATUSES;
-        $statusColors    = self::KANBAN_STATUS_COLORS;
-        $priorityColors  = self::KANBAN_PRIORITY_COLORS;
+        $statuses        = KanbanConfig::STATUSES;
+        $statusColors    = KanbanConfig::STATUS_COLORS;
 
         return view('admin.tickets.managetickets', compact(
             'totalTickets',
@@ -83,8 +65,7 @@ class AdminTicketController extends Controller
             'types',
             'kanbanCounts',
             'statuses',
-            'statusColors',
-            'priorityColors'
+            'statusColors'
         ));
     }
 
@@ -264,61 +245,6 @@ class AdminTicketController extends Controller
             }
         }
         $ticket->tags()->sync($tagIds);
-    }
-
-
-    public function getTicketsJson()
-    {
-        $tickets = Ticket::with('comments', 'admin')->get();
-
-        $data = $tickets->map(function ($ticket) {
-            return [
-                'id' => $ticket->id,
-                'title' => $ticket->title,
-                'status' => ucfirst($ticket->status),
-                'priority' => ucfirst($ticket->priority),
-                'type' => ucfirst($ticket->type),
-                'comments_count' => $ticket->comments->count(),
-                'assigned_to' => $ticket->admin->name ?? __('general.admin_ticket_manage.sin_asignar'),
-                'actions' => view('components.actions.ticket-actions', compact('ticket'))->render()
-            ];
-        });
-
-        return response()->json(['data' => $data]);
-    }
-
-    public function getAssignedTicketsAjax(Request $request)
-    {
-        $query = Ticket::with('comments')
-            ->where('admin_id', auth('admin')->id());
-
-        // Filtros opcionales
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
-
-        if ($request->filled('priority')) {
-            $query->where('priority', $request->priority);
-        }
-
-
-        $tickets = $query->get();
-
-
-        $data = $tickets->map(function ($ticket) {
-            return [
-                'id' => $ticket->id,
-                'title' => $ticket->title,
-                'description' => Str::limit($ticket->description, 50),
-                'status' => view('components.badges.status', compact('ticket'))->render(),
-                'priority' => view('components.badges.priority', compact('ticket'))->render(),
-                'type' => ucfirst($ticket->type),
-                'comments_count' => $ticket->comments->count(),
-                'actions' => view('components.actions.ticket-actions', compact('ticket'))->render()
-            ];
-        });
-
-        return response()->json(['data' => $data]);
     }
 
 }

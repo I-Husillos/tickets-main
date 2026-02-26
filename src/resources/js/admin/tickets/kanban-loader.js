@@ -1,32 +1,9 @@
-const PRIORITY_CLASSES = {
-    low: 'success',
-    medium: 'info',
-    high: 'warning',
-    critical: 'danger',
-};
-
-function escapeHtml(value) {
-    return String(value ?? '')
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;');
-}
-
-function updateColumnCount(column, total) {
-    const badge = column.closest('.card')?.querySelector('.kanban-count');
-    if (badge) {
-        badge.textContent = String(total ?? 0);
-    }
-}
-
-function removeLoadMoreButton(column) {
-    const button = column.querySelector('.kanban-load-more');
-    if (button) {
-        button.remove();
-    }
-}
+import { 
+    PRIORITY_CLASSES, 
+    escapeHtml, 
+    removeLoadMoreButton, 
+    createEmptyPlaceholder 
+} from './kanban-utils.js';
 
 function createLoadMoreButton(label, onClick) {
     const button = document.createElement('button');
@@ -35,13 +12,6 @@ function createLoadMoreButton(label, onClick) {
     button.textContent = label;
     button.addEventListener('click', onClick);
     return button;
-}
-
-function createEmptyPlaceholder() {
-    const empty = document.createElement('p');
-    empty.className = 'text-muted text-center small py-3 kanban-empty';
-    empty.textContent = '—';
-    return empty;
 }
 
 function createCard(ticket, status, unassignedLabel) {
@@ -58,7 +28,7 @@ function createCard(ticket, status, unassignedLabel) {
                 <span class="badge badge-secondary small">
                     <i class="fas fa-project-diagram"></i> ${escapeHtml(ticket.project)}
                 </span>
-           </div>`
+            </div>`
         : '';
 
     const card = document.createElement('div');
@@ -166,7 +136,11 @@ export function initKanbanLoader(token) {
             state.lastPage = Number(meta.last_page || state.page);
             state.total = Number(meta.total || 0);
 
-            updateColumnCount(column, state.total);
+            // Update count badge with server total
+            const badge = column.closest('.card')?.querySelector('.kanban-count');
+            if (badge) {
+                badge.textContent = String(state.total);
+            }
 
             if (state.page < state.lastPage) {
                 column.appendChild(createLoadMoreButton(loadMoreLabel, () => loadColumn(status, true)));
