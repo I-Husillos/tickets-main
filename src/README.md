@@ -291,6 +291,46 @@ Para cualquier duda sobre Laravel, consulte [la documentación oficial](https://
 
 ---
 
-**Fin del documento**
+## Claves OAuth para la API
+
+Para que la API funcione correctamente y puedas autenticarte mediante Laravel Passport, es necesario generar las claves pública y privada de OAuth. Esto permite emitir y validar tokens de acceso.
+
+1. **Generar las claves de Passport**
+   Ejecuta el siguiente comando dentro del contenedor PHP:
+   ```bash
+   docker compose exec servicephp-fpm bash -c "php artisan passport:install"
+   ```
+   Esto creará las claves en `storage/oauth-private.key` y `storage/oauth-public.key` y registrará los clientes en la tabla `oauth_clients`.
+
+2. **Verificar los clientes OAuth**
+   Puedes revisar los clientes generados en la tabla `oauth_clients` usando phpMyAdmin o el comando:
+   ```bash
+   docker compose exec servicemysql bash -c "mysql -u<usuario> -p<contraseña> -e 'SELECT * FROM oauth_clients;' baseDatosMysql"
+   ```
+
+3. **Configurar el archivo `.env`**
+   Asegúrate de que las variables de entorno para Passport estén presentes (normalmente Laravel lo gestiona automáticamente, pero revisa si necesitas personalizar rutas o claves).
+
+---
+
+## Pasos adicionales para el despliegue
+
+- **Permisos de carpetas**: Es recomendable dar permisos a las carpetas `storage` y `bootstrap/cache`:
+  ```bash
+  docker compose exec servicephp-fpm bash -c "chmod -R 775 storage bootstrap/cache"
+  ```
+- **Compilar assets**: Si modificas recursos front-end, ejecuta:
+  ```bash
+  docker compose exec servicephp-fpm bash -c "npm run build"
+  ```
+- **Verificar migraciones**: Si agregas nuevas tablas o campos, ejecuta:
+  ```bash
+  docker compose exec servicephp-fpm bash -c "php artisan migrate"
+  ```
+- **Revisar variables de entorno**: Asegúrate de que `.env` tenga las credenciales correctas para base de datos, Redis, Mailpit, etc.
+
+---
+
+Con estos pasos, el sistema estará listo para emitir tokens, aceptar consultas API y funcionar correctamente en producción o desarrollo.
 
 
