@@ -115,22 +115,5 @@ class AdminUserController extends Controller
         return redirect()->route('admin.dashboard.list.users', ['locale' => $locale])->with('success', 'Usuario actualizado correctamente.');
     }
 
-
-    public function getUsersAjax(Request $request, string $locale)
-    {
-        $users = User::select(['id', 'name', 'email'])->get();
-
-        $data = $users->map(function ($user) use ($locale) {
-            return [
-                'name' => $user->name,
-                'email' => $user->email,
-                'actions' => view('components.actions.user-actions', compact('user', 'locale'))->render(),
-            ];
-        });
-
-        return response()->json(['data' => $data]);
-    }
-
-    
 }
 

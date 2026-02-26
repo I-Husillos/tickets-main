@@ -68,20 +68,5 @@ class TypesController
         return view('admin.types.confirm-delete', compact('type'));
     }
 
-    public function getTypesAjax()
-    {
-        $types = Type::select('id', 'name', 'description')->get();
-
-        $data = $types->map(function ($type) {
-            return [
-                'name' => $type->name,
-                'description' => $type->description,
-                'actions' => view('components.actions.type-actions', compact('type'))->render()
-            ];
-        });
-
-        return response()->json(['data' => $data]);
-    }
-
 }
 

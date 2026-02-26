@@ -91,34 +91,6 @@ class AdminNotificationController extends Controller
         ]);
     }
 
-
-
-    public function getAdminNotificationsAjax(Request $request)
-    {
-        $admin = auth('admin')->user();
-
-        $query = $admin->notifications();
-
-        if ($request->filled('type')) {
-            $query->where('type', 'like', '%' . $request->type . '%');
-        }
-
-        $notifications = $query->latest()->get();
-
-        $data = $notifications->map(function ($notification) {
-            return [
-                'message' => $notification->data['message'] ?? '',
-                'status' => $notification->data['status'] ?? '-',
-                'author' => $notification->data['author'] ?? '-',
-                'created_at' => $notification->created_at->format('d/m/Y H:i'),
-                'actions' => view('admin.partials.notification-actions', compact('notification'))->render()
-            ];
-        });
-
-        return response()->json(['data' => $data]);
-    }
-
-
 }
 
 

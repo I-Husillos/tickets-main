@@ -5,7 +5,6 @@ namespace App\Jobs;
 use App\Models\EventHistory;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Symfony\Contracts\EventDispatcher\Event;
 
 class PruneEventHistory implements ShouldQueue
 {

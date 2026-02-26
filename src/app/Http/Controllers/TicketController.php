@@ -82,13 +82,6 @@ class TicketController extends Controller
     }
 
 
-    public function searchTicket(Request $request)
-    {
-        $ticket = Ticket::find($request->ticket_id);
-        return view('tickets.ticket', compact('ticket'));
-    }
-
-
     public function validateResolution(Request $request, string $locale, Ticket $ticket)
     {
         $this->authorize('update', $ticket);

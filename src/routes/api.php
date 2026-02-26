@@ -3,7 +3,6 @@
 use App\Http\Controllers\Api\Admin\AdminApiController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Users\UserDataController;
 use App\Http\Controllers\Api\Admin\AdminDataController;
 use App\Http\Controllers\Api\Tickets\TicketDataController;
@@ -20,7 +19,6 @@ use App\Http\Controllers\Api\Notifications\AdminApiNotificationController;
 
 Route::prefix('admin')->group(function () {
     // Rutas públicas
-    // Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [ApiLoginController::class, 'login']);
 
 
@@ -83,7 +81,6 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('user')->group(function () {
 
-    // Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [ApiLoginController::class, 'login']);
 
     Route::middleware('auth:api_user')->group(function () {

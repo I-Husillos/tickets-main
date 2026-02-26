@@ -91,17 +91,5 @@ class CommentController extends Controller
         return redirect()->back()->with('success', 'Comentario actualizado correctamente.');
     }
 
-
-    public function getTicketCommentsAjax(String $locale, Ticket $ticket)
-    {
-        $comments = $ticket->comments()->with('author')->get();
-
-        $transformer = new CommentDataActions();
-
-        $data = $comments->map(fn($comment) => $transformer->transform($comment));
-
-        return response()->json(['data' => $data]);
-    }
-
 }
 
