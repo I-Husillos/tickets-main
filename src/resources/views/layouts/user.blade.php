@@ -6,7 +6,17 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
             <meta name="notification-url-template" content="{{ route(request()->is('admin*') ? 'admin.notifications.show' : 'user.notifications.show', ['locale' => app()->getLocale(), 'notification' => ':id']) }}">
-
+  
+            <link rel="shortcut icon" href="/img/ico/favicon.ico" type="image/x-icon" />
+            <link rel="apple-touch-icon" href="/img/ico/apple-touch-icon.png" />
+            <link rel="apple-touch-icon" sizes="57x57" href="/img/ico/apple-touch-icon-57x57.png" />
+            <link rel="apple-touch-icon" sizes="72x72" href="/img/ico/apple-touch-icon-72x72.png" />
+            <link rel="apple-touch-icon" sizes="76x76" href="/img/ico/apple-touch-icon-76x76.png" />
+            <link rel="apple-touch-icon" sizes="114x114" href="/img/ico/apple-touch-icon-114x114.png" />
+            <link rel="apple-touch-icon" sizes="120x120" href="/img/ico/apple-touch-icon-120x120.png" />
+            <link rel="apple-touch-icon" sizes="144x144" href="/img/ico/apple-touch-icon-144x144.png" />
+            <link rel="apple-touch-icon" sizes="152x152" href="/img/ico/apple-touch-icon-152x152.png" />
+            <link rel="apple-touch-icon" sizes="180x180" href="/img/ico/apple-touch-icon-180x180.png" />
 
             @if(session('api_token'))
                 <script>
@@ -15,14 +25,10 @@
             @endif
 
             
-            <title>@yield('title', __('general.frontoffice.layout.page_title'))</title>
+            <title>@yield('title', __('general.frontoffice.layout.page_title')) - {{ config('app.name', 'Laravel') }}</title>
 
             @vite(['resources/js/app.js', 'resources/css/app.css'])
             <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
-
-
-            <!-- Font Awesome -->
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
             <!-- Canonical -->
             <link rel="canonical" href="{{ url()->current() }}">

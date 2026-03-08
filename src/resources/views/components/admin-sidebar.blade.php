@@ -1,7 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand -->
     
-    <a href="{{ route('admin.dashboard', ['locale' => app()->getLocale()]) }}" class="brand-link text-center">
+    <a href="{{ route('admin.dashboard', ['locale' => app()->getLocale()]) }}" class="brand-link">
+        <img src="/img/tickets-logo.png" alt="Tickets TI Termosalud" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">{{ __('general.admin_sidebar.app_title') }}</span>
     </a>
 

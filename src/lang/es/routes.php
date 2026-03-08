@@ -2,10 +2,10 @@
 
 return [
         'home' => '/',
-        'login' => 'iniciar-sesion',
+        'login' => 'login',
         'user' => 'usuario',
         'register' => 'registrarse',
-        'user.logout' => 'cerrar-sesion',
+        'user.logout' => 'logout',
 
         'user.tickets.search' => 'usuario/tickets/buscar',
 
@@ -40,8 +40,8 @@ return [
 
         //administrador
         'admin.redirect' => 'admin',
-        'admin.login' => 'admin/iniciar-sesion',
-        'admin.logout' => 'admin/cerrar-sesion',
+        'admin.login' => 'admin/login',
+        'admin.logout' => 'admin/logout',
         '/' => 'panel-control',
         'admin.manage.dashboard' => 'admin/panel-control',
         'admin.show.profile' => 'admin/perfil',

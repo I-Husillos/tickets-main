@@ -1,15 +1,15 @@
 <?php
 
 return [
-    'title_page' => 'Documentación - Historial de Eventos',
+    'title_page' => 'Documentación - historial de eventos',
     'header' => [
-        'title' => 'Historial de Eventos',
+        'title' => 'Historial de eventos',
         'subtitle' => 'Sistema de auditoría y seguimiento de actividades del sistema',
     ],
     'index' => [
         'title' => 'En esta guía aprenderás:',
         'items' => [
-            'what_is' => 'Qué es el Historial de Eventos',
+            'what_is' => 'Qué es el historial de eventos',
             'access' => 'Cómo acceder al historial',
             'interface' => 'Entender la interfaz',
             'types' => 'Tipos de eventos registrados',
@@ -19,9 +19,9 @@ return [
         ],
     ],
     'section_what_is' => [
-        'title' => '¿Qué es el Historial de Eventos?',
-        'description' => 'El Historial de Eventos es un <strong>sistema de auditoría automática</strong> que registra todas las acciones importantes realizadas en la plataforma de gestión de tickets.',
-        'function_title' => 'Función Principal',
+        'title' => '¿Qué es el historial de eventos?',
+        'description' => 'El historial de eventos es un <strong>sistema de auditoría automática</strong> que registra todas las acciones importantes realizadas en la plataforma de gestión de tickets.',
+        'function_title' => 'Función principal',
         'function_desc' => 'Proporciona una <strong>trazabilidad completa</strong> de:',
         'function_items' => [
             'who' => '<strong>Quién</strong> realizó una acción (usuario o administrador)',
@@ -50,7 +50,7 @@ return [
                 ],
             ],
             'troubleshooting' => [
-                'title' => 'Resolución de Problemas',
+                'title' => 'Resolución de problemas',
                 'items' => [
                     'Identificar cuándo empezó un problema',
                     'Ver qué cambios precedieron un error',
@@ -70,21 +70,21 @@ return [
         ],
     ],
     'section_access' => [
-        'title' => 'Acceso al Historial de Eventos',
-        'restricted_msg' => '<strong>Acceso Restringido:</strong> Solo los <strong>Superadministradores</strong> pueden acceder al Historial de Eventos. Los administradores normales no tienen permisos para ver esta sección.',
+        'title' => 'Acceso al historial de eventos',
+        'restricted_msg' => '<strong>Acceso restringido:</strong> solo los <strong>superadministradores</strong> pueden acceder al historial de eventos. Los administradores normales no tienen permisos para ver esta sección.',
         'how_to_title' => 'Cómo acceder',
         'steps' => [
-            '1' => '<strong>Paso 1:</strong> Inicia sesión como Superadministrador',
-            '2' => '<strong>Paso 2:</strong> En el menú lateral izquierdo, localiza la sección <strong>"Administración"</strong>',
-            '3' => '<strong>Paso 3:</strong> Haz clic en <strong>"Administración"</strong> para expandir el submenú',
-            '4' => '<strong>Paso 4:</strong> Selecciona <strong>"Historial de Eventos"</strong>',
+            '1' => '<strong>Paso 1:</strong> inicia sesión como superadministrador',
+            '2' => '<strong>Paso 2:</strong> en el menú lateral izquierdo, localiza la sección <strong>"Administración"</strong>',
+            '3' => '<strong>Paso 3:</strong> haz clic en <strong>"Administración"</strong> para expandir el submenú',
+            '4' => '<strong>Paso 4:</strong> selecciona <strong>"Historial de eventos"</strong>',
         ],
-        'route_info' => '<strong>Ruta:</strong> Panel de Administración → Administración → Historial de Eventos',
+        'route_info' => '<strong>Ruta:</strong> Panel de administración → Administración → Historial de eventos',
     ],
     'section_interface' => [
-        'title' => 'La Interfaz del Historial',
-        'intro' => 'La pantalla de Historial de Eventos presenta una interfaz simplificada centrada en la tabla de datos:',
-        'table_title' => 'Tabla de Eventos',
+        'title' => 'La interfaz del historial',
+        'intro' => 'La pantalla de historial de eventos presenta una interfaz simplificada centrada en la tabla de datos:',
+        'table_title' => 'Tabla de eventos',
         'table_desc' => 'La tabla muestra todos los eventos registrados en el sistema, ordenados cronológicamente:',
         'table' => [
             'headers' => [
@@ -94,14 +94,14 @@ return [
             ],
             'rows' => [
                 'type' => [
-                    'name' => '<strong>Tipo de Evento</strong>',
+                    'name' => '<strong>Tipo de evento</strong>',
                     'desc' => 'La acción que se realizó',
                     'extra' => 'Ej: "ticket_created", "user_login"',
                 ],
                 'description' => [
                     'name' => '<strong>Descripción</strong>',
                     'desc' => 'Detalles específicos del evento',
-                    'extra' => 'Describe qué cambió (ej: "Ticket #123 created by Juan")',
+                    'extra' => 'Describe qué cambió (ej: "ticket #123 created by juan")',
                 ],
                 'user' => [
                     'name' => '<strong>Usuario</strong>',
@@ -111,15 +111,15 @@ return [
                 'date' => [
                     'name' => '<strong>Fecha</strong>',
                     'desc' => 'Cuándo ocurrió el evento',
-                    'extra' => 'Formato: dd/mm/yyyy HH:mm',
+                    'extra' => 'Formato: dd/mm/yyyy hh:mm',
                 ],
             ],
         ],
-        'note' => '<strong>Nota:</strong> Los nombres de los tipos de evento se muestran en su formato técnico (ej: <code>ticket_created</code>) para mayor precisión en las búsquedas.',
-        'features_title' => 'Funcionalidades de la Tabla',
+        'note' => '<strong>Nota:</strong> los nombres de los tipos de evento se muestran en su formato técnico (ej: <code>ticket_created</code>) para mayor precisión en las búsquedas.',
+        'features_title' => 'Funcionalidades de la tabla',
         'features' => [
             'search' => [
-                'title' => 'Búsqueda Global',
+                'title' => 'Búsqueda global',
                 'content' => [
                     '<strong>Ubicación:</strong> Esquina superior derecha de la tabla ("Search:")',
                     '<strong>Función:</strong> Filtra dinámicamente los resultados mostrando solo los eventos que contengan el texto ingresado en <strong>cualquiera de sus columnas</strong>.',
@@ -143,7 +143,7 @@ return [
                 ],
             ],
             'order' => [
-                'title' => 'Orden y Visualización',
+                'title' => 'Orden y visualización',
                 'content' => [
                     '<strong>Orden por defecto:</strong> Cronológico inverso (lo más reciente primero).',
                     '<strong>Consejo:</strong> Usa la paginación para navegar por el historial antiguo.',
@@ -152,22 +152,22 @@ return [
         ],
     ],
     'section_types' => [
-        'title' => 'Tipos de Eventos Registrados',
+        'title' => 'Tipos de eventos registrados',
         'intro' => 'El sistema registra automáticamente los siguientes tipos de eventos:',
-        'tickets_title' => 'Eventos de Tickets',
+        'tickets_title' => 'Eventos de tickets',
         'table_headers' => [
             'event' => 'Evento',
             'when' => 'Cuándo se registra',
-            'example' => 'Ejemplo de Descripción',
+            'example' => 'Ejemplo de descripción',
         ],
         'tickets_rows' => [
             'created' => ['code' => 'ticket_created', 'when' => 'Cuando un usuario crea un nuevo ticket', 'example' => '"Ticket #45 creado por usuario@example.com con título \'Error de acceso\'"'],
-            'updated' => ['code' => 'ticket_updated', 'when' => 'Cuando se modifica cualquier campo de un ticket (título, descripción, estado, prioridad, tipo)', 'example' => '"Ticket #45 actualizado: Estado cambiado de \'Nuevo\' a \'En Proceso\'"'],
+            'updated' => ['code' => 'ticket_updated', 'when' => 'Cuando se modifica cualquier campo de un ticket (título, descripción, estado, prioridad, tipo)', 'example' => '"Ticket #45 actualizado: estado cambiado de \'Nuevo\' a \'En Proceso\'"'],
             'assigned' => ['code' => 'ticket_assigned', 'when' => 'Cuando un administrador asigna un ticket a otro administrador', 'example' => '"Ticket #45 asignado a admin@example.com por superadmin@example.com"'],
             'closed' => ['code' => 'ticket_closed', 'when' => 'Cuando se marca un ticket como cerrado', 'example' => '"Ticket #45 cerrado por admin@example.com"'],
-            'commented' => ['code' => 'comment_added', 'when' => 'Cuando se añade un comentario a un ticket', 'example' => '"Comentario añadido al Ticket #45 por admin@example.com"'],
+            'commented' => ['code' => 'comment_added', 'when' => 'Cuando se añade un comentario a un ticket', 'example' => '"Comentario añadido al ticket #45 por admin@example.com"'],
         ],
-        'users_title' => 'Eventos de Usuarios',
+        'users_title' => 'Eventos de usuarios',
         'users_rows' => [
             'created' => ['code' => 'user_created', 'when' => 'Cuando se registra un nuevo usuario en el sistema', 'example' => '"Usuario \'Juan Pérez\' (juan@example.com) registrado"'],
             'updated' => ['code' => 'user_updated', 'when' => 'Cuando se modifica el perfil de un usuario', 'example' => '"Usuario \'Juan Pérez\' actualizado: Email cambiado"'],
@@ -175,32 +175,32 @@ return [
             'login' => ['code' => 'user_login', 'when' => 'Cada vez que un usuario inicia sesión', 'example' => '"Inicio de sesión: usuario@example.com desde IP 192.168.1.100"'],
             'logout' => ['code' => 'user_logout', 'when' => 'Cuando un usuario cierra sesión manualmente', 'example' => '"Cierre de sesión: usuario@example.com"'],
         ],
-        'admins_title' => 'Eventos de Administradores',
+        'admins_title' => 'Eventos de administradores',
         'admins_rows' => [
             'created' => ['code' => 'admin_created', 'when' => 'Cuando se crea una nueva cuenta de administrador', 'example' => '"Administrador \'María López\' (maria@admin.com) creado por superadmin@example.com"'],
             'updated' => ['code' => 'admin_updated', 'when' => 'Cuando se modifica el perfil de un administrador', 'example' => '"Administrador \'María López\' actualizado: Rol cambiado a Superadministrador"'],
             'deleted' => ['code' => 'admin_deleted', 'when' => 'Cuando se elimina una cuenta de administrador', 'example' => '"Administrador \'María López\' eliminado por superadmin@example.com"'],
             'login' => ['code' => 'admin_login', 'when' => 'Cada vez que un administrador accede al panel', 'example' => '"Inicio de sesión admin: admin@example.com desde IP 192.168.1.50"'],
         ],
-        'types_title' => 'Eventos de Tipos de Tickets',
+        'types_title' => 'Eventos de tipos de tickets',
         'types_rows' => [
             'created' => ['code' => 'type_created', 'when' => 'Cuando se crea un nuevo tipo de ticket', 'example' => '"Tipo \'Problema de Red\' creado por superadmin@example.com"'],
             'updated' => ['code' => 'type_updated', 'when' => 'Cuando se modifica un tipo de ticket existente', 'example' => '"Tipo \'Bug\' actualizado: Descripción modificada"'],
             'deleted' => ['code' => 'type_deleted', 'when' => 'Cuando se elimina un tipo de ticket', 'example' => '"Tipo \'Problema de Red\' eliminado por superadmin@example.com"'],
         ],
-        'note' => '<strong>Nota:</strong> Todos estos eventos se registran <strong>automáticamente</strong> por el sistema. No requieren ninguna acción manual para ser guardados.',
+        'note' => '<strong>Nota:</strong> todos estos eventos se registran <strong>automáticamente</strong> por el sistema. no requieren ninguna acción manual para ser guardados.',
     ],
     'section_filter' => [
-        'title' => 'Cómo Filtrar y Buscar Eventos',
-        'intro' => 'El historial puede contener miles de eventos. La herramienta principal para encontrar información es la <strong>Búsqueda Global</strong> en la tabla.',
-        'strategies_title' => 'Estrategias de Búsqueda',
-        'pro_tip' => '<strong>Consejo Pro:</strong> La barra de búsqueda global es "inteligente". Puedes escribir cualquier término que aparezca en la fila para encontrarlo.',
+        'title' => 'Cómo filtrar y buscar eventos',
+        'intro' => 'El historial puede contener miles de eventos. la herramienta principal para encontrar información es la <strong>búsqueda global</strong> en la tabla.',
+        'strategies_title' => 'Estrategias de búsqueda',
+        'pro_tip' => '<strong>Consejo pro:</strong> la barra de búsqueda global es "inteligente". puedes escribir cualquier término que aparezca en la fila para encontrarlo.',
         'filter_type' => [
-            'title' => '1. Cómo filtrar por Tipo de Evento',
-            'goal' => '<strong>Objetivo:</strong> Ver todas las acciones de un tipo específico (ej. Creación de Tickets).',
+            'title' => '1. Cómo filtrar por tipo de evento',
+            'goal' => '<strong>Objetivo:</strong> ver todas las acciones de un tipo específico (ej. creación de tickets).',
             'method' => '<strong>Método:</strong>',
             'steps' => [
-                '1' => 'Ve a la caja de búsqueda ("Search:") arriba a la derecha de la tabla.',
+                '1' => 'Ve a la caja de búsqueda ("search:") arriba a la derecha de la tabla.',
                 '2' => 'Escribe el código del evento (ej: <code>ticket_created</code>).',
                 '3' => 'La tabla mostrará solo las filas que contengan ese texto.',
             ],
@@ -213,8 +213,8 @@ return [
             ],
         ],
         'filter_user' => [
-            'title' => '2. Cómo filtrar por Usuario',
-            'goal' => '<strong>Objetivo:</strong> Rastrear las acciones de una persona específica.',
+            'title' => '2. Cómo filtrar por usuario',
+            'goal' => '<strong>Objetivo:</strong> rastrear las acciones de una persona específica.',
             'method' => '<strong>Método:</strong>',
             'steps' => [
                 '1' => 'Escribe el <strong>nombre</strong> o <strong>email</strong> del usuario en la caja de búsqueda.',
@@ -227,26 +227,26 @@ return [
             ],
         ],
         'filter_date' => [
-            'title' => '3. Cómo filtrar por Fecha o Contenido',
-            'goal' => '<strong>Objetivo:</strong> Encontrar eventos de un día específico o sobre un tema concreto.',
+            'title' => '3. Cómo filtrar por fecha o contenido',
+            'goal' => '<strong>Objetivo:</strong> encontrar eventos de un día específico o sobre un tema concreto.',
             'for_dates' => '<strong>Para fechas:</strong>',
             'dates_list' => [
                 'Escribe la fecha en formato <code>YYYY-MM-DD</code> o partes de ella.',
                 '<em>Nota: La búsqueda es textual, así que debe coincidir con el formato mostrado en pantalla.</em>',
             ],
-            'for_content' => '<strong>Para contenido (Descripción):</strong>',
+            'for_content' => '<strong>Para contenido (descripción):</strong>',
             'content_list' => [
                 'Escribe palabras clave específicas como "cerrado", "asignado", o el número de un ticket (ej: "Ticket #45").',
             ],
         ],
     ],
     'section_analyze' => [
-        'title' => 'Analizar la Información',
-        'intro' => 'Una vez que has filtrado los eventos, es momento de analizar la información. Aquí algunas estrategias:',
-        'patterns_title' => 'Patrones a Identificar',
+        'title' => 'Analizar la información',
+        'intro' => 'Una vez que has filtrado los eventos, es momento de analizar la información. aquí algunas estrategias:',
+        'patterns_title' => 'Patrones a identificar',
         'cards' => [
             'productivity' => [
-                'title' => 'Análisis de Productividad',
+                'title' => 'Análisis de productividad',
                 'what' => '<strong>Qué buscar:</strong>',
                 'items' => [
                     'Número de tickets procesados por administrador',
@@ -254,10 +254,10 @@ return [
                     'Cantidad de asignaciones y reasignaciones',
                     'Horarios de mayor actividad',
                 ],
-                'how' => '<strong>Cómo:</strong> Busca <code>ticket_updated</code> o <code>comment_added</code> y observa los nombres de usuario.',
+                'how' => '<strong>Cómo:</strong> busca <code>ticket_updated</code> o <code>comment_added</code> y observa los nombres de usuario.',
             ],
             'anomalies' => [
-                'title' => 'Detección de Anomalías',
+                'title' => 'Detección de anomalías',
                 'what' => '<strong>Qué buscar:</strong>',
                 'items' => [
                     'Múltiples inicios de sesión fallidos',
@@ -265,10 +265,10 @@ return [
                     'Cambios masivos en poco tiempo',
                     'Eliminaciones inusuales',
                 ],
-                'how' => '<strong>Cómo:</strong> Busca eventos de <code>login</code>, <code>deleted</code>, y ordena por fecha/hora',
+                'how' => '<strong>Cómo:</strong> busca eventos de <code>login</code>, <code>deleted</code>, y ordena por fecha/hora',
             ],
             'tracking' => [
-                'title' => 'Seguimiento de Tickets',
+                'title' => 'Seguimiento de tickets',
                 'what' => '<strong>Qué buscar:</strong>',
                 'items' => [
                     'Ciclo de vida completo de un ticket',
@@ -276,10 +276,10 @@ return [
                     'Quiénes intervinieron',
                     'Tiempos de resolución',
                 ],
-                'how' => '<strong>Cómo:</strong> Usa la búsqueda global escribiendo el ID del ticket (ej: "#123")',
+                'how' => '<strong>Cómo:</strong> usa la búsqueda global escribiendo el ID del ticket (ej: "#123")',
             ],
             'audit' => [
-                'title' => 'Auditoría de Cambios',
+                'title' => 'Auditoría de cambios',
                 'what' => '<strong>Qué buscar:</strong>',
                 'items' => [
                     'Quién modificó configuraciones críticas',
@@ -287,11 +287,11 @@ return [
                     'Creación/eliminación de administradores',
                     'Modificaciones de permisos',
                 ],
-                'how' => '<strong>Cómo:</strong> Busca <code>admin_created</code>, <code>type_updated</code>, etc.',
+                'how' => '<strong>Cómo:</strong> busca <code>admin_created</code>, <code>type_updated</code>, etc.',
             ],
         ],
-        'dates_title' => 'Interpretación de Fechas y Horas',
-        'date_format' => '<strong>Formato de fecha:</strong> dd/mm/yyyy HH:mm (ejemplo: 09/02/2026 14:35)',
+        'dates_title' => 'Interpretación de fechas y horas',
+        'date_format' => '<strong>Formato de fecha:</strong> dd/mm/yyyy hh:mm (ejemplo: 09/02/2026 14:35)',
         'important_elements' => '<strong>Elementos importantes:</strong>',
         'elements_list' => [
             '<strong>Secuencia temporal:</strong> Ordena por fecha para ver el orden cronológico de eventos',
@@ -299,15 +299,15 @@ return [
             '<strong>Patrones horarios:</strong> Identifica picos de actividad en ciertas horas',
             '<strong>Consistencia:</strong> Detecta acciones simultáneas o muy rápidas que puedan ser sospechosas',
         ],
-        'timezone_note' => '<strong>Importante:</strong> Las fechas y horas están en el huso horario del servidor. Asegúrate de tener esto en cuenta al analizar eventos.',
+        'timezone_note' => '<strong>Importante:</strong> las fechas y horas están en el huso horario del servidor. asegúrate de tener esto en cuenta al analizar eventos.',
     ],
     'section_cases' => [
-        'title' => 'Casos de Uso Prácticos',
-        'intro' => 'Aquí algunos escenarios reales donde el Historial de Eventos es fundamental:',
+        'title' => 'Casos de uso prácticos',
+        'intro' => 'Aquí algunos escenarios reales donde el historial de eventos es fundamental:',
         'cases_list' => [
             '1' => [
-                'title' => 'Caso 1: "Un ticket desapareció o se modificó sin autorización"',
-                'situation' => '<strong>Situación:</strong> Un usuario reporta que su ticket fue cerrado o modificado sin que nadie le avisara.',
+                'title' => 'Caso 1: "un ticket desapareció o se modificó sin autorización"',
+                'situation' => '<strong>Situación:</strong> un usuario reporta que su ticket fue cerrado o modificado sin que nadie le avisara.',
                 'solution' => '<strong>Solución:</strong>',
                 'steps' => [
                     'Obtén el ID del ticket (ej: #123)',
@@ -316,11 +316,11 @@ return [
                     'Identifica quién hizo el cambio y cuándo',
                     'Verifica si fue un error humano o un problema técnico',
                 ],
-                'result' => '<strong>Resultado:</strong> Trazabilidad completa de quién, cuándo y cómo se modificó el ticket.',
+                'result' => '<strong>Resultado:</strong> trazabilidad completa de quién, cuándo y cómo se modificó el ticket.',
             ],
             '2' => [
-                'title' => 'Caso 2: "Revisar el rendimiento de un administrador"',
-                'situation' => '<strong>Situación:</strong> Necesitas evaluar cuánto trabajo ha realizado un administrador en el último mes.',
+                'title' => 'Caso 2: "revisar el rendimiento de un administrador"',
+                'situation' => '<strong>Situación:</strong> necesitas evaluar cuánto trabajo ha realizado un administrador en el último mes.',
                 'solution' => '<strong>Solución:</strong>',
                 'steps' => [
                     'Escribe el <strong>email del administrador</strong> en la caja de búsqueda.',
@@ -328,22 +328,22 @@ return [
                     'Observa las acciones de tipo <code>ticket_updated</code> o <code>comment_added</code>.',
                     'Revisa tickets asignados y resueltos por él.',
                 ],
-                'result' => '<strong>Resultado:</strong> Visión general del trabajo realizado por ese usuario.',
+                'result' => '<strong>Resultado:</strong> visión general del trabajo realizado por ese usuario.',
             ],
             '3' => [
-                'title' => 'Caso 3: "Detectar un posible acceso no autorizado"',
-                'situation' => '<strong>Situación:</strong> Sospechas que alguien accedió a una cuenta sin autorización.',
+                'title' => 'Caso 3: "detectar un posible acceso no autorizado"',
+                'situation' => '<strong>Situación:</strong> sospechas que alguien accedió a una cuenta sin autorización.',
                 'solution' => '<strong>Solución:</strong>',
                 'steps' => [
                     'Busca la palabra clave <strong>"login"</strong> en la caja de búsqueda.',
                     'Luego, refina añadiendo el nombre o email del usuario sospechoso.',
                     'Revisa las fechas y horas para encontrar accesos inusuales (madrugada, fines de semana no laborales).',
                 ],
-                'result' => '<strong>Resultado:</strong> Identificación de accesos sospechosos para tomar medidas.',
+                'result' => '<strong>Resultado:</strong> identificación de accesos sospechosos para tomar medidas.',
             ],
             '4' => [
-                'title' => 'Caso 4: "¿Quién eliminó un tipo de ticket importante?"',
-                'situation' => '<strong>Situación:</strong> Un tipo de ticket que se usaba frecuentemente ha desaparecido.',
+                'title' => 'Caso 4: "¿quién eliminó un tipo de ticket importante?"',
+                'situation' => '<strong>Situación:</strong> un tipo de ticket que se usaba frecuentemente ha desaparecido.',
                 'solution' => '<strong>Solución:</strong>',
                 'steps' => [
                     'Busca la palabra clave <strong>"deleted"</strong> o <strong>"type_deleted"</strong>.',
@@ -351,11 +351,11 @@ return [
                     'Identifica quién realizó la eliminación.',
                     'Contacta al responsable para confirmar si fue intencional.',
                 ],
-                'result' => '<strong>Resultado:</strong> Responsable identificado y posibilidad de restaurar si fue un error.',
+                'result' => '<strong>Resultado:</strong> responsable identificado y posibilidad de restaurar si fue un error.',
             ],
             '5' => [
-                'title' => 'Caso 5: "Auditoría de cumplimiento normativo"',
-                'situation' => '<strong>Situación:</strong> Una auditoría externa requiere demostrar trazabilidad de cambios.',
+                'title' => 'Caso 5: "auditoría de cumplimiento normativo"',
+                'situation' => '<strong>Situación:</strong> una auditoría externa requiere demostrar trazabilidad de cambios.',
                 'solution' => '<strong>Solución:</strong>',
                 'steps' => [
                     'Define el período de auditoría.',
@@ -363,12 +363,12 @@ return [
                     'Toma capturas de pantalla o copia los datos relevantes de la tabla.',
                     'Presenta evidencias de quién autorizó cambios críticos.',
                 ],
-                'result' => '<strong>Resultado:</strong> Documentación básica para cumplir con requisitos de auditoría.',
+                'result' => '<strong>Resultado:</strong> documentación básica para cumplir con requisitos de auditoría.',
             ],
         ],
     ],
     'section_practices' => [
-        'title' => 'Buenas Prácticas',
+        'title' => 'Buenas prácticas',
         'recommendations_title' => 'Recomendaciones',
         'recommendations_list' => [
             'Revisa el historial regularmente (semanalmente) para detectar anomalías temprano',
@@ -377,7 +377,7 @@ return [
             'Capacita al equipo sobre la importancia de la trazabilidad',
             'Establece políticas claras sobre quién puede realizar acciones críticas',
         ],
-        'errors_title' => 'Errores Comunes',
+        'errors_title' => 'Errores comunes',
         'errors_list' => [
             '<strong>No revisar el historial:</strong> Perder oportunidades de detectar problemas',
             '<strong>Confiar solo en la memoria:</strong> El historial es la fuente de verdad',
@@ -387,8 +387,8 @@ return [
         ],
     ],
     'section_limitations' => [
-        'title' => 'Limitaciones y Consideraciones',
-        'alert_title' => 'Aspectos a Tener en Cuenta',
+        'title' => 'Limitaciones y consideraciones',
+        'alert_title' => 'Aspectos a tener en cuenta',
         'items' => [
             '<strong>Solo Superadministradores:</strong> Los administradores normales no pueden acceder a esta funcionalidad',
             '<strong>No editable:</strong> Los eventos registrados no se pueden modificar ni eliminar (garantiza integridad)',

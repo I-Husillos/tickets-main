@@ -428,11 +428,39 @@ return [
             'login' => [
                 'title'         => 'Log in',
                 'heading'       => 'Log in',
+                'hero_title'    => 'IT Ticket System',
+                'hero_subtitle' => 'Termosalud',
+                'hero_description' => 'Manage your technical support requests quickly and efficiently',
                 'label_email'   => 'Email',
                 'label_password'=> 'Password',
                 'submit'        => 'Log in',
                 'no_account'    => "Don't have an account?",
                 'register_here' => 'Register here',
+                
+                // Features section
+                'features_title' => 'What can you do?',
+                'feature_1_title' => 'Create Tickets',
+                'feature_1_desc' => 'Report incidents or request technical support in a simple and organized way',
+                'feature_2_title' => 'Real-time Tracking',
+                'feature_2_desc' => 'Check the status of your requests and receive automatic notifications',
+                'feature_3_title' => 'Complete History',
+                'feature_3_desc' => 'Access the full record of all your interactions with the IT team',
+                
+                // Process section
+                'process_title' => 'How does it work?',
+                'step_1_title' => '1. Create your Ticket',
+                'step_1_desc' => 'Describe your problem or request in detail',
+                'step_2_title' => '2. Automatic Assignment',
+                'step_2_desc' => 'Your ticket is assigned to the most suitable technician',
+                'step_3_title' => '3. Tracking',
+                'step_3_desc' => 'Receive updates on progress',
+                'step_4_title' => '4. Resolution',
+                'step_4_desc' => 'We confirm with you when it is resolved',
+                
+                // Support section
+                'support_title' => 'Our IT Team',
+                'support_subtitle' => 'We are here to help you',
+                'support_desc' => 'Our technical support team is available to resolve your incidents quickly and professionally. We prioritize your requests by urgency and keep you informed at every step.',
             ],
             'admin_login' => [
                 'title'            => 'Admin Log in',

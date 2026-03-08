@@ -9,11 +9,11 @@ return [
 
     // Contenido descriptivo para BD/API
     'content_created' => 'El usuario :user ha creado un nuevo ticket: ":title"',
-    'content_commented' => ':author ha añadido un comentario al ticket ":title":',
+    'content_commented' => ':Author ha añadido un comentario al ticket ":title":',
     'comment_body_label' => 'Contenido del comentario:',
-    'content_status_changed' => ':admin ha cambiado el estado del ticket ":title" a: :status',
-    'content_closed' => ':admin ha cerrado el ticket ":title"',
-    'content_reopened' => ':admin ha reabierto el ticket ":title"',
+    'content_status_changed' => ':Admin ha cambiado el estado del ticket ":title" a: :status',
+    'content_closed' => ':Admin ha cerrado el ticket ":title"',
+    'content_reopened' => ':Admin ha reabierto el ticket ":title"',
 
     // Contenido para la web
     'content_created_web' => '<strong>:user</strong> ha creado el ticket <strong>":title"</strong>',
@@ -24,15 +24,15 @@ return [
 
 
     // Confirmación de creación de ticket al usuario
-    'ticket_created_confirmation_subject'  => 'Tu ticket #:id ha sido recibido',
+    'ticket_created_confirmation_subject'  => 'Tu ticket #:ID ha sido recibido',
     'ticket_created_confirmation_greeting' => '¡Hola, :name!',
     'ticket_created_confirmation_intro'    => 'Hemos recibido tu solicitud de soporte y nuestro equipo se pondrá manos a la obra lo antes posible.',
-    'ticket_created_confirmation_detail'   => 'Ticket #:id — ":title"',
-    'ticket_created_confirmation_next'     => 'Te notificaremos ante cualquier actualización. Gracias por contactarnos.',
+    'ticket_created_confirmation_detail'   => 'Ticket #:ID — ":title"',
+    'ticket_created_confirmation_next'     => 'Te notificaremos ante cualquier actualización. gracias por contactarnos.',
     'ticket_created_confirmation_thanks'   => 'El equipo de soporte.',
 
     // Botones y acciones
-    'view_ticket' => 'Ver Ticket',
-    'view_comment' => 'Ver Comentario',
+    'view_ticket' => 'Ver ticket',
+    'view_comment' => 'Ver comentario',
     'mark_as_read' => 'Marcar como leída',
 ];

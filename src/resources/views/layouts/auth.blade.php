@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Auth')</title>
+    <link rel="shortcut icon" href="/img/ico/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/img/ico/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/img/ico/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/img/ico/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/ico/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/img/ico/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/img/ico/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/img/ico/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/img/ico/apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/ico/apple-touch-icon-180x180.png" />
+    <title>@yield('title', 'Auth') - {{ config('app.name', 'Laravel') }}</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
 </head>
 
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <div class="card card-outline card-primary shadow">
-
-            <div class="card-body">
-                @yield('content')
-            </div>
-        </div>
-    </div>
-
+<body class="@yield('body-class', 'login-page')">
+    @yield('content')
 </body>
+
 </html>
